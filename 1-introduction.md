@@ -1,4 +1,4 @@
-template: light.haml
+template: lucid.haml
 title: Introduction
 sort_key: 1
 ---

@@ -1,4 +1,4 @@
-template: dark.haml
+template: lucid.haml
 title: Getting started
 ---
 ---
