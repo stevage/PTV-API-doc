@@ -191,3 +191,13 @@ code, pre {
   padding-left: 1em;
   padding-top: 0em;
 }
+
+h1, h2, h3 {
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+.sectionlink {
+  color: gray;
+  text-decoration: none;
+}

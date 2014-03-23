@@ -11,10 +11,8 @@
     .relative_position
       {{ page.content }}
       - for subpage in page.subpages:
-        %b
-          %a{href:"{{ subpage.rel_site_url }}/{{ subpage.url }}"} 
-            {{ subpage.title }}
-        %br
+        %a{href:"{{ subpage.rel_site_url }}/{{ subpage.url }}", class:'sectionlink'} 
+          (section link)
         {{ subpage.content }}
         %br
        .nav
