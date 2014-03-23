@@ -37,96 +37,54 @@ for_utc        =        optional: the date and time of the request in ISO 8601 U
 e.g. 2013-11-13T07:08:03Z
 devid        =        the developer ID supplied in your email from PTV
 signature        =        the customised message digest calculated using the method in the Quick start guide
-Response
+
+###Response
 Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
 For more information on the data structures, check out the JSON object structure.
 
 
-Timetable "values" have the following attributes:
-time_timetable_utc        date and time expressed in ISO 8601 UTC format
-&ndash; the scheduled time of the service at the stop
-&ndash; e.g. "2013-11-18T03:21:00Z"
-time_realtime_utc        date and time expressed in ISO 8601 UTC format
-&ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null")
-&ndash; e.g. "null" 
-flags        Character
-&ndash; a stop may have zero or more flags associated with it, 
-delimited by a "-" character; examples include:
+####Timetable "values" have the following attributes:
+<a href="#fig-timetable-values"></a>:
 
-RR = Reservations Required
-GC = Guaranteed Connection
-DOO = Drop Off Only
-PUO = Pick Up Only
-MO = Mondays only
-TU = Tuesdays only
-WE = Wednesdays only
-TH = Thursdays only
-FR = Fridays only
-SS = School days only
-
-note: ignore "E" flag
-
-&ndash; e.g. "RR-PUO"
-
+* time_table_utc
+* time_realtime_utc
+* flags
 
 "run" objects have the following attributes:
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-run_id        numeric string
-&ndash; the unique identifier of each run
-&ndash; e.g. "1464"
-num_skipped        integer
-&ndash; the number of stops skipped for the run, applicable to train; a number greater than zero indicates either a limited express or express service
-&ndash; e.g. 0
-destination_id        numeric string
-&ndash; the stop_id of the destination, i.e. the last stop for the run
-&ndash; e.g. "1044"
-destination_name        string
-&ndash; the location_name of the destination, i.e. the last stop for the run
-&ndash; e.g. "Craigieburn"
+<a href="#fig-run-values"></a>
+
+* transport_type
+* run_id
+* num_skipped
+* destination_id
+* destination_name
 
 
 "platform" objects have the following attributes:
-realtime_id        string
-&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
-&ndash; e.g. "0"
+<a href="#fig-platform-values"></a>
+
+* realtime_id
 
 
 "stop" objects have these attributes: 
-suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Belgrave"
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "1234"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.82005
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.95047
-distance        decimal number
-&ndash;returns zero in the context of this API
+<a href="#fig-stop-values"></a>
+
+* suburb
+* transport_type
+* stop_id
+* location_name
+* lat
+* lon
+* distance
 
 
 "direction" objects have the following attributes:
-linedir_id        numeric string
-&ndash; unique identifier of a particular line and direction
-&ndash; e.g. "21"
-direction_id        numeric string
-&ndash; unique identifier of a direction
-&ndash; e.g. "0"
-direction_name        string
-&ndash; name of the direction of the service (e.g. "0" signifies "city")
-&ndash; e.g. "City (Flinders Street)"
+<a href="#fig-direction-values"></a>
+
+* linedir_id
+* direction_id
+* direction_name
 
 
 "line" objects have these attributes: 

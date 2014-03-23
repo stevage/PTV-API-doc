@@ -17,11 +17,12 @@ base URL
 ###Parameters
 
 * mode        =        a number representing the transport_type of the stop, defined as follows:
-  * 0        Train (metropolitan)
-  * 1        Tram
-  * 2        Bus (metropolitan and regional, but not V/Line) 
-  * 3        V/Line train and coach
-  * 4        NightRider 
+ 
+    * 0        Train (metropolitan)
+    * 1        Tram
+    * 2        Bus (metropolitan and regional, but not V/Line)
+    * 3        V/Line train and coach
+    * 4        NightRider 
 
 e.g. "2"
 stop        =        the stop_id of the stop
@@ -30,13 +31,22 @@ limit        =        the number of next departure times to be returned, i.e. "5
 e.g. 2
 devid        =        the developer ID supplied in your email from PTV
 signature        =        the customised message digest calculated using the method in the Quick start guide
-Response
+
+###Response
 Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
 For more information on the data structures, check out the JSON object structure.
 
 
-Timetable "values" have the following attributes:
+Timetable "values" have the following attributes<a href="#fig-timetable-values"></a>:
+
+* time_table_utc
+* time_realtime_utc
+* flags
+
+<div id="fig-timetable-values">
+  <h4>Values for 'values' object</h4>
+  <pre>
 
 * time_timetable_utc        date and time expressed in ISO 8601 UTC format &ndash; the scheduled time of the service at the stop &ndash; e.g. "2013-11-18T03:21:00Z"
 * time_realtime_utc        date and time expressed in ISO 8601 UTC format &ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null") &ndash; e.g. "null"
@@ -56,9 +66,21 @@ Timetable "values" have the following attributes:
 note: ignore "E" flag
 
 &ndash; e.g. "RR-PUO"
-
+</pre>
+</div>
 
 "run" objects have the following attributes:
+<a href="#fig-run-values"></a>
+
+* transport_type
+* run_id
+* num_skipped
+* destination_id
+* destination_name
+
+<div id="fig-run-values">
+  <h4>Values for 'run' object</h4>
+  <pre>
 transport_type        string
 &ndash; the mode of transport serviced by the stop
 &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
@@ -74,15 +96,43 @@ destination_id        numeric string
 destination_name        string
 &ndash; the location_name of the destination, i.e. the last stop for the run
 &ndash; e.g. "Craigieburn"
-
+</pre>
+</div>
 
 "platform" objects have the following attributes:
+<a href="#fig-platform-values"></a>
+
+* realtime_id
+
+
+<div id="fig-platform-values">
+  <h4>Values for 'platform' object</h4>
+  <pre>
 realtime_id        string
 &ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
 &ndash; e.g. "0"
 
+</pre>
+</div>
 
 "stop" objects have these attributes: 
+<a href="#fig-stop-values"></a>
+
+* suburb
+* transport_type
+* stop_id
+* location_name
+* lat
+* lon
+* distance
+
+
+<div id="fig-stop-values">
+  <h4>Values for 'stop' object</h4>
+  <pre>
+
+
+
 suburb        string
 &ndash; the suburb name
 &ndash; e.g. "Belgrave"
@@ -104,8 +154,23 @@ lon        decimal number
 distance        decimal number
 &ndash;returns zero in the context of this API
 
+</pre>
+</div>
+
+
+
 
 "direction" objects have the following attributes:
+<a href="#fig-direction-values"></a>
+
+* linedir_id
+* direction_id
+* direction_name
+
+<div id="fig-direction-values">
+  <h4>Values for 'direction' object</h4>
+  <pre>
+
 linedir_id        numeric string
 &ndash; unique identifier of a particular line and direction
 &ndash; e.g. "21"
@@ -115,7 +180,21 @@ direction_id        numeric string
 direction_name        string
 &ndash; name of the direction of the service
 &ndash; e.g. "City (Flinders Street)"
+</pre>
+</div>
 
+
+"direction" objects have the following attributes:
+<a href="#fig-line-values"></a>
+
+* transport_type
+* line_id
+* line_name
+* line_number
+
+<div id="fig-line-values">
+  <h4>Values for 'line' object</h4>
+  <pre>
 
 "line" objects have these attributes: 
 transport_type        string
@@ -130,7 +209,8 @@ line_name        string
 line_number        string
 &ndash; the line number that is presented to the public (i.e. not the "line_id")
 &ndash; e.g. "970"
- 
+</pre>
+</div> 
 
 ###Example use case
 Janelle has decided to add some timetable information to the tourist app. The next development lets tourists see the next departure times for any of the stations or stops that the tourist selects from a map or list.

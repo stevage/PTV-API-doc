@@ -22,12 +22,16 @@ For example, if the stop is Camberwell Station, Broad Next Departures will retur
 <code>/v2/mode/%@/stop/%@/departures/by-destination/limit/%@?devid=%@&amp;signature=%@</code></p>
 <h3>Parameters</h3>
 <ul>
-<li>mode        =        a number representing the transport_type of the stop, defined as follows:</li>
+<li>
+<p>mode        =        a number representing the transport_type of the stop, defined as follows:</p>
+<ul>
 <li>0        Train (metropolitan)</li>
 <li>1        Tram</li>
-<li>2        Bus (metropolitan and regional, but not V/Line) </li>
+<li>2        Bus (metropolitan and regional, but not V/Line)</li>
 <li>3        V/Line train and coach</li>
 <li>4        NightRider </li>
+</ul>
+</li>
 </ul>
 <p>e.g. "2"
 stop        =        the stop_id of the stop
@@ -35,34 +39,54 @@ e.g. "1108"
 limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
 e.g. 2
 devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide
-Response
-Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
+signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+<h3>Response</h3>
+<p>Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
 For more information on the data structures, check out the JSON object structure.</p>
-<p>Timetable "values" have the following attributes:</p>
+<p>Timetable "values" have the following attributes<a href="#fig-timetable-values"></a>:</p>
 <ul>
-<li>time_timetable_utc        date and time expressed in ISO 8601 UTC format &ndash; the scheduled time of the service at the stop &ndash; e.g. "2013-11-18T03:21:00Z"</li>
-<li>time_realtime_utc        date and time expressed in ISO 8601 UTC format &ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null") &ndash; e.g. "null"</li>
-<li>
-<p>flags        Character &ndash; a stop may have zero or more flags associated with it,  delimited by a "-" character; examples include:</p>
-</li>
-<li>
-<p>RR = Reservations Required</p>
-</li>
-<li>GC = Guaranteed Connection</li>
-<li>DOO = Drop Off Only</li>
-<li>PUO = Pick Up Only</li>
-<li>MO = Mondays only</li>
-<li>TU = Tuesdays only</li>
-<li>WE = Wednesdays only</li>
-<li>TH = Thursdays only</li>
-<li>FR = Fridays only</li>
-<li>SS = School days only</li>
+<li>time_table_utc</li>
+<li>time_realtime_utc</li>
+<li>flags</li>
 </ul>
-<p>note: ignore "E" flag</p>
-<p>&ndash; e.g. "RR-PUO"</p>
+<div id="fig-timetable-values">
+  <h4>Values for 'values' object</h4>
+  <pre>
+
+* time_timetable_utc        date and time expressed in ISO 8601 UTC format &ndash; the scheduled time of the service at the stop &ndash; e.g. "2013-11-18T03:21:00Z"
+* time_realtime_utc        date and time expressed in ISO 8601 UTC format &ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null") &ndash; e.g. "null"
+* flags        Character &ndash; a stop may have zero or more flags associated with it,  delimited by a "-" character; examples include:
+
+* RR = Reservations Required
+* GC = Guaranteed Connection
+* DOO = Drop Off Only
+* PUO = Pick Up Only
+* MO = Mondays only
+* TU = Tuesdays only
+* WE = Wednesdays only
+* TH = Thursdays only
+* FR = Fridays only
+* SS = School days only
+
+note: ignore "E" flag
+
+&ndash; e.g. "RR-PUO"
+</pre>
+</div>
+
 <p>"run" objects have the following attributes:
+<a href="#fig-run-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>run_id</li>
+<li>num_skipped</li>
+<li>destination_id</li>
+<li>destination_name</li>
+</ul>
+<div id="fig-run-values">
+  <h4>Values for 'run' object</h4>
+  <pre>
 transport_type        string
 &ndash; the mode of transport serviced by the stop
 &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
@@ -77,12 +101,42 @@ destination_id        numeric string
 &ndash; e.g. "1044"
 destination_name        string
 &ndash; the location_name of the destination, i.e. the last stop for the run
-&ndash; e.g. "Craigieburn"</p>
+&ndash; e.g. "Craigieburn"
+</pre>
+</div>
+
 <p>"platform" objects have the following attributes:
+<a href="#fig-platform-values"></a></p>
+<ul>
+<li>realtime_id</li>
+</ul>
+<div id="fig-platform-values">
+  <h4>Values for 'platform' object</h4>
+  <pre>
 realtime_id        string
 &ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
-&ndash; e.g. "0"</p>
+&ndash; e.g. "0"
+
+</pre>
+</div>
+
 <p>"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+</ul>
+<div id="fig-stop-values">
+  <h4>Values for 'stop' object</h4>
+  <pre>
+
+
+
 suburb        string
 &ndash; the suburb name
 &ndash; e.g. "Belgrave"
@@ -102,8 +156,22 @@ lon        decimal number
 &ndash; geographic coordinate of longitude
 &ndash; e.g. 144.95047
 distance        decimal number
-&ndash;returns zero in the context of this API</p>
+&ndash;returns zero in the context of this API
+
+</pre>
+</div>
+
 <p>"direction" objects have the following attributes:
+<a href="#fig-direction-values"></a></p>
+<ul>
+<li>linedir_id</li>
+<li>direction_id</li>
+<li>direction_name</li>
+</ul>
+<div id="fig-direction-values">
+  <h4>Values for 'direction' object</h4>
+  <pre>
+
 linedir_id        numeric string
 &ndash; unique identifier of a particular line and direction
 &ndash; e.g. "21"
@@ -112,8 +180,23 @@ direction_id        numeric string
 &ndash; e.g. "0"
 direction_name        string
 &ndash; name of the direction of the service
-&ndash; e.g. "City (Flinders Street)"</p>
-<p>"line" objects have these attributes: 
+&ndash; e.g. "City (Flinders Street)"
+</pre>
+</div>
+
+<p>"direction" objects have the following attributes:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number</li>
+</ul>
+<div id="fig-line-values">
+  <h4>Values for 'line' object</h4>
+  <pre>
+
+"line" objects have these attributes: 
 transport_type        string
 &ndash; the mode of transport serviced by the line
 &ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
@@ -122,10 +205,13 @@ line_id        numeric string
 &ndash; e.g. "1818"
 line_name        string
 &ndash; the name of the line
-&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway &amp; Frankston Station "
+&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway & Frankston Station "
 line_number        string
 &ndash; the line number that is presented to the public (i.e. not the "line_id")
-&ndash; e.g. "970"</p>
+&ndash; e.g. "970"
+</pre>
+</div>
+
 <h3>Example use case</h3>
 <p>Janelle has decided to add some timetable information to the tourist app. The next development lets tourists see the next departure times for any of the stations or stops that the tourist selects from a map or list.
 Janelle uses the Broad Next Departures API to show the departure times for stops found via any of the three methods available (Stops Nearby, Transport POIs by Map or Search).</p>

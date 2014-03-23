@@ -185,6 +185,7 @@ code, pre {
 .fig-in-figlist pre {
   font-size: 10px;
   line-height: 9px;
+  white-space: pre-wrap;
 }
 
 .toc h2 {
