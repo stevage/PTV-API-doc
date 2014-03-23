@@ -41,7 +41,7 @@ Health Check request URL:
 
 
 <div id="fig-healthcheck">
-
+<h4>Performing health check</h4>
 
 
 <table>

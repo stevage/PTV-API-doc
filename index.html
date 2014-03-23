@@ -17,8 +17,8 @@
           (section link)
         </a>
         <h1>Introduction</h1>
-<h2>Important editor's note</h2>
-<p>This document is a reformatted, somewhat edited, and <strong>currently incomplete</strong> unofficial version of the PTV API. It is maintained by <a href="http://stevebennett.me">Steve Bennett</a>, who has no relationship with PTV.  You can access the official PTV Timetable API <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">at data.vic.gov.au</a>. This web template is Embellish/<a href="https://github.com/boscoh/supplescroll">SuppleScroll</a> by Bosco Ho.</p>
+<h2>Important!</h2>
+<p>This document is a reformatted, somewhat edited, and <strong>currently incomplete</strong> unofficial version of the PTV API. It is maintained by <a href="http://stevebennett.me">Steve Bennett</a>, who has no relationship with PTV.  You can access the official PTV Timetable API <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">at data.vic.gov.au</a>, or view it in <a href="https://github.com/stevage/PTV-API-doc/blob/gh-pages/PTV_Timetable_API.pdf?raw=true">PDF format</a>. This web template is Embellish/<a href="https://github.com/boscoh/supplescroll">SuppleScroll</a> by Bosco Ho.</p>
 <p><em>Source: Licensed from Public Transport Victoria under a Creative Commons Attribution 3.0 Australia Licence.</em></p>
 <h3>Hello and welcome</h3>
 <p>Hi and welcome to the PTV Timetable API. The API has been created to provide public transport timetable data to the public in the most dynamic and efficient way.
@@ -162,8 +162,7 @@ It will also test the time on your system to make sure that your clock is in syn
 <p><code>%@</code> in the request URL represents a parameter</p>
 </blockquote>
 <div id="fig-healthcheck">
-
-
+<h4>Performing health check</h4>
 
 <table>
 <tr>
@@ -236,50 +235,43 @@ This API returns a list of transport points of interest (POIs) in a region descr
         </a>
         <h2>Use case maps</h2>
 <p>To give you a taste of what you can do with the PTV Timetable API, we've created a small list of use case maps that show the sequence of APIs required to obtain particular information.</p>
-<p>[Editor: The <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">Word version of this document</a> has a couple of diagrams which comprise this whole section. They have not been converted. The following is a condensed summary]</p>
-<p>I want to...</p>
-<ul>
-<li>
-<p>see all bus stops near me on a map or list</p>
+<p>[Editor: The following is a text representation of the diagrams which were included in the <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">Word version of this document</a>.]</p>
+<h3>I want to...</h3>
+<h4>see all bus stops near me on a map or list</h4>
 <ol>
 <li><strong>Health Check</strong></li>
 <li><strong>Stops Nearby</strong></li>
 </ol>
-</li>
-<li>
-<p>...get the next three departure times for a specific service from a selected stop</p>
+<h4>...get the next three departure times for a specific service from a selected stop</h4>
 <ol>
 <li><strong>Health Check</strong></li>
-<li><strong>Search</strong> or <strong>Stops Nearby</strong> or <strong>Transport POIs by Map</strong> [ returns something I can't read ]</li>
+<li><strong>Search</strong> or <strong>Stops Nearby</strong> or <strong>Transport POIs by Map</strong> =&gt; transport_type</li>
+<li><strong>Broad Next Departures</strong> =&gt; transport_type, stop_id, line_id</li>
+<li><strong>Specific Next Departures</strong></li>
+</ol>
+<h4>...find out what lines travel through a stop near me and where they go</h4>
+<ol>
+<li><strong>Health Check</strong> </li>
+<li><strong>Stops Nearby</strong> =&gt; transport_type, stop_id</li>
+<li><strong>Broad Next Departures</strong> =&gt; transport_type</li>
+<li><strong>Stops on a Line</strong></li>
+</ol>
+<h4>...get the next ten departures from my local stop</h4>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Search</strong> or <strong>Stops Nearby</strong> or <strong>Transport POIs by Map</strong> =&gt; transport_type</li>
 <li><strong>Broad Next Departures</strong></li>
-<li>=&gt; transport_type, stop_id, line_id, direction_id</li>
 </ol>
-</li>
-<li>
-<p>...find out what lines travel through a stop near me and where they go</p>
+<h4>...find myki ticket outlets in my area</h4>
 <ol>
 <li><strong>Health Check</strong></li>
-<li><strong>Stops Nearby</strong> (returns transport_type, stop_id)</li>
-<li><strong>Broad Next Departures</strong> (returns transport_type, line_id) =&gt; [?]</li>
+<li>Transport POIs by Map</li>
 </ol>
-</li>
-<li>
-<p>...get the next ten departures from my local stop</p>
+<h4>...see on a map which bus stops are near my local train station</h4>
 <ol>
 <li><strong>Health Check</strong></li>
-<li><strong>Search</strong> or <strong>Stops Nearby</strong> or <strong>Transport POIs by Map</strong> (returns transport_type, stop_id)</li>
-<li><strong>Broad Next Departures</strong></li>
-<li>[?]</li>
+<li>Transport POIs by Map    </li>
 </ol>
-</li>
-<li>
-<p>...find myki ticket outlets in my area</p>
-<ol>
-<li><strong>Health Check</strong></li>
-<li>Transport POIs by Map [?]</li>
-</ol>
-</li>
-</ul>
         <br />
        <div class='nav'>
           
@@ -314,6 +306,7 @@ The current version of the API is 2.0.0 but the URL only includes the relevant p
 For example, the Stops Nearby API requires inputs that are not specific to public transport (i.e. latitude and longitude coordinates). The output, however, includes stop_id and transport_type data. You can then pass that data through the Broad Next Departures API to obtain line_id, direction_id, run_id and timetable data. You can then use these outputs as inputs into other APIs.
 The table <a href="#fig-inputsoutputs"></a> summarises the relevant subset of inputs and outputs of each API.
 <div id="fig-inputsoutputs">
+    <h4>Inputs and outputs</h4>
 <table>
 <tbody><tr>
 <th>API</th>
@@ -401,23 +394,11 @@ HTTP status codes</p>
 
        </div>
       
-        <a class='sectionlink' href='./6-0-reference.html'>
-          (section link)
-        </a>
-        <h1>Reference</h1>
-        <br />
-       <div class='nav'>
-          
-        <br />
-        <br />
-
-
-       </div>
-      
         <a class='sectionlink' href='./6-1-healthcheck.html'>
           (section link)
         </a>
-        <h2>Health Check</h2>
+        <h1>Reference</h1>
+<h2>Health Check</h2>
 <h3>Version Number</h3>
 <p>2.0.0</p>
 <h3>Description</h3>
@@ -3816,10 +3797,10 @@ There are currently no real-time data feeds for trains and buses.</p>
         <h2>Contact details</h2>
 <h3>Got a question?</h3>
 <p>Check our FAQs &ndash; we may already have it covered.
-If you're unsure about some of the public transport terms returned in the data, take a look through our Guide to understanding public transport data. Alternatively, check the Glossary if there is other terminology you're unsure about.
-If you still can't find what you're looking for, you can send us your question &ndash; or feedback &ndash; through the PTV Timetable API page on data.vic.gov.au. 
-Just click the Add comment button at the bottom of the page, then under "Message Type", select Feedback from the two radio buttons. Fill in the form and DataVic will then send your question or feedback through to us.</p>
-<p>If you want to ask about the release of other data sets, you can do so through the Suggest a dataset form on data.vic.gov.au. </p>
+If you're unsure about some of the public transport terms returned in the data, take a look through our Guide to understanding public transport data. Alternatively, check the Glossary if there is other terminology you're unsure about.</p>
+<p>If you still can't find what you're looking for, you can send us your question &ndash; or feedback &ndash; through the PTV Timetable API page on data.vic.gov.au. </p>
+<p>Just click the Add comment button at the bottom of the page, then under "Message Type", select Feedback from the two radio buttons. Fill in the form and DataVic will then send your question or feedback through to us.</p>
+<p>If you want to ask about the release of other data sets, you can do so through the <a href="http://www.data.vic.gov.au/suggest_a_dataset">Suggest a dataset form</a> on data.vic.gov.au. </p>
 <h3>API mailing list</h3>
 <p>Once you have registered for a key, you'll automatically be signed up to our mailing list. It's our way of keeping you up-to-date with information on version updates, maintenance outages or other information about the API.</p>
         <br />
@@ -3834,13 +3815,14 @@ Just click the Add comment button at the bottom of the page, then under "Message
         <a class='sectionlink' href='./8-6-examples.html'>
           (section link)
         </a>
-        <h2>Appendix</h2>
+        <h2>Appendix (sample code)</h2>
 <h3>Sample code for creating a signature</h3>
 <p>You'll need to pass along a signature and a developer ID &ndash; or "devid" &ndash; with every request using HTTP GET. 
 The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key.</p>
 <h3>Example in .net C</h3>
 <p>The following is the .net C#  code snippet for the signature calculation.<a href="#fig-example-csharp"></a>
 <div id="fig-example-csharp">
+    <h4>C# sample code</h4>
 Note: key values are used for example purposes only.</p>
 <pre>
 string key = "9c132d31-6a30-4cac-8d8b-8a1970834799"; // supplied by PTV
@@ -3872,6 +3854,7 @@ url = string.Format("{0}&signature={1}",url,sb.ToString());
 <p>The following is the Java code snippet for the signature calculation.
 Note: key values are used for example purposes only.<a href="#fig-example-java"></a>
 <div id="fig-example-java">
+<h4>Java sample code</h4>
 <pre></p>
 <div class="codehilite"><pre>/**
  * Generates a signature using the HMAC-SHA1 algorithm 
@@ -3948,6 +3931,7 @@ public String generateCompleteURLWithSignature(final String privateKey, final St
 <p>The following is the Objective C code snippet for the signature calculation.
 Note: key values are used for example purposes only. <a href="#fig-example-objectivec"></a>
 <div id="fig-example-objectivec">
+<h4>Objective C sample code</h4>
 <pre>
 -(NSURL<em>) generateURLWithDevIDAndKey:(NSString</em>)urlPath {</p>
 <div class="codehilite"><pre>NSString *hardcodedURL = @&quot; http://timetableapi.ptv.vic.gov.au&quot;;

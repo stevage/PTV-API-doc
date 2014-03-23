@@ -2,7 +2,7 @@ template: lucid.haml
 title: Health Check
 ---
 ---
-
+#Reference
 ##Health Check
 ###Version Number
 2.0.0

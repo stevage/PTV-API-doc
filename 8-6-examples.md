@@ -2,13 +2,14 @@ template: lucid.haml
 title: Contact details
 ---
 ---
-##Appendix
+##Appendix (sample code)
 ###Sample code for creating a signature
 You'll need to pass along a signature and a developer ID &ndash; or "devid" &ndash; with every request using HTTP GET. 
 The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key.
 ###Example in .net C#
 The following is the .net C#  code snippet for the signature calculation.<a href="#fig-example-csharp"></a>
 <div id="fig-example-csharp">
+    <h4>C# sample code</h4>
 Note: key values are used for example purposes only.
 
 
@@ -45,6 +46,7 @@ url = string.Format("{0}&signature={1}",url,sb.ToString());
 The following is the Java code snippet for the signature calculation.
 Note: key values are used for example purposes only.<a href="#fig-example-java"></a>
 <div id="fig-example-java">
+<h4>Java sample code</h4>
 <pre>
 
     /**
@@ -122,6 +124,7 @@ Note: key values are used for example purposes only.<a href="#fig-example-java">
 The following is the Objective C code snippet for the signature calculation.
 Note: key values are used for example purposes only. <a href="#fig-example-objectivec"></a>
 <div id="fig-example-objectivec">
+<h4>Objective C sample code</h4>
 <pre>
 -(NSURL*) generateURLWithDevIDAndKey:(NSString*)urlPath {
     

@@ -11,13 +11,14 @@
   <div id='table-of-contents' class='touchscroll'></div>
   <div id='main-text' class='touchscroll'>
     <div class='relative_position'>
-      <h2>Appendix</h2>
+      <h2>Appendix (sample code)</h2>
 <h3>Sample code for creating a signature</h3>
 <p>You'll need to pass along a signature and a developer ID &ndash; or "devid" &ndash; with every request using HTTP GET. 
 The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key.</p>
 <h3>Example in .net C</h3>
 <p>The following is the .net C#  code snippet for the signature calculation.<a href="#fig-example-csharp"></a>
 <div id="fig-example-csharp">
+    <h4>C# sample code</h4>
 Note: key values are used for example purposes only.</p>
 <pre>
 string key = "9c132d31-6a30-4cac-8d8b-8a1970834799"; // supplied by PTV
@@ -49,6 +50,7 @@ url = string.Format("{0}&signature={1}",url,sb.ToString());
 <p>The following is the Java code snippet for the signature calculation.
 Note: key values are used for example purposes only.<a href="#fig-example-java"></a>
 <div id="fig-example-java">
+<h4>Java sample code</h4>
 <pre></p>
 <div class="codehilite"><pre>/**
  * Generates a signature using the HMAC-SHA1 algorithm 
@@ -125,6 +127,7 @@ public String generateCompleteURLWithSignature(final String privateKey, final St
 <p>The following is the Objective C code snippet for the signature calculation.
 Note: key values are used for example purposes only. <a href="#fig-example-objectivec"></a>
 <div id="fig-example-objectivec">
+<h4>Objective C sample code</h4>
 <pre>
 -(NSURL<em>) generateURLWithDevIDAndKey:(NSString</em>)urlPath {</p>
 <div class="codehilite"><pre>NSString *hardcodedURL = @&quot; http://timetableapi.ptv.vic.gov.au&quot;;

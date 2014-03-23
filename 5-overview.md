@@ -24,6 +24,7 @@ The PTV Timetable API is structured to allow you to build information dynamicall
 For example, the Stops Nearby API requires inputs that are not specific to public transport (i.e. latitude and longitude coordinates). The output, however, includes stop_id and transport_type data. You can then pass that data through the Broad Next Departures API to obtain line_id, direction_id, run_id and timetable data. You can then use these outputs as inputs into other APIs.
 The table <a href="#fig-inputsoutputs"></a> summarises the relevant subset of inputs and outputs of each API.
 <div id="fig-inputsoutputs">
+    <h4>Inputs and outputs</h4>
 <table>
 <tbody><tr>
 <th>API</th>
