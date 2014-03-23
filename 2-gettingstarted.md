@@ -30,8 +30,5 @@ The __key__ and the __request (including developer ID)__ are used to calculate a
 
 >PTV does not provide technical support on the API.
 
-
-
-
 ###Privacy
 Your email address is the only bit of information about you that PTV will hold in its register. You can view PTV's privacy policy at http://www.ptv.vic.gov.au/privacy.
