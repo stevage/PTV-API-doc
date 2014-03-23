@@ -31,20 +31,19 @@ base URL
     * 3        V/Line regional train and coach
     * 4        NightRider
     * 100        Ticket outlet
+    e.g. "0,1,2,4,100" would return train, tram, bus, NightRider & ticket outlets
 
-e.g. "0,1,2,4,100" would return train, tram, bus, NightRider & ticket outlets
-lat1        =        latitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
+* lat1        =        latitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
+    e.g. -37.82392124423254
 
-e.g. -37.82392124423254
-long1        =        longitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
+* long1        =        longitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
+    e.g. 144.9462017431463
 
-e.g. 144.9462017431463
-lat2        =        latitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
+* lat2        =        latitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
+    e.g. -37.81540959390813
 
-e.g. -37.81540959390813
-long2        =        longitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
-
-e.g. 144.9542017407848
+* long2        =        longitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
+    e.g. 144.9542017407848
 
 The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:
 <pre>
@@ -61,104 +60,87 @@ e.g. "1" would look like this:
 
 (image missing) 
 
-limit        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)
-e.g. 4
-devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide
-Response
+* limit        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)
+    e.g. 4
+* devid        =        the developer ID supplied in your email from PTV
+* signature        =        the customised message digest calculated using the method in the Quick start guide
+
+###Response
 Returns a list of JSON objects which are either "locations" or "clusters"; "clusters" have their own list of "locations" within them.
 "locations" have either a "stop" or "outlet" (i.e. ticket outlet) object embedded within them.
 For more information on the data structures, check out the JSON object structure.
 
 
-Each stop and outlet "location" object has the following attributes:
-suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Belgrave"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.82005
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.95047
-distance        decimal number
-&ndash; returns zero in the context of this API
+####Each stop and outlet "location" object has the following attributes:
+
+* suburb        string &ndash; the suburb name &ndash; e.g. "Belgrave"
+* location_name        string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-
+* Barkly Square/115 Sydney Rd (Brunswick)" 
+* lat        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.82005
+* lon        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.95047
+* distance        decimal number &ndash; returns zero in the context of this API
 
 
-"stop" objects have the following extra attributes:
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "2171"
+####"stop" objects have the following extra attributes:
+
+* transport_type        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+* stop_id        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2171"
 
 
-While "outlet" objects have the following extra attributes:
-outlet_type        string (limited values)
-&ndash; either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind
-&ndash; e.g. "retail"
-business_name        string
-&ndash; the business name of the outlet
-&ndash; e.g. "IGA Victoria Harbour"
+####While "outlet" objects have the following extra attributes:
+
+* outlet_type        string (limited values) &ndash; either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"
+* business_name        string &ndash; the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"
 
 
+
+
+####For each set of locations and clusters, it will also return the following objects:
+
+* minLat        decimal number &ndash; the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)\*\*
+
+    &ndash; e.g. -37.81959
+
+* minLong        decimal number
+
+    &ndash; the minimum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)\*\*
+
+    &ndash; e.g. 144.979126
+
+* maxLat        decimal number
+
+    &ndash; the maximum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)\*\*
+
+    &ndash; e.g. -37.8134956
+
+* maxLong        decimal number
+
+    &ndash; the maximum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)\*\*
+
+    &ndash; e.g. 144.9854
+
+* weightedLat        decimal number
+
+    &ndash; latitude at the point that is the average of all POIs returned in a grid cell\*\*
+
+    &ndash; e.g. -37.81671
+
+* weightedLong        decimal number
+
+    &ndash; longitude at the point that is the average of all POIs returned in a grid cell\*\*
+
+    &ndash; e.g. 144.982849
+
+* totalLocations        integer
+
+    &ndash; the total number of locations within the region described above
+
+    &ndash; e.g. 7
+
+
+\*\*        The set of coordinates above describe the following points (sample only):
   
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-For each set of locations and clusters, it will also return the following objects:
-minLat        decimal number
-&ndash; the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**
-&ndash; e.g. -37.81959
-minLong        decimal number
-&ndash; the minimum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**
-&ndash; e.g. 144.979126
-maxLat        decimal number
-&ndash; the maximum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**
-&ndash; e.g. -37.8134956
-maxLong        decimal number
-&ndash; the maximum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**
-&ndash; e.g. 144.9854
-weightedLat        decimal number
-&ndash; latitude at the point that is the average of all POIs returned in a grid cell**
-&ndash; e.g. -37.81671
-weightedLong        decimal number
-&ndash; longitude at the point that is the average of all POIs returned in a grid cell**
-&ndash; e.g. 144.982849
-totalLocations        integer
-&ndash; the total number of locations within the region described above
-&ndash; e.g. 7
-
-
-**        The set of coordinates above describe the following points (sample only):
-  
-
+(image missing)
 
 
 
