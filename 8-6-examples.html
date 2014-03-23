@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<head>
+  <meta content='initial-scale=1.0' name='viewport' />
+  <link href='supplescroll.css' rel='stylesheet' />
+  <link href='lucid.css' rel='stylesheet' />
+  
+    <title>Contact details</title>
+  
+</head>
+<body>
+  <div id='table-of-contents' class='touchscroll'></div>
+  <div id='main-text' class='touchscroll'>
+    <div class='relative_position'>
+      <h2>Appendix</h2>
+<h3>Sample code for creating a signature</h3>
+<p>You'll need to pass along a signature and a developer ID &ndash; or "devid" &ndash; with every request using HTTP GET. 
+The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key.</p>
+<h3>Example in .net C</h3>
+<p>The following is the .net C#  code snippet for the signature calculation.<a href="#fig-example-csharp"></a>
+<div id="fig-example-csharp">
+Note: key values are used for example purposes only.</p>
+<pre>
+string key = "9c132d31-6a30-4cac-8d8b-8a1970834799"; // supplied by PTV
+int developerId = 2; // supplied by PTV
+string url = "/v2/mode/2/line/787/stops-for-line"; // the PTV api method we want
+
+// add developer id
+url = string.Format("{0}{1}devid={2}",url,url.Contains("?") ? "&" : "?",developerId);
+System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+// encode key
+byte[] keyBytes = encoding.GetBytes(key);
+// encode url
+byte[] urlBytes = encoding.GetBytes(url);
+byte[] tokenBytes = new System.Security.Cryptography.HMACSHA1(keyBytes).ComputeHash(urlBytes);
+var sb = new System.Text.StringBuilder();
+// convert signature to string
+Array.ForEach<byte>(tokenBytes, x => sb.Append (x.ToString("X2")));
+// add signature to url
+url = string.Format("{0}&signature={1}",url,sb.ToString());
+
+
+// extra code to add base URL &ndash; the resultant url should be:
+//  http://timetableapi.ptv.vic.gov.au/v2/mode/2/line/787/stops-for-line?devid=2&signature=D5474F344CDAA7B92F2253169F6C1D66C1A15001
+</pre>
+
+</div>
+
+<h3>Example in Java</h3>
+<p>The following is the Java code snippet for the signature calculation.
+Note: key values are used for example purposes only.<a href="#fig-example-java"></a>
+<div id="fig-example-java">
+<pre></p>
+<div class="codehilite"><pre>/**
+ * Generates a signature using the HMAC-SHA1 algorithm 
+ * 
+ * @param privateKey - Developer Key supplied by PTV
+ * @param uri - request uri (Example :/v2/HealthCheck) 
+ * @param developerId - Developer ID supplied by PTV
+ * @return Unique Signature Value  
+ */
+public String generateSignature(final String privateKey, final String uri, final int developerId)
+{
+    String encoding = &quot;UTF-8&quot;;
+    String HMAC_SHA1_ALGORITHM = &quot;HmacSHA1&quot;;
+    String signature;
+    StringBuffer uriWithDeveloperID = new StringBuffer();
+    uriWithDeveloperID.append(uri).append(uri.contains(&quot;?&quot;) ? &quot;&amp;&quot; : &quot;?&quot;).append(&quot;devid=&quot;+developerId);     
+    try
+    {
+        byte[] keyBytes = privateKey.getBytes(encoding);
+        byte[] uriBytes = uriWithDeveloperID.toString().getBytes(encoding);
+        Key signingKey = new SecretKeySpec(keyBytes, HMAC_SHA1_ALGORITHM);
+        Mac mac = Mac.getInstance(HMAC_SHA1_ALGORITHM);
+        mac.init(signingKey);
+        byte[] signatureBytes = mac.doFinal(uriBytes);
+        StringBuffer buf = new StringBuffer(signatureBytes.length * 2);
+        for (byte signatureByte : signatureBytes)
+        {
+            int intVal = signatureByte &amp; 0xff;
+            if (intVal &lt; 0x10)
+            {
+                buf.append(&quot;0&quot;);
+            }
+            buf.append(Integer.toHexString(intVal));
+        }
+        signature = buf.toString();
+    }
+    catch (UnsupportedEncodingException e)
+    {
+        throw new RuntimeException(e);
+    }
+    catch (NoSuchAlgorithmException e)
+    {
+        throw new RuntimeException(e);
+    }
+    catch (InvalidKeyException e)
+    {
+        throw new RuntimeException(e);
+    }
+    return signature.toString().toUpperCase();
+}
+
+/**
+ * Generate full URL using generateSignature() method
+ * 
+ * @param privateKey - Developer Key supplied by PTV (Example :  &quot;92dknhh31-6a30-4cac-8d8b-8a1970834799&quot;);
+ * @param uri - request uri (Example :&quot;/v2/mode/2/line/787/stops-for-line) 
+ * @param developerId - Developer ID supplied by PTV( int developerId )
+ * @return - Full URL with Signature
+ */
+public String generateCompleteURLWithSignature(final String privateKey, final String uri, final int developerId)
+{
+
+    String baseURL=&quot;http://timetableapi.ptv.vic.gov.au&quot;;
+    StringBuffer url = new StringBuffer(baseURL).append(uri).append(uri.contains(&quot;?&quot;) ? &quot;&amp;&quot; : &quot;?&quot;).append(&quot;devid=&quot;+developerId).append(&quot;&amp;signature=&quot;+generateSignature(privateKey, uri, developerId));
+    return url.toString();
+
+}
+</pre></div>
+
+
+<p></pre>
+</div></p>
+<h3>Example in Objective C</h3>
+<p>The following is the Objective C code snippet for the signature calculation.
+Note: key values are used for example purposes only. <a href="#fig-example-objectivec"></a>
+<div id="fig-example-objectivec">
+<pre>
+-(NSURL<em>) generateURLWithDevIDAndKey:(NSString</em>)urlPath {</p>
+<div class="codehilite"><pre>NSString *hardcodedURL = @&quot; http://timetableapi.ptv.vic.gov.au&quot;;
+NSString *hardcodedDevID = @&quot;developerID provided by PTV&quot;;
+NSString *hardcodedkey = @&quot;developer key provided by PTV&quot;;
+</pre></div>
+
+
+<p>/<em>    urlPath = @" http://timetableapi.ptv.vic.gov.au/v2/mode/2/line/787/stops-for-line";
+</em>/
+    NSRange deleteRange ={0,[hardcodedURL length]};
+    NSMutableString *urlString = [[NSMutableString alloc]initWithString:urlPath];
+    [urlString deleteCharactersInRange:deleteRange];
+    if( [urlString containsString:@"?"])
+        [urlString appendString:@"&amp;"];
+    else
+        [urlString appendString:@"?"];</p>
+<div class="codehilite"><pre>[urlString appendFormat:@&quot;devid=%@&quot;,hardcodedDevID];
+
+
+const char *cKey  = [hardcodedkey cStringUsingEncoding:NSUTF8StringEncoding];
+const char *cData = [urlString cStringUsingEncoding:NSUTF8StringEncoding];
+unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+
+NSString *hash;
+
+NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+
+for(int i = 0; i &lt; CC_SHA1_DIGEST_LENGTH; i++)
+    [output appendFormat:@&quot;%02x&quot;, cHMAC[i]];
+hash = output;
+
+NSString* signature = [hash uppercaseString];
+NSString *urlSuffix = [NSString stringWithFormat:@&quot;devid=%@&amp;signature=%@&quot;, hardcodedDevID,signature];
+
+NSURL *url = [NSURL URLWithString:urlPath];
+NSString *urlQuery = [url query];
+if(urlQuery != nil &amp;&amp; [urlQuery length] &gt; 0){
+    url = [NSURL URLWithString:[NSString stringWithFormat:@&quot;%@&amp;%@&quot;,urlPath,urlSuffix]];
+}else{
+    url = [NSURL URLWithString:[NSString stringWithFormat:@&quot;%@?%@&quot;,urlPath,urlSuffix]];
+}
+
+return url;
+</pre></div>
+
+
+<p>}
+</pre>
+</div></p>
+      <div class='timestamp'>
+        <i><a href='http://github.com/boscoh/supplescroll'>supplescroll</a></i>:lucid theme
+      </div>
+    </div>
+  </div>
+  <div id='figure-list' class='touchscroll'></div>
+</body>
+<script src='jquery-2.0.3.js' type='text/javascript'></script>
+<script src='jquery.scrollTo.js' type='text/javascript'></script>
+<script src='supplescroll.js' type='text/javascript'></script>
+<script src='page.js' type='text/javascript'></script>

@@ -1,0 +1,366 @@
+template: lucid.haml
+title: Stops on a Line
+---
+---
+##Stops on a Line
+###Version Number
+2.0.0
+###Description
+The Stops on a Line API returns a list of all the stops for a requested line, ordered by location name.
+###Request URL
+
+base URL
+<code>/v2/mode/%@/line/%@/stops-for-line?devid=%@&signature=%@</code>
+
+###Parameters
+
+* mode        =        a number representing the transport_type of the stop, defined as follows:
+    * 0        Train (metropolitan)
+    * 1        Tram
+    * 2        Bus (metropolitan and regional, but not V/Line) 
+    * 3        V/Line train and coach
+    * 4        NightRider 
+    e.g. "2"
+* line        =        the line_id of the requested line
+
+    e.g. "1818"
+
+* devid        =        the developer ID supplied in your email from PTV
+* signature        =        the customised message digest calculated using the method in the Quick start guide
+
+###Response
+Returns a collection of JSON "stop" objects, with the attributes below, ordered by location_name:
+
+
+suburb        string
+&ndash; the suburb name
+&ndash; e.g. "Belgrave"
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
+stop_id        numeric string
+&ndash; the unique identifier of each stop
+&ndash; e.g. "1108"
+location_name        string
+&ndash; the name of the stop based on a concise geographic description
+&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
+lat        decimal number
+&ndash; geographic coordinate of latitude
+&ndash; e.g. -37.82005
+lon        decimal number
+&ndash; geographic coordinate of longitude
+&ndash; e.g. 144.95047
+distance        decimal number
+&ndash; not used; returns zero
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+For more information on the data structures, check out the JSON object structure.
+###Example use case
+Janelle's last development for the app is to help tourists understand where different trains, trams and buses go &ndash; especially bus routes which tend to be a bit less obvious.
+Building on the previous APIs, she uses the Stops on a Line API to do this.
+
+* Example selection: Route 901 - Frankston - Melbourne Airport (SMARTBUS Service)
+* Example request
+<code>http://timetableapi.ptv.vic.gov.au/v2/mode/2/line/7531/stops-for-line?devid=4&signature=2BFFB8A77A24452CED110FD869906EBE4F10DC7B</code>
+* Example response  <a href="#fig-exampleresponse-stops"></a>
+<div id="fig-exampleresponse-stops">
+<pre>
+[
+  {    
+    "suburb": "Plenty",
+    "transport_type": "bus",
+    "stop_id": 28066, 
+    "location_name": "200 Yan Yean Rd ",
+    "lat": -37.6616554,
+    "lon": 145.124359,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Wantirna South",
+    "transport_type": "bus",
+    "stop_id": 15968,
+    "location_name": "500 Stud Rd ",
+    "lat": -37.8816528,
+    "lon": 145.232788,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Scoresby",
+    "transport_type": "bus",
+    "stop_id": 15150,
+    "location_name": "500 Stud Rd ",
+    "lat": -37.8827934,
+    "lon": 145.233047,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Dandenong South",
+    "transport_type": "bus",
+    "stop_id": 19958,
+    "location_name": "Abbotts Rd/Frankston-Dandenong Rd ",
+    "lat": -38.0308762,
+    "lon": 145.211945,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Wantirna",
+    "transport_type": "bus",
+    "stop_id": 15980,
+    "location_name": "Ainsdale Ave/Boronia Rd ",
+    "lat": -37.8485641,
+    "lon": 145.2304,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Montmorency",
+    "transport_type": "bus",
+    "stop_id": 30223,
+    "location_name": "Airlie Rd/Para Rd ",
+    "lat": -37.7228165,
+    "lon": 145.113159,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Blackburn",
+    "transport_type": "bus",
+    "stop_id": 22000,
+    "location_name": "Albert St/Railway Rd ",
+    "lat": -37.8198967,
+    "lon": 145.152145,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Nunawading",
+    "transport_type": "bus",
+    "stop_id": 30228,
+    "location_name": "Alexander St/Whitehorse Rd ",
+    "lat": -37.81692,
+    "lon": 145.189316,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Carrum Downs",
+    "transport_type": "bus",
+    "stop_id": 19965,
+    "location_name": "Amayla Cres/Frankston-Dandenong Rd ",
+    "lat": -38.10478,
+    "lon": 145.168015,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Dandenong South",
+    "transport_type": "bus",
+    "stop_id": 19950,
+    "location_name": "Amberley Cres/Frankston-Dandenong Rd ",
+    "lat": -38.00275,
+    "lon": 145.21785,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Wantirna",
+    "transport_type": "bus",
+    "stop_id": 15976,
+    "location_name": "Amesbury Ave/Boronia Rd ",
+    "lat": -37.8513374,
+    "lon": 145.239075,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Doncaster East",
+    "transport_type": "bus",
+    "stop_id": 21008,
+    "location_name": "Andersons Creek Rd/Blackburn Rd ",
+    "lat": -37.77661,
+    "lon": 145.164108,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Plenty",
+    "transport_type": "bus",
+    "stop_id": 29697,
+    "location_name": "Aqueduct Rd/Diamond Creek Rd ",
+    "lat": -37.6784325,
+    "lon": 145.1248,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Ringwood",
+    "transport_type": "bus",
+    "stop_id": 15990,
+    "location_name": "Arlington St/Wantirna Rd ",
+    "lat": -37.81924,
+    "lon": 145.227249,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Scoresby",
+    "transport_type": "bus",
+    "stop_id": 15148,
+    "location_name": "Armin St/Stud Rd ",
+    "lat": -37.88876,
+    "lon": 145.233,
+    "distance": 0.0
+  },
+  {
+    "suburb": "South Morang",
+    "transport_type": "bus",
+    "stop_id": 25503,
+    "location_name": "Armstrong Rd/Kurrak Rd ",
+    "lat": -37.65187,
+    "lon": 145.109146,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Blackburn",
+    "transport_type": "bus",
+    "stop_id": 30212,
+    "location_name": "Ashburn Pl/Whitehorse Rd ",
+    "lat": -37.81816,
+    "lon": 145.162079,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Templestowe",
+    "transport_type": "bus",
+    "stop_id": 21648,
+    "location_name": "Atkinson St/Williamsons Rd ",
+    "lat": -37.75579,
+    "lon": 145.134674,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Templestowe",
+    "transport_type": "bus",
+    "stop_id": 22124,
+    "location_name": "Aumann Dr/Reynolds Rd ",
+    "lat": -37.7623444,
+    "lon": 145.157822,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Rowville",
+    "transport_type": "bus",
+    "stop_id": 15956,
+    "location_name": "Avalon Rd/Stud Rd ",
+    "lat": -37.9222755,
+    "lon": 145.234085,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Greensborough",
+    "transport_type": "bus",
+    "stop_id": 10883,
+    "location_name": "Avandina Cres/Diamond Creek Rd ",
+    "lat": -37.6934547,
+    "lon": 145.11232,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Dallas",
+    "transport_type": "bus",
+    "stop_id": 26077,
+    "location_name": "Avoca St/Pascoe Vale Rd ",
+    "lat": -37.6668053,
+    "lon": 144.923279,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Doncaster East",
+    "transport_type": "bus",
+    "stop_id": 21000,
+    "location_name": "Avocet St/Blackburn Rd ",
+    "lat": -37.79577,
+    "lon": 145.160645,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Mitcham",
+    "transport_type": "bus",
+    "stop_id": 30209,
+    "location_name": "Barkly Tce/Whitehorse Rd ",
+    "lat": -37.81583,
+    "lon": 145.198563,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Coolaroo",
+    "transport_type": "bus",
+    "stop_id": 25778,
+    "location_name": "Barry Rd/Pascoe Vale Rd ",
+    "lat": -37.66433,
+    "lon": 144.922226,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Carrum Downs",
+    "transport_type": "bus",
+    "stop_id": 19969,
+    "location_name": "Bawden St/Frankston-Dandenong Rd - East ",
+    "lat": -38.0915,
+    "lon": 145.1794,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Carrum Downs",
+    "transport_type": "bus",
+    "stop_id": 28676,
+    "location_name": "Bawden St/Frankston-Dandenong Rd - West ",
+    "lat": -38.09126,
+    "lon": 145.179047,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Montmorency",
+    "transport_type": "bus",
+    "stop_id": 28932,
+    "location_name": "Beleura Gr/Main Rd ",
+    "lat": -37.7256432,
+    "lon": 145.123184,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Rowville",
+    "transport_type": "bus",
+    "stop_id": 13764,
+    "location_name": "Bergins Rd/Stud Rd ",
+    "lat": -37.93004,
+    "lon": 145.232834,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Doncaster East",
+    "transport_type": "bus",
+    "stop_id": 21003,
+    "location_name": "Beverley St/Blackburn Rd ",
+    "lat": -37.791996,
+    "lon": 145.161362,
+    "distance": 0.0
+  }
+] 
+</pre></div>

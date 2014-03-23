@@ -1,0 +1,414 @@
+template: lucid.haml
+title: Stops nearby
+---
+---
+
+##Stops Nearby
+###Version Number
+2.0.0
+###Description
+Stops Nearby returns up to 30 stops nearest to a specified coordinate.
+  
+Applicable stops are returned as a collection in the JSON format.
+  
+###Request URL
+
+base URL
+<code>/v2/nearme/latitude/%@/longitude/%@?devid=%@&signature=%@</code>
+
+###Parameters
+
+* latitude        =        prescribed latitude, expressed in decimal degrees. e.g.  -37.82392124423254
+* longitude        =        prescribed longitude, expressed in decimal degrees. e.g. 144.9462017431463
+* devid        =        the developer ID supplied in your email from PTV
+* signature        =        the customised message digest calculated using the method in the Quick start guide
+
+###Response
+Returns an array of JSON "result" objects for which the "type" equals "stop". A "stop" object is embedded within each "result". Stops are ordered by distance.
+For more information on the data structures, check out the JSON object structure.
+
+The "stop" object has these attributes: 
+
+* suburb        string &ndash; the suburb name &ndash; e.g. "Belgrave"
+* transport_type        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+* stop_id        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2825"
+* location_name        string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
+* lat        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.81603
+* lon        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.9824
+* distance        decimal number &ndash; not used in the context of this API (it is a legacy attribute of unknown worth)
+
+###Example use case
+Janelle is creating an app for tourists in Melbourne and wants to use the PTV Timetable API to access public transport data. 
+First off, she wants tourists to be able to see all public transport stops near them on a list or on a map, no matter where they are, so Janelle uses the Stops Nearby API.
+
+* Example location: Brunton Avenue, Richmond, VIC 3002, Australia; -37.817993 , 144.981916
+
+* Example request <code>http://timetableapi.ptv.vic.gov.au/v2/nearme/latitude/-37.817993/longitude/144.981916?devid=4&signature=20F0ED441F888A604A7760BA42ECE94333AD279BD </code>
+
+Example response <a href="#fig-exampleresponse-stopsnearby"></a>
+<div id="fig-exampleresponse-stopsnearby">
+  <pre>
+[
+  {  
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2825,  
+      "location_name": "Clarendon St/Wellington Pde #11 ",
+      "lat": -37.81603,
+      "lon": 144.9824,
+      "distance": 4.08647838E-06
+    },  
+    "type": "stop"  
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "nightrider",
+      "stop_id": 24276,
+      "location_name": "Clarendon St/Wellington Pde ",
+      "lat": -37.81626,
+      "lon": 144.9833,
+      "distance": 4.92775143E-06
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "train",
+      "stop_id": 1104,
+      "location_name": "Jolimont-MCG ",
+      "lat": -37.81653,
+      "lon": 144.9841,
+      "distance": 6.88463842E-06
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2823,
+      "location_name": "Jolimont Rd/Wellington Pde #10 ",
+      "lat": -37.8157463,
+      "lon": 144.979782,
+      "distance": 9.586347E-06
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2171,
+      "location_name": "7B-Rod Laver Arena/Melbourne Park ",
+      "lat": -37.81959,
+      "lon": 144.979126,
+      "distance": 1.03426455E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2824,
+      "location_name": "Powlett St/Wellington Pde #12 ",
+      "lat": -37.8163261,
+      "lon": 144.985016,
+      "distance": 1.24015E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2140,
+      "location_name": "7C-MCG - Hisense Arena/Melbourne Park ",
+      "lat": -37.8224335,
+      "lon": 144.983643,
+      "distance": 2.27052114E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2826,
+      "location_name": "Simpson St/Wellington Pde #13 ",
+      "lat": -37.81654,
+      "lon": 144.986984,
+      "distance": 2.77356339E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 3041,
+      "location_name": "Lansdowne St/Wellington Pde #9 ",
+      "lat": -37.81545,
+      "lon": 144.977158,
+      "distance": 2.910643E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2482,
+      "location_name": "7A-William Barak Bridge/Melbourne Park ",
+      "lat": -37.8181648,
+      "lon": 144.976212,
+      "distance": 3.26682275E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 3123,
+      "location_name": "Lansdowne St/Wellington Pde #9 ",
+      "lat": -37.81547,
+      "lon": 144.976654,
+      "distance": 3.40131E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "bus",
+      "stop_id": 18125,
+      "location_name": "Olympic Park/Olympic Bvd ",
+      "lat": -37.8238525,
+      "lon": 144.982132,
+      "distance": 3.43570864E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "bus",
+      "stop_id": 18124,
+      "location_name": "Melbourne Park/Olympic Bvd ",
+      "lat": -37.8238258,
+      "lon": 144.983185,
+      "distance": 3.56446326E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "bus",
+      "stop_id": 18123,
+      "location_name": "Yarra Park/Olympic Bvd ",
+      "lat": -37.8242,
+      "lon": 144.986191,
+      "distance": 5.682951E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2877,
+      "location_name": "Spring St/Flinders St #8 ",
+      "lat": -37.81532,
+      "lon": 144.974609,
+      "distance": 6.05528621E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 3000,
+      "location_name": "Punt Rd/Wellington Pde #14 ",
+      "lat": -37.81739,
+      "lon": 144.989685,
+      "distance": 6.06124959E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2100,
+      "location_name": "7D-AAMI Park/Melbourne Park ",
+      "lat": -37.8241348,
+      "lon": 144.986847,
+      "distance": 6.208822E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 25361,
+      "location_name": "Wellington Pde/Hoddle St ",
+      "lat": -37.8172722,
+      "lon": 144.989822,
+      "distance": 6.310261E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12372,
+      "location_name": "Rowena Pde/Punt Rd ",
+      "lat": -37.8211479,
+      "lon": 144.9895,
+      "distance": 6.75393749E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "tram",
+      "stop_id": 2827,
+      "location_name": "Punt Rd/Bridge Rd #14 ",
+      "lat": -37.81753,
+      "lon": 144.990219,
+      "distance": 6.902158E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12373,
+      "location_name": "Bridge Rd/Hoddle St ",
+      "lat": -37.81719,
+      "lon": 144.9902,
+      "distance": 6.940239E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "nightrider",
+      "stop_id": 24271,
+      "location_name": "Hoddle St/Bridge Rd ",
+      "lat": -37.81766,
+      "lon": 144.990509,
+      "distance": 7.379541E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 18126,
+      "location_name": "Punt Rd/Olympic Bvd ",
+      "lat": -37.8245926,
+      "lon": 144.987579,
+      "distance": 7.558921E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 25365,
+      "location_name": "West Richmond Railway Station/Hoddle St ",
+      "lat": -37.8149567,
+      "lon": 144.990265,
+      "distance": 7.88514662E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 23445,
+      "location_name": "Eades St/Victoria Pde ",
+      "lat": -37.8091,
+      "lon": 144.981567,
+      "distance": 7.916382E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "nightrider",
+      "stop_id": 23445,
+      "location_name": "Eades St/Victoria Pde ",
+      "lat": -37.8091,
+      "lon": 144.981567,
+      "distance": 7.916382E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2477,
+      "location_name": "Smith St/Victoria Pde #15 ",
+      "lat": -37.8089752,
+      "lon": 144.9827,
+      "distance": 8.19254637E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12384,
+      "location_name": "West Richmond Railway Station/Hoddle St ",
+      "lat": -37.81497,
+      "lon": 144.9905,
+      "distance": 8.279046E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 3320,
+      "location_name": "Collins St/Spring St #0 ",
+      "lat": -37.8134956,
+      "lon": 144.974,
+      "distance": 8.284038E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Fitzroy",
+      "transport_type": "tram",
+      "stop_id": 2246,
+      "location_name": "Smith St/Victoria Pde #15 ",
+      "lat": -37.80887,
+      "lon": 144.982452,
+      "distance": 8.35470055E-05
+    },
+    "type": "stop"
+  }
+]
+</pre>
+</div>

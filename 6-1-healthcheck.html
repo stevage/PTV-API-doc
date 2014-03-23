@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+  <meta content='initial-scale=1.0' name='viewport' />
+  <link href='supplescroll.css' rel='stylesheet' />
+  <link href='lucid.css' rel='stylesheet' />
+  
+    <title>Health Check</title>
+  
+</head>
+<body>
+  <div id='table-of-contents' class='touchscroll'></div>
+  <div id='main-text' class='touchscroll'>
+    <div class='relative_position'>
+      <h2>Health Check</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>A check on the timely availability, connectivity and reachability of the services that deliver security, caching and data to web clients.  A health status report is returned.</p>
+<h3>Request URL</h3>
+<p>base URL
+<code>/v2/healthcheck?timestamp=%@&amp;devid=%@&amp;signature=%@</code></p>
+<p>Parameters</p>
+<ul>
+<li>timestamp        =        optional: the date and time of the request in ISO 8601 UTC format e.g. 2013-11-13T05:24:25Z</li>
+<li>devid        =        optional: the developer ID supplied in your email from PTV</li>
+<li>signature        =        optional: the customised message digest calculated using the method in the Quick start guide</li>
+</ul>
+<h3>Response</h3>
+<p>The response is made up of the following JSON objects: </p>
+<ul>
+<li>securityTokenOK        boolean &ndash; indicates whether your key is valid/signature is calculated correctly</li>
+<li>clientClockOK        boolean &ndash; indicates whether your clock is synchronised with our clock within 3 minutes</li>
+<li>memcacheOK        boolean &ndash; indicates status of the performance cache</li>
+<li>databaseOK        boolean &ndash; indicates availability of the data</li>
+</ul>
+<p>Example request <a href="#fig-example-healthcheck"></a>
+<div id="fig-example-healthcheck">
+http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=2014-01-22T03:28:33Z
+Example response    </p>
+<p>{
+  "securityTokenOK": false,<br />
+  "clientClockOK": false, <br />
+  "memcacheOK": true,   <br />
+  "databaseOK": true,<br />
+} 
+</div></p>
+      <div class='timestamp'>
+        <i><a href='http://github.com/boscoh/supplescroll'>supplescroll</a></i>:lucid theme
+      </div>
+    </div>
+  </div>
+  <div id='figure-list' class='touchscroll'></div>
+</body>
+<script src='jquery-2.0.3.js' type='text/javascript'></script>
+<script src='jquery.scrollTo.js' type='text/javascript'></script>
+<script src='supplescroll.js' type='text/javascript'></script>
+<script src='page.js' type='text/javascript'></script>

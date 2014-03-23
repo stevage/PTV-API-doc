@@ -1,0 +1,37 @@
+!!! 5
+%head
+  %meta{content:'initial-scale=1.0', name:'viewport'}
+  %link{rel:'stylesheet', href:'supplescroll.css'}
+  %link{rel:'stylesheet', href:'lucid.css'}
+  - if page.title:
+    %title {{ page.title }}
+%body
+  #table-of-contents.touchscroll
+  #main-text.touchscroll
+    .relative_position
+      {{ page.content }}
+      - for subpage in page.subpages:
+        %b
+          %a{href:"{{ subpage.rel_site_url }}/{{ subpage.url }}"} 
+            {{ subpage.title }}
+        %br
+        {{ subpage.content }}
+        %br
+       .nav
+          - if subpage['category']:
+            category: {{ subpage.category }}
+            %br
+          
+        %br
+        %br
+
+
+      .nottimestamp
+        <i><a href='http://github.com/boscoh/supplescroll'>supplescroll</a></i>:lucid theme
+  #figure-list.touchscroll
+
+%script{type:'text/javascript', src:'jquery-2.0.3.js'}
+%script{type:'text/javascript', src:'jquery.scrollTo.js'}
+%script{type:'text/javascript', src:'supplescroll.js'}
+%script{type:'text/javascript', src:'page.js'}
+

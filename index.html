@@ -1,0 +1,3873 @@
+<!DOCTYPE html>
+<head>
+  <meta content='initial-scale=1.0' name='viewport' />
+  <link href='supplescroll.css' rel='stylesheet' />
+  <link href='lucid.css' rel='stylesheet' />
+  
+    <title>PTV API</title>
+  
+</head>
+<body>
+  <div id='table-of-contents' class='touchscroll'></div>
+  <div id='main-text' class='touchscroll'>
+    <div class='relative_position'>
+      <h1>Public Transport Victoria Timetable API</h1>
+      
+        <b>
+          <a href='./1-introduction.html'>
+            Introduction
+          </a>
+        </b>
+        <br />
+        <h1>Introduction</h1>
+<h2>Important Editor's note</h2>
+<p>This document is a reformatted, somewhat edited, and <strong>currently incomplete</strong> unofficial version of the PTV API. It is maintained by <a href="http://stevebennett.me">Steve Bennett</a>, who has no relationship with PTV.  You can access the official PTV Timetable API <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">at data.vic.gov.au</a>. This web template is Embellish/<a href="https://github.com/boscoh/supplescroll">SuppleScroll</a> by Bosco Ho.</p>
+<p><em>Source: Licensed from Public Transport Victoria under a Creative Commons Attribution 3.0 Australia Licence.</em></p>
+<h3>Hello and welcome</h3>
+<p>Hi and welcome to the PTV Timetable API. The API has been created to provide public transport timetable data to the public in the most dynamic and efficient way.
+By providing an API, rather than an enormous data file or database, PTV hopes to maximise both the opportunities for re-use of public transport data and the potential for innovation.</p>
+<h3>Licence</h3>
+<p>Ownership of intellectual property rights in this publication
+Unless otherwise noted, copyright (and any other intellectual property rights, if any) in this publication is owned by Public Transport Victoria (referred to below as PTV).</p>
+<h3>Creative Commons licence</h3>
+<p>This publication is licensed under a Creative Commons Attribution 3.0 Australia Licence. 
+Creative Commons Attribution 3.0 Australia Licence is a standard form licence agreement that allows you to copy, distribute, transmit and adapt this publication provided that you attribute the work. A summary of the licence terms is available from http://creativecommons.org/licenses/by/3.0/au/deed.en. The full licence terms are available from http://creativecommons.org/licenses/by/3.0/au/legalcode.
+PTV requests that you attribute this publication (and any material sourced from it) using the following wording: Source: Licensed from Public Transport Victoria under a Creative Commons Attribution 3.0 Australia Licence. </p>
+<h3>Disclaimer</h3>
+<h4>Don't use our IP</h4>
+<p>You may use PTV's data as permitted by the above licence, but you are not permitted to use PTV's intellectual property (including copyright, registered and unregistered trade marks) for any other purpose. </p>
+<h4>Don't pretend to be us</h4>
+<p>When you use PTV's data, don't pretend to be PTV or claim that PTV has endorsed your product or service.</p>
+<p>[Editor's note: A reminder that the version of the document you are reading is <em>not</em> from PTV, and this copy is not endorsed by PTV. You can access the official PTV Timetable API <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">at data.vic.gov.au</a>.]</p>
+<h4>Your use is your responsibility</h4>
+<p>The data provided to you by PTV is provided 'as is' and PTV is not liable for how you use this data, how third parties use or rely on this data or any errors contained within the data. You are responsible for determining whether the data is suitable for your particular usage and purposes.</p>
+<h3>What you get with the PTV Timetable API</h3>
+<p>Our API gives you direct access to the PTV timetable data. The API allows you to query locations for timetable, line and stop data for all train, tram and bus, V/Line rail and coach, and NightRider services. It also includes access to myki ticket outlet data.</p>
+<p>The data will be updated weekly to take into account any planned timetable changes, for example, due to holidays or planned disruptions. (Any changes to the timetable notified by public transport operators on the day of operation will not be picked up.)</p>
+<p>The PTV timetable API is the same API currently used by PTV for our website and smartphone apps. PTV enhances these products by integrating its timetable data with TramTracker data, the Google geocoding API (which allows for address searching) and PTV's own journey planner service.</p>
+<h3>Do's and don'ts</h3>
+<p>Timetables, stops, lines and even ticket outlets change frequently so to get the most out of the PTV Timetable API, we recommend you use it dynamically. That's the only way to ensure you're accessing the most up-to-date data and providing it to your audience through the app or service you create.</p>
+<h3>Audience</h3>
+<p>The PTV Timetable API is for everyone. All members of the public, whether they are students, hobbyist app developers or companies, can access PTV timetable data using our API.
+PTV assumes that you know how to use APIs and do not provide instructions on how to code in any specific programming languages.</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./2-gettingstarted.html'>
+            Getting started
+          </a>
+        </b>
+        <br />
+        <h1>Getting started</h1>
+<h3>First steps: getting your security key and developer ID</h3>
+<p>You'll need to pass along a signature and a developer ID &ndash; or "devid" - with every request using HTTP GET.
+To calculate the signature, you'll need the request, which includes your developer ID, and a key.
+The key consists of a 128bit GUID.</p>
+<h3>How to register for a key and developer ID</h3>
+<ul>
+<li>Send an email to APIKeyRequest@ptv.vic.gov.au with the following information in the subject line of the email:</li>
+<li>"PTV Timetable API &ndash; request for key"</li>
+<li>
+<p>Once we've got your email request, we'll send you a key and a developer ID by return email.</p>
+</li>
+<li>
+<p>We'll also add your email address to our API mailing list so we can keep you informed about the API.</p>
+</li>
+</ul>
+<h3>Privacy</h3>
+<p>Your email address is the only bit of information about you that PTV will hold in its register. You can view PTV's privacy policy at http://www.ptv.vic.gov.au/privacy.</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./3-quickstart.html'>
+            Quick start guide
+          </a>
+        </b>
+        <br />
+        <h2>Quick start guide</h2>
+<p>Once you have obtained your key and developer ID you can get started. The first thing you need to do is to calculate a signature.</p>
+<h3>How to calculate a signature</h3>
+<ul>
+<li>The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key:</li>
+<li>signature        =        crypto.HMACSHA1(request,key)</li>
+<li>The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.</li>
+</ul>
+<p>For example, "http://timetableapi.ptv.vic.gov.au/v2/healthcheck?devid=ABCXYZ" and "http://timetableapi.ptv.vic.gov.au/v2/HealthCheck?devid=ABCXYZ" require different signatures to be calculated; the same signature will not work for both requests.
+* The signature itself is also case-sensitive</p>
+<p>Refer to the Appendix for some sample code for calculating a signature.</p>
+<h3>Performing the Health Check</h3>
+<p>The first API you need to call is the Health Check.
+The Health Check will test a number of the key services that deliver the PTV Timetable API and let you know if there are any problems with connectivity, availability or reachability.
+It will also test the time on your system to make sure that your clock is in sync with our clock.</p>
+<p>The output is in the JSON format. <a href="#fig-healthcheck"></a></p>
+<div id="fig-healthcheck">
+
+Health Check request URL:
+<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=%@&devid=%@&signature=%@</code>
+<table>
+<tr>
+<th>Parameters</th></tr>
+<tr>
+<td>timestamp</td><td>optional: the date and time of the request in ISO 8601 UTC format e.g. 2014-02-28T05:24:25Z</td>
+</tr><tr>
+<td>devid</td><td>optional: the developer ID supplied in your email from PTV</td>
+</tr><tr>
+<td>signature</td><td>optional: the customised message digest calculated using the method in the Quick start guide</td>
+</tr>
+</table>  
+<code>
+
+Response output:
+{
+  "securityTokenOK": boolean,
+  "clientClockOK": boolean,
+  "memcacheOK": boolean,
+  "databaseOK": boolean,
+}
+</code>
+where a "true" value indicates service connectivity and availability, and "false" indicates a problem. For more information on this API, check out Errors and the Reference.
+</div>
+
+<h3>Congratulations</h3>
+<p>Once you've calculated a signature and performed the health check successfully you are ready to access the timetable, line and stop data available through the PTV Timetable API.
+All systems are go!</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./4-quickreference.html'>
+            Quick reference guide
+          </a>
+        </b>
+        <br />
+        <h2>Quick reference guide</h2>
+<p>The PTV Timetable API lets you access stop, line and timetable data for all metropolitan and regional services in Victoria. The APIs are as follows:</p>
+<h3>Health Check</h3>
+<p>This API returns a health report on the timely availability, connectivity and reachability of the key services that deliver our timetable data to web clients.</p>
+<h3>Stops Nearby</h3>
+<p>The Stops Nearby API returns up to 30 stops nearest to a specified coordinate.
+Transport POIs by Map
+This API returns a list of transport points of interest (POIs) in a region described by latitude and longitude coordinates. POIs can be any or all of stations, stops or myki ticket outlets.</p>
+<h3>Search</h3>
+<p>The Search API returns all stops and lines that include the search term.</p>
+<h3>Broad Next Departures</h3>
+<p>This API returns departure times from a stop, irrespective of what line the service is on or in what direction the service is running.</p>
+<h3>Specific Next Departures</h3>
+<p>This API returns all departure times from a stop for a specific line and in a specific direction.</p>
+<h3>Stopping Pattern</h3>
+<p>The Stopping Pattern API returns all the times for stops that a particular vehicle will stop at on a specific service run (that is, specific line, direction and point in time).</p>
+<h3>Stops on a Line</h3>
+<p>The Stops on a Line API returns all the stops along a specific line.</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./5-overview.html'>
+            Overview
+          </a>
+        </b>
+        <br />
+        <h1>Overview</h1>
+<h2>Main features</h2>
+<h4>Stateless</h4>
+<p>Public transport timetable data is fast-changing, time-based data so our API is REST-like (and therefore stateless).</p>
+<h4>Format</h4>
+<p>The API functions via a request and response format whereby parameters are passed in a request and a response with the relevant data received accordingly.</p>
+<h4>Output</h4>
+<p>The responses you receive from the API will be represented in JSON. The format is that of a JSON object with a name for each attribute. 
+For more information on JSON, see http://www.json.org/ </p>
+<h4>Authentication</h4>
+<p>A unique key and developer ID is used to calculate a signature for every request that you make.
+For more information about how to get a key and developer ID and how to calculate a signature, check out the Getting Started section.</p>
+<h4>DateTime and time zone</h4>
+<p>All DateTimes are stored and reported in UTC. The ISO8601 format (e.g. 2011-09-13T16:09:54Z) is used throughout the API. The DateTimes are returned as strings since JSON does not have a DateTime object in the specification.</p>
+<h4>Versioning</h4>
+<p>The PTV Timetable API uses semantic versioning.
+The current version of the API is 2.0.0 but the URL only includes the relevant part of the version number (in this case, the major part).</p>
+<h2>Structure</h2>
+<p>The PTV Timetable API is structured to allow you to build information dynamically as you need it, based on the output of each API called.
+For example, the Stops Nearby API requires inputs that are not specific to public transport (i.e. latitude and longitude coordinates). The output, however, includes stop_id and transport_type data. You can then pass that data through the Broad Next Departures API to obtain line_id, direction_id, run_id and timetable data. You can then use these outputs as inputs into other APIs.
+The table <a href="#fig-inputsoutputs"></a> summarises the relevant subset of inputs and outputs of each API.
+<div id="fig-inputsoutputs">
+<table>
+<tbody><tr>
+<th>API</th>
+<th>Inputs</th>
+<th>Outputs include</th>
+</tr>
+<tr>
+<td>Stops Nearby</td>
+<td>lat / lon, signature</td>
+<td>transport_type, stop_id, lat / lon</td>
+</tr>
+<tr>
+<td>Transport POIs by Map</td>
+<td>transport_type, lat / lon, grid depth, limit, signature</td>
+<td>transport_type, stop_id, lat / lon</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>search term, signature</td>
+<td>transport_type, stop_id, lat / lon, line_id</td>
+</tr>
+<tr>
+<td>Broad Next Departures</td>
+<td>transport_type, stop_id, limit, signature</td>
+<td>transport_type, stop_id, lat / lon, line_id, direction_id, run_id, timetable time</td>
+</tr>
+<tr>
+<td>Specific Next Departures</td>
+<td>transport_type, line_id, stop_id, direction_id, limit, for_utc, signature</td>
+<td>transport_type, stop_id, lat / lon, line_id, direction_id, run_id, timetable time</td>
+</tr>
+<tr>
+<td>Stopping Pattern</td>
+<td>transport_type, run_id, stop_id, for_utc, signature</td>
+<td>transport_type, stop_id, lat / lon, line_id, direction_id, run_id, timetable time</td>
+</tr>
+<tr>
+<td>Stops on a Line</td>
+<td>transport_type, line_id, signature</td>
+<td>transport_type, stop_id, lat / lon</td>
+</tr>
+</tbody></table>  <br />
+</div></p>
+<h2>Interface</h2>
+<p>You access the PTV Timetable API through an HTTP interface, as follows:</p>
+<p><code>base URL / version number / API name / query string</code></p>
+<p>The base URL is http://timetableapi.ptv.vic.gov.au</p>
+<p>The version number, API name and query string are provided in the Reference section, under each API.</p>
+<h2>Errors</h2>
+<h4>Error trapping through Health Check</h4>
+<p>Calling the Health Check API at the start of each sequence of APIs flushes out any system problems.
+A return of true or false for the following attributes reveals their status (where "true" means the system is okay, and "false" reveals a problem):</p>
+<ul>
+<li>securityTokenOK &ndash; i.e. your key/signature is working
+  (if it returns "false" check your logic and ensure you have a valid key)</li>
+<li>clientClockOK &ndash; i.e. your clock is synchronised with our clock within three minutes
+(this is for your information only; if it returns "false" it may affect the way you present dates and times)</li>
+<li>memcacheOK &ndash; performance cache is working well
+(if it returns "false" your queries will be slow)</li>
+<li>databaseOK &ndash; availability of the data
+(if it returns "false" your queries won't work)</li>
+</ul>
+<p>For more information on the Health Check API, check out the Quick start guide and the Reference section.
+HTTP status codes</p>
+<p>Since the PTV Timetable API uses a HTTP interface, any of the following standard HTTP status codes may be returned:</p>
+<ul>
+<li>200 &ndash; no error; system okay</li>
+<li>403 &ndash; access denied (will be returned when the wrong signature is used)</li>
+<li>404 &ndash; requested resource not found (check your URL, including parameters, is correct)</li>
+<li>500 &ndash; internal server error (check your URL, including parameters, is correct)</li>
+</ul>
+<p>For more information, see http://en.wikipedia.org/wiki/List_of_HTTP_status_codes.</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-0-reference.html'>
+            Reference
+          </a>
+        </b>
+        <br />
+        <h1>Reference</h1>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-1-healthcheck.html'>
+            Health Check
+          </a>
+        </b>
+        <br />
+        <h2>Health Check</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>A check on the timely availability, connectivity and reachability of the services that deliver security, caching and data to web clients.  A health status report is returned.</p>
+<h3>Request URL</h3>
+<p>base URL
+<code>/v2/healthcheck?timestamp=%@&amp;devid=%@&amp;signature=%@</code></p>
+<p>Parameters</p>
+<ul>
+<li>timestamp        =        optional: the date and time of the request in ISO 8601 UTC format e.g. 2013-11-13T05:24:25Z</li>
+<li>devid        =        optional: the developer ID supplied in your email from PTV</li>
+<li>signature        =        optional: the customised message digest calculated using the method in the Quick start guide</li>
+</ul>
+<h3>Response</h3>
+<p>The response is made up of the following JSON objects: </p>
+<ul>
+<li>securityTokenOK        boolean &ndash; indicates whether your key is valid/signature is calculated correctly</li>
+<li>clientClockOK        boolean &ndash; indicates whether your clock is synchronised with our clock within 3 minutes</li>
+<li>memcacheOK        boolean &ndash; indicates status of the performance cache</li>
+<li>databaseOK        boolean &ndash; indicates availability of the data</li>
+</ul>
+<p>Example request <a href="#fig-example-healthcheck"></a>
+<div id="fig-example-healthcheck">
+http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=2014-01-22T03:28:33Z
+Example response    </p>
+<p>{
+  "securityTokenOK": false,<br />
+  "clientClockOK": false, <br />
+  "memcacheOK": true,   <br />
+  "databaseOK": true,<br />
+} 
+</div></p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-2-stopsnearby.html'>
+            Stops nearby
+          </a>
+        </b>
+        <br />
+        <h2>Stops Nearby</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>Stops Nearby returns up to 30 stops nearest to a specified coordinate.</p>
+<p>Applicable stops are returned as a collection in the JSON format.</p>
+<h3>Request URL</h3>
+<p>base URL
+<code>/v2/nearme/latitude/%@/longitude/%@?devid=%@&amp;signature=%@</code></p>
+<h3>Parameters</h3>
+<ul>
+<li>latitude        =        prescribed latitude, expressed in decimal degrees. e.g.  -37.82392124423254</li>
+<li>longitude        =        prescribed longitude, expressed in decimal degrees. e.g. 144.9462017431463</li>
+<li>devid        =        the developer ID supplied in your email from PTV</li>
+<li>signature        =        the customised message digest calculated using the method in the Quick start guide</li>
+</ul>
+<h3>Response</h3>
+<p>Returns an array of JSON "result" objects for which the "type" equals "stop". A "stop" object is embedded within each "result". Stops are ordered by distance.
+For more information on the data structures, check out the JSON object structure.</p>
+<p>The "stop" object has these attributes: </p>
+<ul>
+<li>suburb        string &ndash; the suburb name &ndash; e.g. "Belgrave"</li>
+<li>transport_type        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"</li>
+<li>stop_id        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2825"</li>
+<li>location_name        string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"</li>
+<li>lat        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.81603</li>
+<li>lon        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.9824</li>
+<li>distance        decimal number &ndash; not used in the context of this API (it is a legacy attribute of unknown worth)</li>
+</ul>
+<h3>Example use case</h3>
+<p>Janelle is creating an app for tourists in Melbourne and wants to use the PTV Timetable API to access public transport data. 
+First off, she wants tourists to be able to see all public transport stops near them on a list or on a map, no matter where they are, so Janelle uses the Stops Nearby API.</p>
+<ul>
+<li>
+<p>Example location: Brunton Avenue, Richmond, VIC 3002, Australia; -37.817993 , 144.981916</p>
+</li>
+<li>
+<p>Example request <code>http://timetableapi.ptv.vic.gov.au/v2/nearme/latitude/-37.817993/longitude/144.981916?devid=4&amp;signature=20F0ED441F888A604A7760BA42ECE94333AD279BD </code></p>
+</li>
+</ul>
+<p>Example response <a href="#fig-exampleresponse-stopsnearby"></a>
+<div id="fig-exampleresponse-stopsnearby">
+  <pre>
+[
+  {<br />
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2825,<br />
+      "location_name": "Clarendon St/Wellington Pde #11 ",
+      "lat": -37.81603,
+      "lon": 144.9824,
+      "distance": 4.08647838E-06
+    },<br />
+    "type": "stop"<br />
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "nightrider",
+      "stop_id": 24276,
+      "location_name": "Clarendon St/Wellington Pde ",
+      "lat": -37.81626,
+      "lon": 144.9833,
+      "distance": 4.92775143E-06
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "train",
+      "stop_id": 1104,
+      "location_name": "Jolimont-MCG ",
+      "lat": -37.81653,
+      "lon": 144.9841,
+      "distance": 6.88463842E-06
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2823,
+      "location_name": "Jolimont Rd/Wellington Pde #10 ",
+      "lat": -37.8157463,
+      "lon": 144.979782,
+      "distance": 9.586347E-06
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2171,
+      "location_name": "7B-Rod Laver Arena/Melbourne Park ",
+      "lat": -37.81959,
+      "lon": 144.979126,
+      "distance": 1.03426455E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2824,
+      "location_name": "Powlett St/Wellington Pde #12 ",
+      "lat": -37.8163261,
+      "lon": 144.985016,
+      "distance": 1.24015E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2140,
+      "location_name": "7C-MCG - Hisense Arena/Melbourne Park ",
+      "lat": -37.8224335,
+      "lon": 144.983643,
+      "distance": 2.27052114E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2826,
+      "location_name": "Simpson St/Wellington Pde #13 ",
+      "lat": -37.81654,
+      "lon": 144.986984,
+      "distance": 2.77356339E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 3041,
+      "location_name": "Lansdowne St/Wellington Pde #9 ",
+      "lat": -37.81545,
+      "lon": 144.977158,
+      "distance": 2.910643E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2482,
+      "location_name": "7A-William Barak Bridge/Melbourne Park ",
+      "lat": -37.8181648,
+      "lon": 144.976212,
+      "distance": 3.26682275E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 3123,
+      "location_name": "Lansdowne St/Wellington Pde #9 ",
+      "lat": -37.81547,
+      "lon": 144.976654,
+      "distance": 3.40131E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "bus",
+      "stop_id": 18125,
+      "location_name": "Olympic Park/Olympic Bvd ",
+      "lat": -37.8238525,
+      "lon": 144.982132,
+      "distance": 3.43570864E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "bus",
+      "stop_id": 18124,
+      "location_name": "Melbourne Park/Olympic Bvd ",
+      "lat": -37.8238258,
+      "lon": 144.983185,
+      "distance": 3.56446326E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "bus",
+      "stop_id": 18123,
+      "location_name": "Yarra Park/Olympic Bvd ",
+      "lat": -37.8242,
+      "lon": 144.986191,
+      "distance": 5.682951E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2877,
+      "location_name": "Spring St/Flinders St #8 ",
+      "lat": -37.81532,
+      "lon": 144.974609,
+      "distance": 6.05528621E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 3000,
+      "location_name": "Punt Rd/Wellington Pde #14 ",
+      "lat": -37.81739,
+      "lon": 144.989685,
+      "distance": 6.06124959E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 2100,
+      "location_name": "7D-AAMI Park/Melbourne Park ",
+      "lat": -37.8241348,
+      "lon": 144.986847,
+      "distance": 6.208822E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 25361,
+      "location_name": "Wellington Pde/Hoddle St ",
+      "lat": -37.8172722,
+      "lon": 144.989822,
+      "distance": 6.310261E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12372,
+      "location_name": "Rowena Pde/Punt Rd ",
+      "lat": -37.8211479,
+      "lon": 144.9895,
+      "distance": 6.75393749E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "tram",
+      "stop_id": 2827,
+      "location_name": "Punt Rd/Bridge Rd #14 ",
+      "lat": -37.81753,
+      "lon": 144.990219,
+      "distance": 6.902158E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12373,
+      "location_name": "Bridge Rd/Hoddle St ",
+      "lat": -37.81719,
+      "lon": 144.9902,
+      "distance": 6.940239E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "nightrider",
+      "stop_id": 24271,
+      "location_name": "Hoddle St/Bridge Rd ",
+      "lat": -37.81766,
+      "lon": 144.990509,
+      "distance": 7.379541E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 18126,
+      "location_name": "Punt Rd/Olympic Bvd ",
+      "lat": -37.8245926,
+      "lon": 144.987579,
+      "distance": 7.558921E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 25365,
+      "location_name": "West Richmond Railway Station/Hoddle St ",
+      "lat": -37.8149567,
+      "lon": 144.990265,
+      "distance": 7.88514662E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 23445,
+      "location_name": "Eades St/Victoria Pde ",
+      "lat": -37.8091,
+      "lon": 144.981567,
+      "distance": 7.916382E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "nightrider",
+      "stop_id": 23445,
+      "location_name": "Eades St/Victoria Pde ",
+      "lat": -37.8091,
+      "lon": 144.981567,
+      "distance": 7.916382E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2477,
+      "location_name": "Smith St/Victoria Pde #15 ",
+      "lat": -37.8089752,
+      "lon": 144.9827,
+      "distance": 8.19254637E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12384,
+      "location_name": "West Richmond Railway Station/Hoddle St ",
+      "lat": -37.81497,
+      "lon": 144.9905,
+      "distance": 8.279046E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Melbourne City",
+      "transport_type": "tram",
+      "stop_id": 3320,
+      "location_name": "Collins St/Spring St #0 ",
+      "lat": -37.8134956,
+      "lon": 144.974,
+      "distance": 8.284038E-05
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Fitzroy",
+      "transport_type": "tram",
+      "stop_id": 2246,
+      "location_name": "Smith St/Victoria Pde #15 ",
+      "lat": -37.80887,
+      "lon": 144.982452,
+      "distance": 8.35470055E-05
+    },
+    "type": "stop"
+  }
+]
+</pre>
+</div></p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-3-transportpoisbymap.html'>
+            Transport POIs by Map
+          </a>
+        </b>
+        <br />
+        <h2>Transport POIs by Map</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>Transport POIs by Map returns a set of locations consisting of stops and/or myki ticket outlets (collectively known as points of interest &ndash; i.e. POIs) within a region demarcated on a map through a set of latitude and longitude coordinates.</p>
+<p>Where POIs are geographically dispersed they are returned in a list; where they are geographically concentrated they can be returned in a cluster, depending on the map griddepth that is sent in the request.</p>
+<p>You can also set a limit of how many stops are listed in a cluster. The API will return what the total number of POIs is, however it will only return data for as many POIs are set by the limit. Check out the example response below for a better understanding of how this works.</p>
+<h3>Request URL</h3>
+<p>base URL
+<code>/v2/poi/%@/lat1/%@/long1/%@/lat2/%@/long2/%@/griddepth/%@/limit/%@?devid=%@
+&amp;signature=%@</code></p>
+<h3>Parameters</h3>
+<ul>
+<li>
+<p>poi        =        a comma separated list of numbers representing the types of POIs you want returned, defined as follows:</p>
+<ul>
+<li>0        Train (metropolitan)</li>
+<li>1        Tram</li>
+<li>2        Bus (metropolitan and regional, but not V/Line) </li>
+<li>3        V/Line regional train and coach</li>
+<li>4        NightRider</li>
+<li>100        Ticket outlet</li>
+</ul>
+</li>
+</ul>
+<p>e.g. "0,1,2,4,100" would return train, tram, bus, NightRider &amp; ticket outlets
+lat1        =        latitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*</p>
+<p>e.g. -37.82392124423254
+long1        =        longitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*</p>
+<p>e.g. 144.9462017431463
+lat2        =        latitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*</p>
+<p>e.g. -37.81540959390813
+long2        =        longitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*</p>
+<p>e.g. 144.9542017407848</p>
+<p>The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:
+<pre>
+   (lat1, long1)  <br />
+   (lat2, long2)<br />
+</pre></p>
+<ul>
+<li>griddepth        =        the number of cells per block of cluster grid (between 0-20 inclusive).
+e.g. "1" would look like this:</li>
+</ul>
+<p>(image missing)</p>
+<div class="codehilite"><pre>            ...while &quot;2&quot; would look like:
+</pre></div>
+
+
+<p>(image missing) </p>
+<p>limit        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)
+e.g. 4
+devid        =        the developer ID supplied in your email from PTV
+signature        =        the customised message digest calculated using the method in the Quick start guide
+Response
+Returns a list of JSON objects which are either "locations" or "clusters"; "clusters" have their own list of "locations" within them.
+"locations" have either a "stop" or "outlet" (i.e. ticket outlet) object embedded within them.
+For more information on the data structures, check out the JSON object structure.</p>
+<p>Each stop and outlet "location" object has the following attributes:
+suburb        string
+&ndash; the suburb name
+&ndash; e.g. "Belgrave"
+location_name        string
+&ndash; the name of the stop based on a concise geographic description
+&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
+lat        decimal number
+&ndash; geographic coordinate of latitude
+&ndash; e.g. -37.82005
+lon        decimal number
+&ndash; geographic coordinate of longitude
+&ndash; e.g. 144.95047
+distance        decimal number
+&ndash; returns zero in the context of this API</p>
+<p>"stop" objects have the following extra attributes:
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+stop_id        numeric string
+&ndash; the unique identifier of each stop
+&ndash; e.g. "2171"</p>
+<p>While "outlet" objects have the following extra attributes:
+outlet_type        string (limited values)
+&ndash; either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind
+&ndash; e.g. "retail"
+business_name        string
+&ndash; the business name of the outlet
+&ndash; e.g. "IGA Victoria Harbour"</p>
+<p>For each set of locations and clusters, it will also return the following objects:
+minLat        decimal number
+&ndash; the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)<strong>
+&ndash; e.g. -37.81959
+minLong        decimal number
+&ndash; the minimum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)</strong>
+&ndash; e.g. 144.979126
+maxLat        decimal number
+&ndash; the maximum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)<strong>
+&ndash; e.g. -37.8134956
+maxLong        decimal number
+&ndash; the maximum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)</strong>
+&ndash; e.g. 144.9854
+weightedLat        decimal number
+&ndash; latitude at the point that is the average of all POIs returned in a grid cell<strong>
+&ndash; e.g. -37.81671
+weightedLong        decimal number
+&ndash; longitude at the point that is the average of all POIs returned in a grid cell</strong>
+&ndash; e.g. 144.982849
+totalLocations        integer
+&ndash; the total number of locations within the region described above
+&ndash; e.g. 7</p>
+<p>**        The set of coordinates above describe the following points (sample only):</p>
+<h3>Example use case</h3>
+<p>Janelle wants to develop her app further and allow tourists to see public transport stops in an entire region that the tourist has selected on a map. She wants the tourists to be able to specify which mode of stops they see (i.e. train, tram, bus, V/Line or NightRider) and also to be able to see myki ticket outlets if they want. Janelle uses the Transport POIs by Map API to do this.</p>
+<ul>
+<li>Example location: Area around Brunton Avenue, Richmond, VIC 3002, Australia</li>
+<li>Example POIs selected: Train, Tram, Bus, Ticket Outlet</li>
+<li>Example request
+<code>http://timetableapi.ptv.vic.gov.au/v2/poi/0,1,2,100/lat1/-37.82205143151239/long1/144.9779160007277/lat2/-37.81393456848758/long2/144.9859159992726/griddepth/3/limit/6?devid=4&amp;signature=2BELL8A77A14452DEC110FD849906EBE4F10DC7B</code></li>
+<li>Example response  <a href="#fig-exampleresponse-transportpois"></a></li>
+</ul>
+<div id="fig-exampleresponse-transportpois">
+<pre>
+{
+  "minLat": -37.81959,
+  "minLong": 144.979126,
+  "maxLat": -37.8157463,
+  "maxLong": 144.9854,  
+  "weightedLat": -37.81671,
+  "weightedLong": 144.982849,  
+  "totalLocations": 7,  
+  "locations": [  
+    {
+      "suburb": "Melbourne City",  
+      "transport_type": "tram",
+      "stop_id": 2171,  
+      "location_name": "7B-Rod Laver Arena/Melbourne Park ",
+      "lat": -37.81959, 
+      "lon": 144.979126,
+      "distance": 0.0
+    },
+    {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2823,
+      "location_name": "Jolimont Rd/Wellington Pde #10 ",
+      "lat": -37.8157463,
+      "lon": 144.979782,
+      "distance": 0.0
+    },
+    {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2825,
+      "location_name": "Clarendon St/Wellington Pde #11 ",
+      "lat": -37.81603,
+      "lon": 144.9824,
+      "distance": 0.0
+    },
+    {
+      "suburb": "East Melbourne",
+      "transport_type": "train",
+      "stop_id": 1104,
+      "location_name": "Jolimont-MCG ",
+      "lat": -37.81653,
+      "lon": 144.9841,
+      "distance": 0.0
+    },
+    {
+      "outlet_type": "Stop",    
+      "suburb": "East Melbourne",
+      "business_name": "Jolimont Station",
+      "location_name": "Wellington Cres",
+      "lat": -37.81653,
+      "lon": 144.9841,
+      "distance": 0.0
+    },
+    {
+      "suburb": "East Melbourne",
+      "transport_type": "tram",
+      "stop_id": 2824,
+      "location_name": "Powlett St/Wellington Pde #12 ",
+      "lat": -37.8163261,
+      "lon": 144.985016,
+      "distance": 0.0
+    },  
+    {
+      "outlet_type": "Retail",
+      "suburb": "East Melbourne",  
+      "business_name": "7-Eleven MCG Melbourne",
+      "location_name": "142 Wellington Parade",
+      "lat": -37.8162231, 
+      "lon": 144.9854,
+      "distance": 0.0
+    }
+  ],    
+  "clusters": []
+}
+</pre>
+</div>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-4-search.html'>
+            Search
+          </a>
+        </b>
+        <br />
+        <h2>Search</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>The Search API returns all stops and lines that match the input search text.</p>
+<h3>Request URL</h3>
+<p><code>base URL
+/v2/search/%@?&amp;devid=%@&amp;signature=%@</code></p>
+<h3>Parameters</h3>
+<ul>
+<li>search        =        search text
+e.g. "Alamein"</li>
+<li>devid        =        the developer ID supplied in your email from PTV</li>
+<li>signature        =        the customised message digest calculated using the method in the Quick start guide</li>
+</ul>
+<h3>Response</h3>
+<p>Returns an array of JSON "result" objects for which the "type" equals either "stop" or "line".
+A "stop" object or "line" object is embedded within each "result" depending on its type.
+For more information on the data structures, check out the JSON object structure.</p>
+<pre>
+"stop" objects have these attributes: 
+suburb        string
+&ndash; the suburb name
+&ndash; e.g. "Richmond"
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+stop_id        numeric string
+&ndash; the unique identifier of each stop
+&ndash; e.g. "12373"
+location_name        string
+&ndash; the name of the stop based on a concise geographic description
+&ndash; e.g. "Bridge Rd/Hoddle St"
+lat        decimal number
+&ndash; geographic coordinate of latitude
+&ndash; e.g. -37.81719
+lon        decimal number
+&ndash; geographic coordinate of longitude
+&ndash; e.g. 144.9902
+distance        decimal number
+&ndash; returns zero in the context of this API
+
+"line" objects have these attributes: 
+transport_type        string
+&ndash; the mode of transport serviced by the line
+&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+line_id        numeric string
+&ndash; the unique identifier of each line
+&ndash; e.g. "1818"
+line_name        string
+&ndash; the name of the line
+&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway & Frankston Station "
+line_number        string
+&ndash; the line number that is presented to the public (i.e. not the "line_id")
+&ndash; e.g. "970"
+</pre>
+
+<h3>Example use case</h3>
+<p>Janelle's next development for the tourist app is to add a search function that allows tourists to find any stations or stops, as well as any train lines, tram routes or bus routes, by inputting some text. She uses the Search API.</p>
+<ul>
+<li>Example search term: "Hoddle St"</li>
+<li>Example request <code>http://timetableapi.ptv.vic.gov.au/v2/search/Hoddle%20St?&amp;devid=4&amp;signature=93121A8B16A7158DB8169DBC405CF7405A05F2C0 </code></li>
+<li>Example response <a href="#fig-exampleresponse-search"></a></li>
+</ul>
+<div id="fig-exampleresponse-search">
+<pre>[
+  {  
+    "result": {  
+      "suburb": "Richmond",  
+      "transport_type": "bus",
+      "stop_id": 12373,  
+      "location_name": "Bridge Rd/Hoddle St ",
+      "lat": -37.81719,
+      "lon": 144.9902,
+      "distance": 0.0
+    },  
+    "type": "stop"  
+  },
+  {
+    "result": {
+      "suburb": "Clifton Hill",
+      "transport_type": "bus",
+      "stop_id": 10285,
+      "location_name": "Clifton Hill Railway Station/Hoddle St ",
+      "lat": -37.7886963,
+      "lon": 144.995071,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Abbotsford",
+      "transport_type": "bus",
+      "stop_id": 12427,
+      "location_name": "Gipps St/Hoddle St ",
+      "lat": -37.80475,
+      "lon": 144.992355,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 25376,
+      "location_name": "Grey St/Hoddle St ",
+      "lat": -37.81243,
+      "lon": 144.990723,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "nightrider",
+      "stop_id": 24271,
+      "location_name": "Hoddle St/Bridge Rd ",
+      "lat": -37.81766,
+      "lon": 144.990509,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Essendon",
+      "transport_type": "bus",
+      "stop_id": 24972,
+      "location_name": "Hoddle St/Fletcher St ",
+      "lat": -37.7557068,
+      "lon": 144.923187,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Essendon",
+      "transport_type": "tram",
+      "stop_id": 2676,
+      "location_name": "Hoddle St/Fletcher St #39 ",
+      "lat": -37.7554665,
+      "lon": 144.92276,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Abbotsford",
+      "transport_type": "bus",
+      "stop_id": 12841,
+      "location_name": "Hoddle St/Johnston St ",
+      "lat": -37.7999763,
+      "lon": 144.993561,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Collingwood",
+      "transport_type": "bus",
+      "stop_id": 13002,
+      "location_name": "Hoddle St/Johnston St ",
+      "lat": -37.79976,
+      "lon": 144.992477,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Warrnambool",
+      "transport_type": "bus",
+      "stop_id": 31224,
+      "location_name": "Hoddle St/Morriss Rd ",
+      "lat": -38.36617,
+      "lon": 142.46698,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Clifton Hill",
+      "transport_type": "bus",
+      "stop_id": 10869,
+      "location_name": "Hoddle St/North Tce ",
+      "lat": -37.79012,
+      "lon": 144.994385,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Collingwood",
+      "transport_type": "tram",
+      "stop_id": 2472,
+      "location_name": "Hoddle St/Victoria Pde #18 ",
+      "lat": -37.8097343,
+      "lon": 144.990967,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "tram",
+      "stop_id": 2471,
+      "location_name": "Hoddle St/Victoria St #18 ",
+      "lat": -37.80977,
+      "lon": 144.991074,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Abbotsford",
+      "transport_type": "bus",
+      "stop_id": 13952,
+      "location_name": "Johnston St/Hoddle St ",
+      "lat": -37.800415,
+      "lon": 144.993057,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Collingwood",
+      "transport_type": "bus",
+      "stop_id": 25429,
+      "location_name": "Johnston St/Hoddle St ",
+      "lat": -37.7994537,
+      "lon": 144.992889,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Collingwood",
+      "transport_type": "bus",
+      "stop_id": 20219,
+      "location_name": "Keele St/Hoddle St ",
+      "lat": -37.79744,
+      "lon": 144.993317,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Abbotsford",
+      "transport_type": "bus",
+      "stop_id": 12415,
+      "location_name": "Langridge St/Hoddle St ",
+      "lat": -37.8069649,
+      "lon": 144.992,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Clifton Hill",
+      "transport_type": "bus",
+      "stop_id": 12460,
+      "location_name": "Noone St/Hoddle St ",
+      "lat": -37.79351,
+      "lon": 144.994141,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Clifton Hill",
+      "transport_type": "bus",
+      "stop_id": 12471,
+      "location_name": "North Tce/Hoddle St ",
+      "lat": -37.79044,
+      "lon": 144.994675,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Clifton Hill",
+      "transport_type": "bus",
+      "stop_id": 25440,
+      "location_name": "Parslow St/Hoddle St ",
+      "lat": -37.7932968,
+      "lon": 144.99411,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {      
+    "result": {
+      "transport_type": "tram",
+      "line_id": 5313,  
+      "line_name": "Route 31 - Hoddle Street - Victoria Harbour Docklands",
+      "line_number": "Route 31"
+    },  
+    "type": "line"  
+  },
+  {
+    "result": {
+      "suburb": "Abbotsford",
+      "transport_type": "bus",
+      "stop_id": 12449,
+      "location_name": "Truro St/Hoddle St ",
+      "lat": -37.79768,
+      "lon": 144993561,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Abbotsford",
+      "transport_type": "bus",
+      "stop_id": 12438,
+      "location_name": "Vere St/Hoddle St ",
+      "lat": -37.8028221,
+      "lon": 144.9927,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Collingwood",
+      "transport_type": "bus",
+      "stop_id": 25418,
+      "location_name": "Vere St/Hoddle St ",
+      "lat": -37.80218,
+      "lon": 144.992462,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 25387,
+      "location_name": "Victoria Pde/Hoddle St ",
+      "lat": -37.8105965,
+      "lon": 144.9911,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12405,
+      "location_name": "Victoria Pde/Hoddle St ",
+      "lat": -37.8103256,
+      "lon": 144.991333,
+      "distance": 00
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 25361,
+      "location_name": "Wellington Pde/Hoddle St ",
+      "lat": -37.8172722,
+      "lon": 144.989822,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12384,
+      "location_name": "West Richmond Railway Station/Hoddle St ",
+      "lat": -37.81497,
+      "lon": 144.9905,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "East Melbourne",
+      "transport_type": "bus",
+      "stop_id": 25365,
+      "location_name": "West Richmond Railway Station/Hoddle St ",
+      "lat": -37.8149567,
+      "lon": 144.990265,
+      "distance": 0.0
+    },
+    "type": "stop"
+  },
+  {
+    "result": {
+      "suburb": "Richmond",
+      "transport_type": "bus",
+      "stop_id": 12394,
+      "location_name": "York St/Hoddle St ",
+      "lat": -37.8127022,
+      "lon": 144.990967,
+      "distance": 0.0
+    },
+    "type": "stop"
+  }
+]</pre></div>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-5-broadnextdepartures.html'>
+            Broad Next Departures
+          </a>
+        </b>
+        <br />
+        <h2>Broad Next Departures</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>Broad Next Departures returns the next departure times at a prescribed stop irrespective of the line and direction of the service.
+For example, if the stop is Camberwell Station, Broad Next Departures will return the times for all three lines (Belgrave, Lilydale and Alamein) running in both directions (towards the city and away from the city). </p>
+<h3>Request URL</h3>
+<p>base URL
+<code>/v2/mode/%@/stop/%@/departures/by-destination/limit/%@?devid=%@&amp;signature=%@</code></p>
+<h3>Parameters</h3>
+<ul>
+<li>mode        =        a number representing the transport_type of the stop, defined as follows:</li>
+<li>0        Train (metropolitan)</li>
+<li>1        Tram</li>
+<li>2        Bus (metropolitan and regional, but not V/Line) </li>
+<li>3        V/Line train and coach</li>
+<li>4        NightRider </li>
+</ul>
+<p>e.g. "2"
+stop        =        the stop_id of the stop
+e.g. "1108"
+limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
+e.g. 2
+devid        =        the developer ID supplied in your email from PTV
+signature        =        the customised message digest calculated using the method in the Quick start guide
+Response
+Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
+The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
+For more information on the data structures, check out the JSON object structure.</p>
+<p>Timetable "values" have the following attributes:</p>
+<ul>
+<li>time_timetable_utc        date and time expressed in ISO 8601 UTC format &ndash; the scheduled time of the service at the stop &ndash; e.g. "2013-11-18T03:21:00Z"</li>
+<li>time_realtime_utc        date and time expressed in ISO 8601 UTC format &ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null") &ndash; e.g. "null"</li>
+<li>
+<p>flags        Character &ndash; a stop may have zero or more flags associated with it,  delimited by a "-" character; examples include:</p>
+</li>
+<li>
+<p>RR = Reservations Required</p>
+</li>
+<li>GC = Guaranteed Connection</li>
+<li>DOO = Drop Off Only</li>
+<li>PUO = Pick Up Only</li>
+<li>MO = Mondays only</li>
+<li>TU = Tuesdays only</li>
+<li>WE = Wednesdays only</li>
+<li>TH = Thursdays only</li>
+<li>FR = Fridays only</li>
+<li>SS = School days only</li>
+</ul>
+<p>note: ignore "E" flag</p>
+<p>&ndash; e.g. "RR-PUO"</p>
+<p>"run" objects have the following attributes:
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+run_id        numeric string
+&ndash; the unique identifier of each run
+&ndash; e.g. "1464"
+num_skipped        integer
+&ndash; the number of stops skipped for the run, applicable to train; a number greater than zero indicates either a limited express or express service
+&ndash; e.g. 0
+destination_id        numeric string
+&ndash; the stop_id of the destination, i.e. the last stop for the run
+&ndash; e.g. "1044"
+destination_name        string
+&ndash; the location_name of the destination, i.e. the last stop for the run
+&ndash; e.g. "Craigieburn"</p>
+<p>"platform" objects have the following attributes:
+realtime_id        string
+&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
+&ndash; e.g. "0"</p>
+<p>"stop" objects have these attributes: 
+suburb        string
+&ndash; the suburb name
+&ndash; e.g. "Belgrave"
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
+stop_id        numeric string
+&ndash; the unique identifier of each stop
+&ndash; e.g. "1234"
+location_name        string
+&ndash; the name of the stop based on a concise geographic description
+&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
+lat        decimal number
+&ndash; geographic coordinate of latitude
+&ndash; e.g. -37.82005
+lon        decimal number
+&ndash; geographic coordinate of longitude
+&ndash; e.g. 144.95047
+distance        decimal number
+&ndash;returns zero in the context of this API</p>
+<p>"direction" objects have the following attributes:
+linedir_id        numeric string
+&ndash; unique identifier of a particular line and direction
+&ndash; e.g. "21"
+direction_id        numeric string
+&ndash; unique identifier of a direction (e.g. "0" signifies "city")
+&ndash; e.g. "0"
+direction_name        string
+&ndash; name of the direction of the service
+&ndash; e.g. "City (Flinders Street)"</p>
+<p>"line" objects have these attributes: 
+transport_type        string
+&ndash; the mode of transport serviced by the line
+&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
+line_id        numeric string
+&ndash; the unique identifier of each line
+&ndash; e.g. "1818"
+line_name        string
+&ndash; the name of the line
+&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway &amp; Frankston Station "
+line_number        string
+&ndash; the line number that is presented to the public (i.e. not the "line_id")
+&ndash; e.g. "970"</p>
+<h3>Example use case</h3>
+<p>Janelle has decided to add some timetable information to the tourist app. The next development lets tourists see the next departure times for any of the stations or stops that the tourist selects from a map or list.
+Janelle uses the Broad Next Departures API to show the departure times for stops found via any of the three methods available (Stops Nearby, Transport POIs by Map or Search).</p>
+<ul>
+<li>Example stop selected: Jolimont - MCG Train Station (stop_id: 1104)</li>
+<li>Example request
+<code>http://timetableapi.ptv.vic.gov.au/v2/mode/0/stop/1104/departures/by-destination/limit/1?devid=4&amp;signature=2BEBBA8A77A24452DEC040F849906EBE4F10DA7D</code></li>
+<li>Example response <a href="#fig-exampleresponse-broad"></a></li>
+</ul>
+<div id="fig-exampleresponse-broad">
+  <pre>
+{    
+  "values": [  
+    {
+      "platform": {  
+        "realtime_id": 0,
+        "stop": {  
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0  
+        },
+        "direction": {  
+          "linedir_id": 41,   
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",  
+          "line": {  
+            "transport_type": "train",  
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {  
+        "transport_type": "train",  
+        "run_id": 21172,
+        "num_skipped": 0,
+        "destination_id": 1041,
+        "destination_name": "Clifton Hill"
+      },
+      "time_timetable_utc": "2014-01-20T03:21:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 38,
+          "direction_id": 5,
+          "direction_name": "South Morang",
+          "line": {
+            "transport_type": "train",
+            "line_id": 5,
+            "line_name": "South Morang",
+            "line_number": "South Morang"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 13975,
+        "num_skipped": 0,
+        "destination_id": 1224,
+        "destination_name": "South Morang"
+      },
+      "time_timetable_utc": "2014-01-20T03:21:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 26,
+          "direction_id": 0,
+          "direction_name": "City (Flinders Street)",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21045,
+        "num_skipped": 0,
+        "destination_id": 1155,
+        "destination_name": "Parliament"
+      },
+      "time_timetable_utc": "2014-01-20T03:23:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    }
+  ]
+}
+</pre>
+</div>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-6-specificnextdepartures.html'>
+            Broad Next Departures
+          </a>
+        </b>
+        <br />
+        <h2>Specific Next Departures</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>Specific Next Departures returns the times for the next departures at a prescribed stop for a specific mode, line and direction.
+For example, if the stop is Camberwell Station, Specific Next Departures returns only the times for one line running in one direction (for example, the Belgrave line running towards the city).</p>
+<h3>Request URL</h3>
+<p>base URL
+<code>/v2/mode/%@/line/%@/stop/%@/directionid/%@/departures/all/limit/%@?for_utc=%@
+&amp;devid=%@&amp;signature=%@</code></p>
+<h3>Parameters</h3>
+<p><em>mode        =        a number representing the transport_type of the stop, defined as follows:
+</em> 0        Train (metropolitan)
+<em> 1        Tram
+</em> 2        Bus (metropolitan and regional, but not V/Line) 
+<em> 3        V/Line train and coach
+</em> 4        NightRider </p>
+<p>e.g. "0"
+line        =        the line_id of the requested services
+e.g. "3"
+stop        =        the stop_id of the stop
+e.g. "1108"
+directionid        =        the direction_id of the requested services
+e.g. "0"
+limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
+e.g. 2
+for_utc        =        optional: the date and time of the request in ISO 8601 UTC format
+e.g. 2013-11-13T07:08:03Z
+devid        =        the developer ID supplied in your email from PTV
+signature        =        the customised message digest calculated using the method in the Quick start guide
+Response
+Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
+The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
+For more information on the data structures, check out the JSON object structure.</p>
+<p>Timetable "values" have the following attributes:
+time_timetable_utc        date and time expressed in ISO 8601 UTC format
+&ndash; the scheduled time of the service at the stop
+&ndash; e.g. "2013-11-18T03:21:00Z"
+time_realtime_utc        date and time expressed in ISO 8601 UTC format
+&ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null")
+&ndash; e.g. "null" 
+flags        Character
+&ndash; a stop may have zero or more flags associated with it, 
+delimited by a "-" character; examples include:</p>
+<p>RR = Reservations Required
+GC = Guaranteed Connection
+DOO = Drop Off Only
+PUO = Pick Up Only
+MO = Mondays only
+TU = Tuesdays only
+WE = Wednesdays only
+TH = Thursdays only
+FR = Fridays only
+SS = School days only</p>
+<p>note: ignore "E" flag</p>
+<p>&ndash; e.g. "RR-PUO"</p>
+<p>"run" objects have the following attributes:
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+run_id        numeric string
+&ndash; the unique identifier of each run
+&ndash; e.g. "1464"
+num_skipped        integer
+&ndash; the number of stops skipped for the run, applicable to train; a number greater than zero indicates either a limited express or express service
+&ndash; e.g. 0
+destination_id        numeric string
+&ndash; the stop_id of the destination, i.e. the last stop for the run
+&ndash; e.g. "1044"
+destination_name        string
+&ndash; the location_name of the destination, i.e. the last stop for the run
+&ndash; e.g. "Craigieburn"</p>
+<p>"platform" objects have the following attributes:
+realtime_id        string
+&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
+&ndash; e.g. "0"</p>
+<p>"stop" objects have these attributes: 
+suburb        string
+&ndash; the suburb name
+&ndash; e.g. "Belgrave"
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
+stop_id        numeric string
+&ndash; the unique identifier of each stop
+&ndash; e.g. "1234"
+location_name        string
+&ndash; the name of the stop based on a concise geographic description
+&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
+lat        decimal number
+&ndash; geographic coordinate of latitude
+&ndash; e.g. -37.82005
+lon        decimal number
+&ndash; geographic coordinate of longitude
+&ndash; e.g. 144.95047
+distance        decimal number
+&ndash;returns zero in the context of this API</p>
+<p>"direction" objects have the following attributes:
+linedir_id        numeric string
+&ndash; unique identifier of a particular line and direction
+&ndash; e.g. "21"
+direction_id        numeric string
+&ndash; unique identifier of a direction
+&ndash; e.g. "0"
+direction_name        string
+&ndash; name of the direction of the service (e.g. "0" signifies "city")
+&ndash; e.g. "City (Flinders Street)"</p>
+<p>"line" objects have these attributes: 
+transport_type        string
+&ndash; the mode of transport serviced by the line
+&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
+line_id        numeric string
+&ndash; the unique identifier of each line
+&ndash; e.g. "1818"
+line_name        string
+&ndash; the name of the line
+&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway &amp; Frankston Station "
+line_number        string
+&ndash; the line number that is presented to the public (i.e. not the "line_id")
+&ndash; e.g. "970"</p>
+<h3>Example use case</h3>
+<p>Janelle's next enhancement for the tourist app is to let tourists choose which departure times they see for any given stop, by selecting the line and direction.
+This will mean that if a stop or station has multiple routes or lines stopping there (for example, Flinders Street Station), the tourist won't be bombarded with a confusing list of departure times for multiple lines.
+Building on the other APIs, Janelle uses the Specific Next Departures API to do this.</p>
+<ul>
+<li>Example selection: Jolimont-MCG Train Station towards Hurstbridge</li>
+<li>Example request
+<code>http://timetableapi.ptv.vic.gov.au/v2/mode/0/line/8/stop/1104/directionid/8/departures/all/limit/5?for_utc=2014-01-20T03:18:08Z&amp;devid=4&amp;signature=2BEBB8A77A24452FAF110FD849906EBE4F10DC7B</code></li>
+<li>Example response <a href="#fig-exampleresponsespecific"></a>
+<div id="fig-exampleresponsespecific">
+  <pre>
+{
+  "values": [                          <br />
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 41,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21172,
+        "num_skipped": 0,
+        "destination_id": 1041,
+        "destination_name": "Clifton Hill"
+      },
+      "time_timetable_utc": "2014-01-20T03:21:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 41,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 1062,
+        "destination_name": "Eltham"
+      },
+      "time_timetable_utc": "2014-01-20T03:31:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 41,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21174,
+        "num_skipped": 0,
+        "destination_id": 1041,
+        "destination_name": "Clifton Hill"
+      },
+      "time_timetable_utc": "2014-01-20T03:41:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 41,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21175,
+        "num_skipped": 0,
+        "destination_id": 1100,
+        "destination_name": "Hurstbridge"
+      },
+      "time_timetable_utc": "2014-01-20T03:51:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 41,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21176,
+        "num_skipped": 0,
+        "destination_id": 1041,
+        "destination_name": "Clifton Hill"
+      },
+      "time_timetable_utc": "2014-01-20T04:01:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    }
+  ]
+}
+</pre>
+</div></li>
+</ul>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-7-stoppingpattern.html'>
+            Broad Next Departures
+          </a>
+        </b>
+        <br />
+        <h2>Stopping Pattern</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>The Stopping Pattern API returns the stopping pattern for a specific run (i.e. transport service) from a prescribed stop at a prescribed time. The stopping pattern is comprised of timetable values ordered by stopping order.</p>
+<h3>Request URL</h3>
+<p>base URL
+<code>/v2/mode/%@/run/%@/stop/%@/stopping-pattern?for_utc=%@&amp;devid=%@&amp;signature=%@</code></p>
+<h3>Parameters</h3>
+<ul>
+<li>
+<p>mode        =        a number representing the transport_type of the stop, defined as follows:</p>
+</li>
+<li>
+<p>0        Train (metropolitan)</p>
+</li>
+<li>1        Tram</li>
+<li>2        Bus (metropolitan and regional, but not V/Line) </li>
+<li>3        V/Line train and coach</li>
+<li>4        NightRider </li>
+</ul>
+<p>e.g. "2"
+run        =        the run_id of the requested run
+e.g. "1464"
+stop        =        the stop_id of the stop
+e.g. "1108"
+for_utc        =        the date and time of the request in ISO 8601 UTC format
+e.g. 2013-11-13T05:24:25Z
+devid        =        the developer ID supplied in your email from PTV
+signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+<h3>Response</h3>
+<p>Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
+The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.</p>
+<p>For more information on the data structures, check out the JSON object structure.</p>
+<h4>Timetable "values" have the following attributes:</h4>
+<p>time_timetable_utc        date and time expressed in ISO 8601 UTC format
+&ndash; the scheduled time of the service at the stop
+&ndash; e.g. "2013-11-18T03:21:00Z"
+time_realtime_utc        date and time expressed in ISO 8601 UTC format
+&ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null")
+&ndash; e.g. "null" 
+flags        Character
+&ndash; a stop may have zero or more flags associated with it, 
+delimited by a "-" character; examples include:</p>
+<p>RR = Reservations Required
+GC = Guaranteed Connection
+DOO = Drop Off Only
+PUO = Pick Up Only
+MO = Mondays only
+TU = Tuesdays only
+WE = Wednesdays only
+TH = Thursdays only
+FR = Fridays only
+SS = School days only</p>
+<p>note: ignore "E" flag</p>
+<p>&ndash; e.g. "RR-PUO"</p>
+<h4>"run" objects have the following attributes:</h4>
+<p>transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+run_id        numeric string
+&ndash; the unique identifier of each run
+&ndash; e.g. "1464"
+num_skipped        integer
+&ndash; the number of stops skipped for the run, applicable to train; a number greater than zero indicates either a limited express or express service
+&ndash; e.g. 0
+destination_id        numeric string
+&ndash; the stop_id of the destination, i.e. the last stop for the run
+&ndash; e.g. "1044"
+destination_name        string
+&ndash; the location_name of the destination, i.e. the last stop for the run
+&ndash; e.g. "Craigieburn"</p>
+<h4>"platform" objects have the following attributes:</h4>
+<p>realtime_id        string
+&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
+&ndash; e.g. "0"</p>
+<h4>"stop" objects have these attributes:</h4>
+<p>suburb        string
+&ndash; the suburb name
+&ndash; e.g. "Belgrave"
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
+stop_id        numeric string
+&ndash; the unique identifier of each stop
+&ndash; e.g. "1234"
+location_name        string
+&ndash; the name of the stop based on a concise geographic description
+&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
+lat        decimal number
+&ndash; geographic coordinate of latitude
+&ndash; e.g. -37.82005
+lon        decimal number
+&ndash; geographic coordinate of longitude
+&ndash; e.g. 144.95047
+distance        decimal number
+&ndash;returns zero in the context of this API</p>
+<h4>"direction" objects have the following attributes:</h4>
+<p>linedir_id        numeric string
+&ndash; unique identifier of a particular line and direction
+&ndash; e.g. "21"
+direction_id        numeric string
+&ndash; unique identifier of a direction
+&ndash; e.g. "0"
+direction_name        string
+&ndash; name of the direction of the service (e.g. "0" signifies "city")
+&ndash; e.g. "City (Flinders Street)"</p>
+<h4>"line" objects have these attributes:</h4>
+<p>transport_type        string
+&ndash; the mode of transport serviced by the line
+&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
+line_id        numeric string
+&ndash; the unique identifier of each line
+&ndash; e.g. "1818"
+line_name        string
+&ndash; the name of the line
+&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway &amp; Frankston Station "
+line_number        string
+&ndash; the line number that is presented to the public (i.e. not the "line_id")
+&ndash; e.g. "970"</p>
+<h3>Example use case</h3>
+<p>Next Janelle wants to enhance her tourist app so it can show a basic timetable for any of the departure times selected by tourists (i.e. returned through Broad Next Departures). She uses the Stopping Pattern API to do this.</p>
+<ul>
+<li>Example selection: 2:31pm service departing Jolimont-MCG Train Station on the Hurstbridge Line towards Eltham</li>
+<li>Example request
+<code>http://timetableapi.ptv.vic.gov.au/v2/mode/0/run/21173/stop/1104/stopping-pattern?for_utc=2014-01-20T03:18:08Z&amp;devid=4&amp;signature=2CACC8A77A24452DEC110FD948906EBE4F10DC7B</code></li>
+<li>Example response <a href="#fig-exampleresponse-stopping"></a></li>
+</ul>
+<div id="fig-exampleresponse-stopping">
+  <pre>
+{                            
+  "values": [
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Melbourne City",
+          "transport_type": "train",
+          "stop_id": 1071,
+          "location_name": "Flinders Street",
+          "lat": -37.81831,
+          "lon": 144.966965,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:19:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Melbourne City",
+          "transport_type": "train",
+          "stop_id": 1181,
+          "location_name": "Southern Cross",
+          "lat": -37.8183327,
+          "lon": 144.95253,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:22:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Melbourne City",
+          "transport_type": "train",
+          "stop_id": 1068,
+          "location_name": "Flagstaff",
+          "lat": -37.8119774,
+          "lon": 144.955658,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:24:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Melbourne City",
+          "transport_type": "train",
+          "stop_id": 1120,
+          "location_name": "Melbourne Central",
+          "lat": -37.8099365,
+          "lon": 144.9626,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:26:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Melbourne City",
+          "transport_type": "train",
+          "stop_id": 1155,
+          "location_name": "Parliament",
+          "lat": -37.8110542,
+          "lon": 144.9729,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:28:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "East Melbourne",
+          "transport_type": "train",
+          "stop_id": 1104,
+          "location_name": "Jolimont-MCG",
+          "lat": -37.81653,
+          "lon": 144.9841,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:31:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Richmond",
+          "transport_type": "train",
+          "stop_id": 1207,
+          "location_name": "West Richmond",
+          "lat": -37.8149452,
+          "lon": 144.991425,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:32:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Richmond",
+          "transport_type": "train",
+          "stop_id": 1145,
+          "location_name": "North Richmond",
+          "lat": -37.8103943,
+          "lon": 144.9925,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:34:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Abbotsford",
+          "transport_type": "train",
+          "stop_id": 1043,
+          "location_name": "Collingwood",
+          "lat": -37.8045235,
+          "lon": 144.993744,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:35:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Abbotsford",
+          "transport_type": "train",
+          "stop_id": 1201,
+          "location_name": "Victoria Park",
+          "lat": -37.7991562,
+          "lon": 144.994446,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:37:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Clifton Hill",
+          "transport_type": "train",
+          "stop_id": 1041,
+          "location_name": "Clifton Hill",
+          "lat": -37.7886543,
+          "lon": 144.995422,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:39:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Northcote",
+          "transport_type": "train",
+          "stop_id": 1209,
+          "location_name": "Westgarth",
+          "lat": -37.7806168,
+          "lon": 144.999237,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:41:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Northcote",
+          "transport_type": "train",
+          "stop_id": 1053,
+          "location_name": "Dennis",
+          "lat": -37.7791824,
+          "lon": 145.00824,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:43:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Fairfield",
+          "transport_type": "train",
+          "stop_id": 1065,
+          "location_name": "Fairfield",
+          "lat": -37.7791748,
+          "lon": 145.0169,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:44:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Alphington",
+          "transport_type": "train",
+          "stop_id": 1004,
+          "location_name": "Alphington",
+          "lat": -37.7783966,
+          "lon": 145.03125,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:46:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Ivanhoe",
+          "transport_type": "train",
+          "stop_id": 1050,
+          "location_name": "Darebin",
+          "lat": -37.7749634,
+          "lon": 145.038483,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:48:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Ivanhoe",
+          "transport_type": "train",
+          "stop_id": 1101,
+          "location_name": "Ivanhoe",
+          "lat": -37.768898,
+          "lon": 145.045425,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:50:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Eaglemont",
+          "transport_type": "train",
+          "stop_id": 1056,
+          "location_name": "Eaglemont",
+          "lat": -37.7635841,
+          "lon": 145.05394,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:51:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Heidelberg",
+          "transport_type": "train",
+          "stop_id": 1093,
+          "location_name": "Heidelberg",
+          "lat": -37.7570763,
+          "lon": 145.060684,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:53:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Rosanna",
+          "transport_type": "train",
+          "stop_id": 1168,
+          "location_name": "Rosanna",
+          "lat": -37.7428741,
+          "lon": 145.066147,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:56:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Macleod",
+          "transport_type": "train",
+          "stop_id": 1117,
+          "location_name": "Macleod",
+          "lat": -37.72601,
+          "lon": 145.069153,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T03:59:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Watsonia",
+          "transport_type": "train",
+          "stop_id": 1203,
+          "location_name": "Watsonia",
+          "lat": -37.7109528,
+          "lon": 145.0838,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T04:02:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Greensborough",
+          "transport_type": "train",
+          "stop_id": 1084,
+          "location_name": "Greensborough",
+          "lat": -37.70395,
+          "lon": 145.108246,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T04:08:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Montmorency",
+          "transport_type": "train",
+          "stop_id": 1130,
+          "location_name": "Montmorency",
+          "lat": -37.7152977,
+          "lon": 145.1215,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T04:11:00Z",
+      "time_realtime_utc": null,
+      "flags": ""
+    },
+    {
+      "platform": {
+        "realtime_id": 0,
+        "stop": {
+          "suburb": "Eltham",
+          "transport_type": "train",
+          "stop_id": 1062,
+          "location_name": "Eltham",
+          "lat": -37.71355,
+          "lon": 145.147827,
+          "distance": 0.0
+        },
+        "direction": {
+          "linedir_id": 0,
+          "direction_id": 8,
+          "direction_name": "Hurstbridge",
+          "line": {
+            "transport_type": "train",
+            "line_id": 8,
+            "line_name": "Hurstbridge",
+            "line_number": "Hurstbridge"
+          }
+        }
+      },
+      "run": {
+        "transport_type": "train",
+        "run_id": 21173,
+        "num_skipped": 0,
+        "destination_id": 0,
+        "destination_name": ""
+      },
+      "time_timetable_utc": "2014-01-20T04:15:00Z",
+      "time_realtime_utc": null,
+      "flags": "E"
+    }
+  ]
+}
+</pre>
+</div>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./6-8-stopsonaline.html'>
+            Stops on a Line
+          </a>
+        </b>
+        <br />
+        <h2>Stops on a Line</h2>
+<h3>Version Number</h3>
+<p>2.0.0</p>
+<h3>Description</h3>
+<p>The Stops on a Line API returns a list of all the stops for a requested line, ordered by location name.</p>
+<h3>Request URL</h3>
+<p>base URL
+<code>/v2/mode/%@/line/%@/stops-for-line?devid=%@&amp;signature=%@</code></p>
+<h3>Parameters</h3>
+<ul>
+<li>mode        =        a number representing the transport_type of the stop, defined as follows:<ul>
+<li>0        Train (metropolitan)</li>
+<li>1        Tram</li>
+<li>2        Bus (metropolitan and regional, but not V/Line) </li>
+<li>3        V/Line train and coach</li>
+<li>4        NightRider 
+e.g. "2"</li>
+</ul>
+</li>
+<li>
+<p>line        =        the line_id of the requested line</p>
+<p>e.g. "1818"</p>
+</li>
+<li>
+<p>devid        =        the developer ID supplied in your email from PTV</p>
+</li>
+<li>signature        =        the customised message digest calculated using the method in the Quick start guide</li>
+</ul>
+<h3>Response</h3>
+<p>Returns a collection of JSON "stop" objects, with the attributes below, ordered by location_name:</p>
+<p>suburb        string
+&ndash; the suburb name
+&ndash; e.g. "Belgrave"
+transport_type        string
+&ndash; the mode of transport serviced by the stop
+&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
+stop_id        numeric string
+&ndash; the unique identifier of each stop
+&ndash; e.g. "1108"
+location_name        string
+&ndash; the name of the stop based on a concise geographic description
+&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
+lat        decimal number
+&ndash; geographic coordinate of latitude
+&ndash; e.g. -37.82005
+lon        decimal number
+&ndash; geographic coordinate of longitude
+&ndash; e.g. 144.95047
+distance        decimal number
+&ndash; not used; returns zero</p>
+<p>For more information on the data structures, check out the JSON object structure.</p>
+<h3>Example use case</h3>
+<p>Janelle's last development for the app is to help tourists understand where different trains, trams and buses go &ndash; especially bus routes which tend to be a bit less obvious.
+Building on the previous APIs, she uses the Stops on a Line API to do this.</p>
+<ul>
+<li>Example selection: Route 901 - Frankston - Melbourne Airport (SMARTBUS Service)</li>
+<li>Example request
+<code>http://timetableapi.ptv.vic.gov.au/v2/mode/2/line/7531/stops-for-line?devid=4&amp;signature=2BFFB8A77A24452CED110FD869906EBE4F10DC7B</code></li>
+<li>Example response  <a href="#fig-exampleresponse-stops"></a>
+<div id="fig-exampleresponse-stops">
+<pre>
+[
+  {  <br />
+    "suburb": "Plenty",
+    "transport_type": "bus",
+    "stop_id": 28066, 
+    "location_name": "200 Yan Yean Rd ",
+    "lat": -37.6616554,
+    "lon": 145.124359,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Wantirna South",
+    "transport_type": "bus",
+    "stop_id": 15968,
+    "location_name": "500 Stud Rd ",
+    "lat": -37.8816528,
+    "lon": 145.232788,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Scoresby",
+    "transport_type": "bus",
+    "stop_id": 15150,
+    "location_name": "500 Stud Rd ",
+    "lat": -37.8827934,
+    "lon": 145.233047,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Dandenong South",
+    "transport_type": "bus",
+    "stop_id": 19958,
+    "location_name": "Abbotts Rd/Frankston-Dandenong Rd ",
+    "lat": -38.0308762,
+    "lon": 145.211945,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Wantirna",
+    "transport_type": "bus",
+    "stop_id": 15980,
+    "location_name": "Ainsdale Ave/Boronia Rd ",
+    "lat": -37.8485641,
+    "lon": 145.2304,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Montmorency",
+    "transport_type": "bus",
+    "stop_id": 30223,
+    "location_name": "Airlie Rd/Para Rd ",
+    "lat": -37.7228165,
+    "lon": 145.113159,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Blackburn",
+    "transport_type": "bus",
+    "stop_id": 22000,
+    "location_name": "Albert St/Railway Rd ",
+    "lat": -37.8198967,
+    "lon": 145.152145,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Nunawading",
+    "transport_type": "bus",
+    "stop_id": 30228,
+    "location_name": "Alexander St/Whitehorse Rd ",
+    "lat": -37.81692,
+    "lon": 145.189316,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Carrum Downs",
+    "transport_type": "bus",
+    "stop_id": 19965,
+    "location_name": "Amayla Cres/Frankston-Dandenong Rd ",
+    "lat": -38.10478,
+    "lon": 145.168015,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Dandenong South",
+    "transport_type": "bus",
+    "stop_id": 19950,
+    "location_name": "Amberley Cres/Frankston-Dandenong Rd ",
+    "lat": -38.00275,
+    "lon": 145.21785,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Wantirna",
+    "transport_type": "bus",
+    "stop_id": 15976,
+    "location_name": "Amesbury Ave/Boronia Rd ",
+    "lat": -37.8513374,
+    "lon": 145.239075,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Doncaster East",
+    "transport_type": "bus",
+    "stop_id": 21008,
+    "location_name": "Andersons Creek Rd/Blackburn Rd ",
+    "lat": -37.77661,
+    "lon": 145.164108,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Plenty",
+    "transport_type": "bus",
+    "stop_id": 29697,
+    "location_name": "Aqueduct Rd/Diamond Creek Rd ",
+    "lat": -37.6784325,
+    "lon": 145.1248,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Ringwood",
+    "transport_type": "bus",
+    "stop_id": 15990,
+    "location_name": "Arlington St/Wantirna Rd ",
+    "lat": -37.81924,
+    "lon": 145.227249,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Scoresby",
+    "transport_type": "bus",
+    "stop_id": 15148,
+    "location_name": "Armin St/Stud Rd ",
+    "lat": -37.88876,
+    "lon": 145.233,
+    "distance": 0.0
+  },
+  {
+    "suburb": "South Morang",
+    "transport_type": "bus",
+    "stop_id": 25503,
+    "location_name": "Armstrong Rd/Kurrak Rd ",
+    "lat": -37.65187,
+    "lon": 145.109146,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Blackburn",
+    "transport_type": "bus",
+    "stop_id": 30212,
+    "location_name": "Ashburn Pl/Whitehorse Rd ",
+    "lat": -37.81816,
+    "lon": 145.162079,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Templestowe",
+    "transport_type": "bus",
+    "stop_id": 21648,
+    "location_name": "Atkinson St/Williamsons Rd ",
+    "lat": -37.75579,
+    "lon": 145.134674,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Templestowe",
+    "transport_type": "bus",
+    "stop_id": 22124,
+    "location_name": "Aumann Dr/Reynolds Rd ",
+    "lat": -37.7623444,
+    "lon": 145.157822,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Rowville",
+    "transport_type": "bus",
+    "stop_id": 15956,
+    "location_name": "Avalon Rd/Stud Rd ",
+    "lat": -37.9222755,
+    "lon": 145.234085,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Greensborough",
+    "transport_type": "bus",
+    "stop_id": 10883,
+    "location_name": "Avandina Cres/Diamond Creek Rd ",
+    "lat": -37.6934547,
+    "lon": 145.11232,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Dallas",
+    "transport_type": "bus",
+    "stop_id": 26077,
+    "location_name": "Avoca St/Pascoe Vale Rd ",
+    "lat": -37.6668053,
+    "lon": 144.923279,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Doncaster East",
+    "transport_type": "bus",
+    "stop_id": 21000,
+    "location_name": "Avocet St/Blackburn Rd ",
+    "lat": -37.79577,
+    "lon": 145.160645,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Mitcham",
+    "transport_type": "bus",
+    "stop_id": 30209,
+    "location_name": "Barkly Tce/Whitehorse Rd ",
+    "lat": -37.81583,
+    "lon": 145.198563,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Coolaroo",
+    "transport_type": "bus",
+    "stop_id": 25778,
+    "location_name": "Barry Rd/Pascoe Vale Rd ",
+    "lat": -37.66433,
+    "lon": 144.922226,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Carrum Downs",
+    "transport_type": "bus",
+    "stop_id": 19969,
+    "location_name": "Bawden St/Frankston-Dandenong Rd - East ",
+    "lat": -38.0915,
+    "lon": 145.1794,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Carrum Downs",
+    "transport_type": "bus",
+    "stop_id": 28676,
+    "location_name": "Bawden St/Frankston-Dandenong Rd - West ",
+    "lat": -38.09126,
+    "lon": 145.179047,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Montmorency",
+    "transport_type": "bus",
+    "stop_id": 28932,
+    "location_name": "Beleura Gr/Main Rd ",
+    "lat": -37.7256432,
+    "lon": 145.123184,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Rowville",
+    "transport_type": "bus",
+    "stop_id": 13764,
+    "location_name": "Bergins Rd/Stud Rd ",
+    "lat": -37.93004,
+    "lon": 145.232834,
+    "distance": 0.0
+  },
+  {
+    "suburb": "Doncaster East",
+    "transport_type": "bus",
+    "stop_id": 21003,
+    "location_name": "Beverley St/Blackburn Rd ",
+    "lat": -37.791996,
+    "lon": 145.161362,
+    "distance": 0.0
+  }
+] 
+</pre></div></li>
+</ul>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./7-1-jsonstructure.html'>
+            JSON object structure
+          </a>
+        </b>
+        <br />
+        <h2>JSON object structure</h2>
+<p>The diagrams below show the structure of the JSON objects returned from the API calls.</p>
+<p>Stop data is returned through three different pathways: as a stop object, as part of a “locations” object, and as a type of “result” object.</p>
+<p>Line data is returned through two pathways: as a “line” object and as a type of “result” object.</p>
+<p>Timetable data is returned through “value” objects.</p>
+<h3>"result" objects</h3>
+<p>These are returned through the Stops Nearby and Search APIs. The data structure looks like this:</p>
+<p>"result" object</p>
+<h4>"stop" object:</h4>
+<p>suburb
+transport_type
+stop_id
+location_name
+lat
+lon
+distance
+type = "stop"</p>
+<h4>"line" object:</h4>
+<p>transport_type
+line_id
+line_name
+line_number
+type = "line"</p>
+<h3>"locations" objects</h3>
+<p>These are returned through the Transport POIs by Map API. The data structure looks like this:</p>
+<p>"locations" object</p>
+<ul>
+<li>suburb</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+</ul>
+<p>"stop" object</p>
+<ul>
+<li>transport_type</li>
+<li>stop_id</li>
+</ul>
+<p>"outlet" object</p>
+<ul>
+<li>outlet_type</li>
+<li>business_name</li>
+</ul>
+<h4>"values" objects</h4>
+<p>These are returned via the three APIs which return timetable data: Broad Next Departures, Stopping Pattern and Specific Next Departures. The data structure looks like this:</p>
+<ul>
+<li>"values" object</li>
+<li>"platform"</li>
+<li>"run"</li>
+<li>time_timetable_utc</li>
+<li>time_realtime_utc</li>
+<li>flags</li>
+</ul>
+<p>"run" object
+  "platform" object
+  transport_type
+run_id
+num_skipped
+destination_id
+destination_name</p>
+<p>realtime_id
+"stop"
+"direction"</p>
+<p>"stop" object</p>
+<p>"direction" object
+  suburb
+transport_type
+stop_id
+location_name
+lat
+lon
+distance</p>
+<p>linedir_id
+direction_id
+direction_name
+"line"</p>
+<p>"line" object
+  transport_type<br />
+line_id
+line_name
+line_number</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./8-1-dataquality.html'>
+            Data Quality Statement
+          </a>
+        </b>
+        <br />
+        <h2>Data Quality Statement</h2>
+<h3>Data Source:</h3>
+<p>PTV Timetable API</p>
+<h3>Institutional Environment:</h3>
+<p>Data Collector(s):  Data is created and collected by Victorian public transport train, tram and bus operators and by Public Transport Victoria.</p>
+<h3>Collection authority:</h3>
+<p>Public Transport Victoria</p>
+<h3>Data Compiler(s):</h3>
+<p>Public Transport Victoria (a government agency) compiles the data.
+Additional information: Timetable data changes frequently (for example, over summer, or for planned works) and is updated on an as needs basis. Changes are advertised on the PTV website. As the data is accessed through an API, the data released is always up-to-date.</p>
+<h3>Relevance:</h3>
+<h4>Data topic:</h4>
+<p>The data collected is the public transport timetable for services in the state of Victoria (including Melbourne metropolitan services).</p>
+<h4>Level of geography:</h4>
+<p>The state of Victoria.</p>
+<h4>Key Data Items:</h4>
+<p>Timetable, station/stop locations, line/route paths, and myki ticket outlets.</p>
+<h4>Additional information:</h4>
+<p>The PTV Timetable API does not provide access to the PTV journey planner, the Yarra Trams TramTRACKER feed, nor the Google Geocoding API (used by PTV to search addresses).</p>
+<h3>Timeliness:</h3>
+<h4>Data collected:</h4>
+<p>The data is collected on an as needs basis and is compiled weekly for release.
+Data available: The data is made accessible through the PTV Timetable API, its availability is current.</p>
+<h4>Referenced Period:</h4>
+<p>Approximately 14 days.</p>
+<h4>Additional information:</h4>
+<p>Public transport timetable, stop/station, route and line data changes frequently. In order to ensure you access the most up-to-date data, it is strongly recommended you use the API dynamically.</p>
+<h3>Accuracy:</h3>
+<h4>Method of Collection:</h4>
+<p>The data is collected both manually and through electronic file.</p>
+<h4>Data Adjustments:</h4>
+<p>The data contains interpolated times for stops on bus routes that are not timing points.
+Collection size: All public transport services in the State of Victoria.
+Additional information: The timetable data released is consistent with the data on the PTV website and through the PTV apps.</p>
+<h3>Coherence</h3>
+<h4>Consistency over time:</h4>
+<p>The data is consistent over time in that the same set of data (i.e. pertaining to services provided by public transport operators) is consistently collected and released.</p>
+<h4>Consistency of jurisdictions:</h4>
+<p>Unknown.</p>
+<h4>Time series:</h4>
+<p>There is not a consistent time series for this data. Timetable data changes frequently; PTV only keeps the current timetable data, it does not archive the old data once it has changed.</p>
+<h3>Interpretability:</h3>
+<h4>Context:</h4>
+<p>The PTV Timetable API gives the public access to raw public transport timetable data. It is not a journey planner service.</p>
+<h3>Accessibility:</h3>
+<p>Additional information: PTV has also released other public transport data through the DataVic website: www.data.vic.gov.au.</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./8-2-glossary.html'>
+            Getting help
+          </a>
+        </b>
+        <br />
+        <h1>Getting help</h1>
+<h2>Glossary</h2>
+<p>cluster  is a group of geographically concentrated POIs</p>
+<p>Cross Street  is a street that intersects the street a tram or bus is travelling along (i.e. the Travel Street)</p>
+<p>Google Geocoding API  is a Google API that provides access to a service which converts addresses into geographic coordinates (and vice versa)</p>
+<p>journey planner  is a PTV service that allows people to plan journeys from one specific point to another</p>
+<p>landmark  is a prominent or easily identifiable building or other place that is used to mark a location, for example, a shopping centre, school, hospital, or park</p>
+<p>line  is a collection of route variations or paths that travel in the same direction</p>
+<p>location  is the physical place of a stop or outlet, described by the "location_name" attribute</p>
+<p>outlet  is a myki ticket outlet; this can be a retail outlet (i.e. shop) or a stop outlet (i.e. machine located at a station, tram stop or bus stop)</p>
+<p>platform  a data object returned through the API made up of stop, line and direction information</p>
+<p>POI  stops and/or myki ticket outlets (collectively known as points of interest &ndash; i.e. POIs)</p>
+<p>route  is a collection of route variations or paths that travel in the same direction; in the data, a "route" is called a "line"</p>
+<p>run  is a specific service i.e. the transport type or mode, line, direction and time are all specified</p>
+<p>stop  is any of the following: a train station, tram stop, bus stop, or even a bus bay (e.g. at a shopping centre)</p>
+<p>stopping pattern  is the sequence of stops that a vehicle actually stops at on a line for any particular run</p>
+<p>TramTRACKER  is a real-time feed for tram services provided by Yarra Trams</p>
+<p>Travel Street  is the street that a tram or bus is travelling along at any given point in its run</p>
+<p>UTC  stands for Coordinated Universal Time; it is the primary time standard that regulates clocks and time</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./8-3-guide-to-pt.html'>
+            Guide to understanding PT data
+          </a>
+        </b>
+        <br />
+        <h2>Guide to understanding public transport data</h2>
+<p>This part of the document is designed to give you a crash course in public transport data concepts and terms relevant to the API. It's not meant to be a comprehensive guide to all public transport data in the known universe.
+We want to help you understand the data that is returned through the API so you can get the most out of it.
+We've created a fictional town called Somewhere (diagram 1) to help illustrate some of the key concepts.</p>
+<p>Public transport is easy to understand, right? There's trains, trams and buses, some routes, a timetable, some stations and stops…it's all pretty simple stuff, right?
+Well, yes. And also no.
+Public transport seems pretty simple on the surface, but the data that underpins it is a very complex beast. You see, there's public transport data, and then there's how it's presented to the public. A lot of effort goes into making public transport ‘nice' for the public!
+Let's start with the concept of a stop. In our data, a stop can be a tram stop, a bus stop, a bus bay at a shopping centre or junction, or a train station.
+So all of the bus stops and the train stations in Somewhere (diagram 2) would be returned as stops.</p>
+<p>You can identify what kind of stop it is through the transport_type attribute. These can be train, tram, bus, V/Line train and coach, or NightRider.
+All stops have a unique identifier (stop_id attribute) and also a location name. Location names describe as concisely as possible the physical location of the stop.
+For train stations, the location name is the name of the station &ndash; for example, "Somewhere Station".
+For tram and bus stops, location names are determined by a hierarchy of available stop information. The hierarchy is:
+Landmark &gt; Cross Street &gt; Travel Street
+where Travel Street is the street the vehicle is travelling on, and Cross Street is a street that intersects, or crosses, it.
+Depending on the content of those fields in our database, the location name can be Landmark_Travel Street, or Cross Street_Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").
+Diagram 3 shows the bus stop location names in Somewhere.</p>
+<p>On a map, a stop may appear to be a single point on a road (tram or bus) or building (train). When you zoom in, however, you will notice that it may in fact be made up of several separate stops, each with its own unique stop ID.</p>
+<p>Stops and retail ticket outlets make up public transport points of interest (POIs). Ticket outlet POIs also have a location name, as well as a business name. The town of Somewhere has two ticket outlet POIs and 6 stop POIs (diagram 4).</p>
+<p>Next let's look at routes. The public knows train services by the name of the line (for example, "Alamein line"), and tram and bus routes by a number, or a name. For example, the Route 112 tram or the Ballarat-Bendigo coach.
+In public transport data, however, each route is made up of multiple route variations, which are the geographic paths that a vehicle takes under the name of a route. Each route variation or path is made up of a sequence of stops in a particular order (and a path may pass the same stop more than once).
+There can be different paths at different times of day, in different directions or when a vehicle (usually a bus) deviates to a school or shopping centre.
+A collection of route variations or paths make up a line. Mostly lines run in two directions, however they sometimes run in a loop. In our data a line can be any of the following transport type: train, tram, bus, V/Line rail and coach, or NightRider.
+In Somewhere, the Route 007 bus is a line made up of two paths (diagram 5).</p>
+<p>The sequence of stops that a vehicle actually stops at on a path for any particular trip (also known as a service or run) is known as a stopping pattern. For example, a vehicle may stop at all stops on a particular path, or it may travel express and skip some stops on the path.
+A timetable overlays times onto the movement of a vehicle on a particular run. The times take into account the path that the vehicle takes, as well as the stopping pattern.
+Variations are explained through the use of flags. A flag might indicate that a particular stopping pattern or path is taken on school days only, for example, or only on a particular day of the week. It can also indicate that reservations are required for a service or that the service is drop off or pick up only at a particular stop.
+The Route 007 bus that runs from Somewhere Shopping Centre to Somewhere Station has two paths and three stopping patterns. These are indicated in the timetable for that route (diagram 6).</p>
+<p>We hope you now understand the main timetable data concepts a little better, to help you get the most out of our API.</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./8-4-faqs.html'>
+            FAQs
+          </a>
+        </b>
+        <br />
+        <h2>FAQs</h2>
+<h3>Q.  What does the PTV Timetable API do?</h3>
+<p>A.  The PTV Timetable API provides a way to directly and dynamically access the most up-to-date stop, line and timetable data held by PTV. By creating an API we are increasing the opportunities for developers to take our data and re-use it in innovative way.</p>
+<h3>Q.  Who is the PTV Timetable API for?</h3>
+<p>A.  Our API is for everyone who wants to take our data and re-use it in a web or smartphone app.</p>
+<h3>Q.  Can I use the API to download all the timetable data?</h3>
+<p>A.  The API is not designed to download all the timetable data at once. It works most effectively when used dynamically within an app as that is the way to guarantee you're always accessing &ndash; and providing &ndash; the most up-to-date data. If you want to use the API to get a dump of all of the data, please contact us.</p>
+<h3>Q.  Some of the timetable results I get using the API are different to those the PTV journey planner provides &ndash; why?</h3>
+<p>A.  The PTV journey planner is coded with a number of business rules that reflect public transport operational requirements. This can include noting which multi-modal services are guaranteed connections, for example, or requiring passengers to board a regional train half an hour before it is due to leave.
+The API accesses raw timetable data, not journey planner results. Your timetable results will reflect the actual timetable.</p>
+<h3>Q.  Is the timetable data available in a GTFS format?</h3>
+<p>A.  Timetable data is not available in GTFS format. The operational needs of our business dictate the format of our data and the methods to access it. This is why the API we're releasing is the same as the API that we use for our own online products.</p>
+<h3>Q.  What programming languages can I use with the API?</h3>
+<p>A.  The PTV Timetable API can work with all programming languages. Because it is a programming language agnostic interface, as long as the language you are using supports HTTP protocols, you can use our API.</p>
+<h3>Q.  Is real-time data available?</h3>
+<p>A.  PTV gets real-time data for trams through Yarra Trams' TramTRACKER system. Contact Yarra Trams to find out more.
+There are currently no real-time data feeds for trains and buses.</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./8-5-contact-details.html'>
+            Contact details
+          </a>
+        </b>
+        <br />
+        <h2>Contact details</h2>
+<h3>Got a question?</h3>
+<p>Check our FAQs &ndash; we may already have it covered.
+If you're unsure about some of the public transport terms returned in the data, take a look through our Guide to understanding public transport data. Alternatively, check the Glossary if there is other terminology you're unsure about.
+If you still can't find what you're looking for, you can send us your question &ndash; or feedback &ndash; through the PTV Timetable API page on data.vic.gov.au. 
+Just click the Add comment button at the bottom of the page, then under "Message Type", select Feedback from the two radio buttons. Fill in the form and DataVic will then send your question or feedback through to us.</p>
+<p>If you want to ask about the release of other data sets, you can do so through the Suggest a dataset form on data.vic.gov.au. </p>
+<h3>API mailing list</h3>
+<p>Once you have registered for a key, you'll automatically be signed up to our mailing list. It's our way of keeping you up-to-date with information on version updates, maintenance outages or other information about the API.</p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+        <b>
+          <a href='./8-6-examples.html'>
+            Contact details
+          </a>
+        </b>
+        <br />
+        <h2>Appendix</h2>
+<h3>Sample code for creating a signature</h3>
+<p>You'll need to pass along a signature and a developer ID &ndash; or "devid" &ndash; with every request using HTTP GET. 
+The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key.</p>
+<h3>Example in .net C</h3>
+<p>The following is the .net C#  code snippet for the signature calculation.<a href="#fig-example-csharp"></a>
+<div id="fig-example-csharp">
+Note: key values are used for example purposes only.</p>
+<pre>
+string key = "9c132d31-6a30-4cac-8d8b-8a1970834799"; // supplied by PTV
+int developerId = 2; // supplied by PTV
+string url = "/v2/mode/2/line/787/stops-for-line"; // the PTV api method we want
+
+// add developer id
+url = string.Format("{0}{1}devid={2}",url,url.Contains("?") ? "&" : "?",developerId);
+System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+// encode key
+byte[] keyBytes = encoding.GetBytes(key);
+// encode url
+byte[] urlBytes = encoding.GetBytes(url);
+byte[] tokenBytes = new System.Security.Cryptography.HMACSHA1(keyBytes).ComputeHash(urlBytes);
+var sb = new System.Text.StringBuilder();
+// convert signature to string
+Array.ForEach<byte>(tokenBytes, x => sb.Append (x.ToString("X2")));
+// add signature to url
+url = string.Format("{0}&signature={1}",url,sb.ToString());
+
+
+// extra code to add base URL &ndash; the resultant url should be:
+//  http://timetableapi.ptv.vic.gov.au/v2/mode/2/line/787/stops-for-line?devid=2&signature=D5474F344CDAA7B92F2253169F6C1D66C1A15001
+</pre>
+
+</div>
+
+<h3>Example in Java</h3>
+<p>The following is the Java code snippet for the signature calculation.
+Note: key values are used for example purposes only.<a href="#fig-example-java"></a>
+<div id="fig-example-java">
+<pre></p>
+<div class="codehilite"><pre>/**
+ * Generates a signature using the HMAC-SHA1 algorithm 
+ * 
+ * @param privateKey - Developer Key supplied by PTV
+ * @param uri - request uri (Example :/v2/HealthCheck) 
+ * @param developerId - Developer ID supplied by PTV
+ * @return Unique Signature Value  
+ */
+public String generateSignature(final String privateKey, final String uri, final int developerId)
+{
+    String encoding = &quot;UTF-8&quot;;
+    String HMAC_SHA1_ALGORITHM = &quot;HmacSHA1&quot;;
+    String signature;
+    StringBuffer uriWithDeveloperID = new StringBuffer();
+    uriWithDeveloperID.append(uri).append(uri.contains(&quot;?&quot;) ? &quot;&amp;&quot; : &quot;?&quot;).append(&quot;devid=&quot;+developerId);     
+    try
+    {
+        byte[] keyBytes = privateKey.getBytes(encoding);
+        byte[] uriBytes = uriWithDeveloperID.toString().getBytes(encoding);
+        Key signingKey = new SecretKeySpec(keyBytes, HMAC_SHA1_ALGORITHM);
+        Mac mac = Mac.getInstance(HMAC_SHA1_ALGORITHM);
+        mac.init(signingKey);
+        byte[] signatureBytes = mac.doFinal(uriBytes);
+        StringBuffer buf = new StringBuffer(signatureBytes.length * 2);
+        for (byte signatureByte : signatureBytes)
+        {
+            int intVal = signatureByte &amp; 0xff;
+            if (intVal &lt; 0x10)
+            {
+                buf.append(&quot;0&quot;);
+            }
+            buf.append(Integer.toHexString(intVal));
+        }
+        signature = buf.toString();
+    }
+    catch (UnsupportedEncodingException e)
+    {
+        throw new RuntimeException(e);
+    }
+    catch (NoSuchAlgorithmException e)
+    {
+        throw new RuntimeException(e);
+    }
+    catch (InvalidKeyException e)
+    {
+        throw new RuntimeException(e);
+    }
+    return signature.toString().toUpperCase();
+}
+
+/**
+ * Generate full URL using generateSignature() method
+ * 
+ * @param privateKey - Developer Key supplied by PTV (Example :  &quot;92dknhh31-6a30-4cac-8d8b-8a1970834799&quot;);
+ * @param uri - request uri (Example :&quot;/v2/mode/2/line/787/stops-for-line) 
+ * @param developerId - Developer ID supplied by PTV( int developerId )
+ * @return - Full URL with Signature
+ */
+public String generateCompleteURLWithSignature(final String privateKey, final String uri, final int developerId)
+{
+
+    String baseURL=&quot;http://timetableapi.ptv.vic.gov.au&quot;;
+    StringBuffer url = new StringBuffer(baseURL).append(uri).append(uri.contains(&quot;?&quot;) ? &quot;&amp;&quot; : &quot;?&quot;).append(&quot;devid=&quot;+developerId).append(&quot;&amp;signature=&quot;+generateSignature(privateKey, uri, developerId));
+    return url.toString();
+
+}
+</pre></div>
+
+
+<p></pre>
+</div></p>
+<h3>Example in Objective C</h3>
+<p>The following is the Objective C code snippet for the signature calculation.
+Note: key values are used for example purposes only. <a href="#fig-example-objectivec"></a>
+<div id="fig-example-objectivec">
+<pre>
+-(NSURL<em>) generateURLWithDevIDAndKey:(NSString</em>)urlPath {</p>
+<div class="codehilite"><pre>NSString *hardcodedURL = @&quot; http://timetableapi.ptv.vic.gov.au&quot;;
+NSString *hardcodedDevID = @&quot;developerID provided by PTV&quot;;
+NSString *hardcodedkey = @&quot;developer key provided by PTV&quot;;
+</pre></div>
+
+
+<p>/<em>    urlPath = @" http://timetableapi.ptv.vic.gov.au/v2/mode/2/line/787/stops-for-line";
+</em>/
+    NSRange deleteRange ={0,[hardcodedURL length]};
+    NSMutableString *urlString = [[NSMutableString alloc]initWithString:urlPath];
+    [urlString deleteCharactersInRange:deleteRange];
+    if( [urlString containsString:@"?"])
+        [urlString appendString:@"&amp;"];
+    else
+        [urlString appendString:@"?"];</p>
+<div class="codehilite"><pre>[urlString appendFormat:@&quot;devid=%@&quot;,hardcodedDevID];
+
+
+const char *cKey  = [hardcodedkey cStringUsingEncoding:NSUTF8StringEncoding];
+const char *cData = [urlString cStringUsingEncoding:NSUTF8StringEncoding];
+unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
+CCHmac(kCCHmacAlgSHA1, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+
+NSString *hash;
+
+NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+
+for(int i = 0; i &lt; CC_SHA1_DIGEST_LENGTH; i++)
+    [output appendFormat:@&quot;%02x&quot;, cHMAC[i]];
+hash = output;
+
+NSString* signature = [hash uppercaseString];
+NSString *urlSuffix = [NSString stringWithFormat:@&quot;devid=%@&amp;signature=%@&quot;, hardcodedDevID,signature];
+
+NSURL *url = [NSURL URLWithString:urlPath];
+NSString *urlQuery = [url query];
+if(urlQuery != nil &amp;&amp; [urlQuery length] &gt; 0){
+    url = [NSURL URLWithString:[NSString stringWithFormat:@&quot;%@&amp;%@&quot;,urlPath,urlSuffix]];
+}else{
+    url = [NSURL URLWithString:[NSString stringWithFormat:@&quot;%@?%@&quot;,urlPath,urlSuffix]];
+}
+
+return url;
+</pre></div>
+
+
+<p>}
+</pre>
+</div></p>
+        <br />
+       <div class='nav'>
+          
+        <br />
+        <br />
+
+
+       </div>
+      
+      <div class='nottimestamp'>
+        <i><a href='http://github.com/boscoh/supplescroll'>supplescroll</a></i>:lucid theme
+      </div>
+    </div>
+  </div>
+  <div id='figure-list' class='touchscroll'></div>
+</body>
+<script src='jquery-2.0.3.js' type='text/javascript'></script>
+<script src='jquery.scrollTo.js' type='text/javascript'></script>
+<script src='supplescroll.js' type='text/javascript'></script>
+<script src='page.js' type='text/javascript'></script>
