@@ -2,6 +2,9 @@ template: lucid.haml
 title: JSON object structure
 ---
 ---
+
+[Ed: This section was presented graphically in the Word document. It has not been fully converted - best refer to the original if you need this information. (It mostly seems redundant.)]
+
 ##JSON object structure
 The diagrams below show the structure of the JSON objects returned from the API calls.
 
@@ -19,22 +22,26 @@ These are returned through the Stops Nearby and Search APIs. The data structure 
 "result" object
   
 
-#### "stop" object:
-suburb
-transport_type
-stop_id
-location_name
-lat
-lon
-distance
-type = "stop"
+"stop" object: 
+<a href="#fig-stop-values"></a>
+
+* suburb
+* transport_type
+* stop_id
+* location_name
+* lat
+* lon
+* distance
+* type = "stop"
   
-####"line" object:
-transport_type
-line_id
-line_name
-line_number
-type = "line"
+"Line" object:
+<a href="#fig-line-values"></a>
+
+* transport_type
+* line_id
+* line_name
+* line_number
+* type = "line"
 
 ### "locations" objects
 These are returned through the Transport POIs by Map API. The data structure looks like this:
@@ -69,16 +76,17 @@ These are returned via the three APIs which return timetable data: Broad Next De
 * time_realtime_utc
 * flags
     
-  
+    
+"run" object:
+<a href="#fig-run-values"></a>
 
-"run" object
-  "platform" object
-  transport_type
-run_id
-num_skipped
-destination_id
-destination_name
-  
+* "platform" object
+* transport_type
+* run_id
+* num_skipped
+* destination_id
+* destination_name
+
 
   realtime_id
 "stop"

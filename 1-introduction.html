@@ -12,7 +12,7 @@
   <div id='main-text' class='touchscroll'>
     <div class='relative_position'>
       <h1>Introduction</h1>
-<h2>Important Editor's note</h2>
+<h2>Important editor's note</h2>
 <p>This document is a reformatted, somewhat edited, and <strong>currently incomplete</strong> unofficial version of the PTV API. It is maintained by <a href="http://stevebennett.me">Steve Bennett</a>, who has no relationship with PTV.  You can access the official PTV Timetable API <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">at data.vic.gov.au</a>. This web template is Embellish/<a href="https://github.com/boscoh/supplescroll">SuppleScroll</a> by Bosco Ho.</p>
 <p><em>Source: Licensed from Public Transport Victoria under a Creative Commons Attribution 3.0 Australia Licence.</em></p>
 <h3>Hello and welcome</h3>
@@ -35,13 +35,41 @@ PTV requests that you attribute this publication (and any material sourced from 
 <p>The data provided to you by PTV is provided 'as is' and PTV is not liable for how you use this data, how third parties use or rely on this data or any errors contained within the data. You are responsible for determining whether the data is suitable for your particular usage and purposes.</p>
 <h3>What you get with the PTV Timetable API</h3>
 <p>Our API gives you direct access to the PTV timetable data. The API allows you to query locations for timetable, line and stop data for all train, tram and bus, V/Line rail and coach, and NightRider services. It also includes access to myki ticket outlet data.</p>
+<blockquote>
+<p>In this document, "stop" means any train station, tram stop or bus stop. For more information, check out the [Ed: ?].</p>
+</blockquote>
 <p>The data will be updated weekly to take into account any planned timetable changes, for example, due to holidays or planned disruptions. (Any changes to the timetable notified by public transport operators on the day of operation will not be picked up.)</p>
+<blockquote>
+<p>PTV timetable data consists of the scheduled timetable. It is <strong>not</strong> real-time data nor service disruption information.</p>
+</blockquote>
 <p>The PTV timetable API is the same API currently used by PTV for our website and smartphone apps. PTV enhances these products by integrating its timetable data with TramTracker data, the Google geocoding API (which allows for address searching) and PTV's own journey planner service.</p>
+<blockquote>
+<p>The following are <strong>not included </strong> in the PTV Timetable API:</p>
+<ul>
+<li>
+<p>TramTracker data - this is available through [Ed: ?]</p>
+</li>
+<li>
+<p>An address geocoding API - available through search providers such as [Ed: ?]</p>
+</li>
+<li>
+<p>The PTV journey planner - this is not raw data but rather a service PTV provides</p>
+</li>
+</ul>
+</blockquote>
 <h3>Do's and don'ts</h3>
 <p>Timetables, stops, lines and even ticket outlets change frequently so to get the most out of the PTV Timetable API, we recommend you use it dynamically. That's the only way to ensure you're accessing the most up-to-date data and providing it to your audience through the app or service you create.</p>
+<blockquote>
+<p>Do use the API dynamically to get the most up-to-date data for your audience.</p>
+<p>Do not cache the data. If you want a dump of timetable data for a specific point in time, [Ed: ?].</p>
+<p>Do not hammer our servers. Do not use the API to make multiple requests for large sets of data in short periods of time.</p>
+</blockquote>
 <h3>Audience</h3>
 <p>The PTV Timetable API is for everyone. All members of the public, whether they are students, hobbyist app developers or companies, can access PTV timetable data using our API.
 PTV assumes that you know how to use APIs and do not provide instructions on how to code in any specific programming languages.</p>
+<blockquote>
+<p>PTV <strong>does not provide technical support</strong> for the API.&gt; All information required to use the API is included in this document.</p>
+</blockquote>
       <div class='timestamp'>
         <i><a href='http://github.com/boscoh/supplescroll'>supplescroll</a></i>:lucid theme
       </div>

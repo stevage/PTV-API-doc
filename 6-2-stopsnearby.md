@@ -9,7 +9,11 @@ title: Stops nearby
 ###Description
 Stops Nearby returns up to 30 stops nearest to a specified coordinate.
   
+> __"Stops"__ includes train stations as well as tram and bus stops.
+
 Applicable stops are returned as a collection in the JSON format.
+  
+> There are __no spatial constraints__ on how Stops Nearby retrieves stops. It will always return up to 30 stops near the passed latitude and longitude coordinates, even if some of those stops are (relatively) far away.
   
 ###Request URL
 
@@ -27,15 +31,17 @@ base URL
 Returns an array of JSON "result" objects for which the "type" equals "stop". A "stop" object is embedded within each "result". Stops are ordered by distance.
 For more information on the data structures, check out the JSON object structure.
 
-The "stop" object has these attributes: 
+"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a>
 
-* suburb        string &ndash; the suburb name &ndash; e.g. "Belgrave"
-* transport_type        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-* stop_id        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2825"
-* location_name        string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
-* lat        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.81603
-* lon        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.9824
-* distance        decimal number &ndash; not used in the context of this API (it is a legacy attribute of unknown worth)
+* suburb
+* transport_type
+* stop_id
+* location_name
+* lat
+* lon
+* distance
+
 
 ###Example use case
 Janelle is creating an app for tourists in Melbourne and wants to use the PTV Timetable API to access public transport data. 
@@ -47,6 +53,7 @@ First off, she wants tourists to be able to see all public transport stops near 
 
 Example response <a href="#fig-exampleresponse-stopsnearby"></a>
 <div id="fig-exampleresponse-stopsnearby">
+<h4>Example Stops Nearby response</h4>
   <pre>
 [
   {  

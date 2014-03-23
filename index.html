@@ -17,7 +17,7 @@
           (section link)
         </a>
         <h1>Introduction</h1>
-<h2>Important Editor's note</h2>
+<h2>Important editor's note</h2>
 <p>This document is a reformatted, somewhat edited, and <strong>currently incomplete</strong> unofficial version of the PTV API. It is maintained by <a href="http://stevebennett.me">Steve Bennett</a>, who has no relationship with PTV.  You can access the official PTV Timetable API <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">at data.vic.gov.au</a>. This web template is Embellish/<a href="https://github.com/boscoh/supplescroll">SuppleScroll</a> by Bosco Ho.</p>
 <p><em>Source: Licensed from Public Transport Victoria under a Creative Commons Attribution 3.0 Australia Licence.</em></p>
 <h3>Hello and welcome</h3>
@@ -40,13 +40,41 @@ PTV requests that you attribute this publication (and any material sourced from 
 <p>The data provided to you by PTV is provided 'as is' and PTV is not liable for how you use this data, how third parties use or rely on this data or any errors contained within the data. You are responsible for determining whether the data is suitable for your particular usage and purposes.</p>
 <h3>What you get with the PTV Timetable API</h3>
 <p>Our API gives you direct access to the PTV timetable data. The API allows you to query locations for timetable, line and stop data for all train, tram and bus, V/Line rail and coach, and NightRider services. It also includes access to myki ticket outlet data.</p>
+<blockquote>
+<p>In this document, "stop" means any train station, tram stop or bus stop. For more information, check out the [Ed: ?].</p>
+</blockquote>
 <p>The data will be updated weekly to take into account any planned timetable changes, for example, due to holidays or planned disruptions. (Any changes to the timetable notified by public transport operators on the day of operation will not be picked up.)</p>
+<blockquote>
+<p>PTV timetable data consists of the scheduled timetable. It is <strong>not</strong> real-time data nor service disruption information.</p>
+</blockquote>
 <p>The PTV timetable API is the same API currently used by PTV for our website and smartphone apps. PTV enhances these products by integrating its timetable data with TramTracker data, the Google geocoding API (which allows for address searching) and PTV's own journey planner service.</p>
+<blockquote>
+<p>The following are <strong>not included </strong> in the PTV Timetable API:</p>
+<ul>
+<li>
+<p>TramTracker data - this is available through [Ed: ?]</p>
+</li>
+<li>
+<p>An address geocoding API - available through search providers such as [Ed: ?]</p>
+</li>
+<li>
+<p>The PTV journey planner - this is not raw data but rather a service PTV provides</p>
+</li>
+</ul>
+</blockquote>
 <h3>Do's and don'ts</h3>
 <p>Timetables, stops, lines and even ticket outlets change frequently so to get the most out of the PTV Timetable API, we recommend you use it dynamically. That's the only way to ensure you're accessing the most up-to-date data and providing it to your audience through the app or service you create.</p>
+<blockquote>
+<p>Do use the API dynamically to get the most up-to-date data for your audience.</p>
+<p>Do not cache the data. If you want a dump of timetable data for a specific point in time, [Ed: ?].</p>
+<p>Do not hammer our servers. Do not use the API to make multiple requests for large sets of data in short periods of time.</p>
+</blockquote>
 <h3>Audience</h3>
 <p>The PTV Timetable API is for everyone. All members of the public, whether they are students, hobbyist app developers or companies, can access PTV timetable data using our API.
 PTV assumes that you know how to use APIs and do not provide instructions on how to code in any specific programming languages.</p>
+<blockquote>
+<p>PTV <strong>does not provide technical support</strong> for the API.&gt; All information required to use the API is included in this document.</p>
+</blockquote>
         <br />
        <div class='nav'>
           
@@ -64,17 +92,27 @@ PTV assumes that you know how to use APIs and do not provide instructions on how
 <p>You'll need to pass along a signature and a developer ID &ndash; or "devid" - with every request using HTTP GET.
 To calculate the signature, you'll need the request, which includes your developer ID, and a key.
 The key consists of a 128bit GUID.</p>
+<p>The <strong>key</strong> and the <strong>request (including developer ID)</strong> are used to calculate a <strong>signature</strong> for every request.</p>
 <h3>How to register for a key and developer ID</h3>
 <ul>
 <li>Send an email to APIKeyRequest@ptv.vic.gov.au with the following information in the subject line of the email:</li>
-<li>"PTV Timetable API &ndash; request for key"</li>
-<li>
-<p>Once we've got your email request, we'll send you a key and a developer ID by return email.</p>
-</li>
-<li>
-<p>We'll also add your email address to our API mailing list so we can keep you informed about the API.</p>
-</li>
 </ul>
+<blockquote>
+<p>"PTV Timetable API &ndash; request for key"</p>
+</blockquote>
+<ul>
+<li>Once we've got your email request, we'll send you a key and a developer ID by return email.</li>
+</ul>
+<blockquote>
+<p>A high volume of requests may result in a delay in providing you with your key and developer ID. We'll try to get it to you as soon as we can.</p>
+</blockquote>
+<ul>
+<li>We'll also add your email address to our API mailing list so we can keep you informed about the API.</li>
+</ul>
+<blockquote>
+<p>The “APIKeyRequest” email address is only used to send you the key and developer ID and any relevant notifications. To provide feedback on the API check out our [Ed: ?].</p>
+<p>PTV does not provide technical support on the API.</p>
+</blockquote>
 <h3>Privacy</h3>
 <p>Your email address is the only bit of information about you that PTV will hold in its register. You can view PTV's privacy policy at http://www.ptv.vic.gov.au/privacy.</p>
         <br />
@@ -93,22 +131,40 @@ The key consists of a 128bit GUID.</p>
 <p>Once you have obtained your key and developer ID you can get started. The first thing you need to do is to calculate a signature.</p>
 <h3>How to calculate a signature</h3>
 <ul>
-<li>The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key:</li>
-<li>signature        =        crypto.HMACSHA1(request,key)</li>
-<li>The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.</li>
+<li>
+<p>The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key:</p>
+<ul>
+<li>signature        =        <code>crypto.HMACSHA1(request,key)</code></li>
 </ul>
-<p>For example, "http://timetableapi.ptv.vic.gov.au/v2/healthcheck?devid=ABCXYZ" and "http://timetableapi.ptv.vic.gov.au/v2/HealthCheck?devid=ABCXYZ" require different signatures to be calculated; the same signature will not work for both requests.
+</li>
+<li>
+<p>The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.</p>
+</li>
+</ul>
+<p>For example, "<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?devid=ABCXYZ</code>" and "<code>http://timetableapi.ptv.vic.gov.au/v2/HealthCheck?devid=ABCXYZ</code>" require different signatures to be calculated; the same signature will not work for both requests.
 * The signature itself is also case-sensitive</p>
+<blockquote>
+<p>Example of a request message for signature calculation:</p>
+<p>The request URL for the  API is:</p>
+<p><code>base URL/v2/nearme/latitude/%@/longitude/%@?devid=%@&amp;signature=%@</code></p>
+<p>A sample request message used to calculate a signature would be:
+<code>http://timetableapi.ptv.vic.gov.au/v2/nearme/latitude/-37.82392124423254/longitude/144.9462017431463?devid=0000001</code></p>
+</blockquote>
 <p>Refer to the Appendix for some sample code for calculating a signature.</p>
 <h3>Performing the Health Check</h3>
 <p>The first API you need to call is the Health Check.
 The Health Check will test a number of the key services that deliver the PTV Timetable API and let you know if there are any problems with connectivity, availability or reachability.
 It will also test the time on your system to make sure that your clock is in sync with our clock.</p>
 <p>The output is in the JSON format. <a href="#fig-healthcheck"></a></p>
+<p>Health Check request URL:
+<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=%@&amp;devid=%@&amp;signature=%@</code></p>
+<blockquote>
+<p><code>%@</code> in the request URL represents a parameter</p>
+</blockquote>
 <div id="fig-healthcheck">
 
-Health Check request URL:
-<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=%@&devid=%@&signature=%@</code>
+
+
 <table>
 <tr>
 <th>Parameters</th></tr>
@@ -120,7 +176,7 @@ Health Check request URL:
 <td>signature</td><td>optional: the customised message digest calculated using the method in the Quick start guide</td>
 </tr>
 </table>  
-<code>
+<pre>
 
 Response output:
 {
@@ -129,7 +185,7 @@ Response output:
   "memcacheOK": boolean,
   "databaseOK": boolean,
 }
-</code>
+</pre>
 where a "true" value indicates service connectivity and availability, and "false" indicates a problem. For more information on this API, check out Errors and the Reference.
 </div>
 
@@ -180,7 +236,50 @@ This API returns a list of transport points of interest (POIs) in a region descr
         </a>
         <h2>Use case maps</h2>
 <p>To give you a taste of what you can do with the PTV Timetable API, we've created a small list of use case maps that show the sequence of APIs required to obtain particular information.</p>
-<p>[Editor: The <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">Word version of this document</a> has a couple of diagrams which comprise this whole section. They have not been converted.]</p>
+<p>[Editor: The <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">Word version of this document</a> has a couple of diagrams which comprise this whole section. They have not been converted. The following is a condensed summary]</p>
+<p>I want to...</p>
+<ul>
+<li>
+<p>see all bus stops near me on a map or list</p>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Stops Nearby</strong></li>
+</ol>
+</li>
+<li>
+<p>...get the next three departure times for a specific service from a selected stop</p>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Search</strong> or <strong>Stops Nearby</strong> or <strong>Transport POIs by Map</strong> [ returns something I can't read ]</li>
+<li><strong>Broad Next Departures</strong></li>
+<li>=&gt; transport_type, stop_id, line_id, direction_id</li>
+</ol>
+</li>
+<li>
+<p>...find out what lines travel through a stop near me and where they go</p>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Stops Nearby</strong> (returns transport_type, stop_id)</li>
+<li><strong>Broad Next Departures</strong> (returns transport_type, line_id) =&gt; [?]</li>
+</ol>
+</li>
+<li>
+<p>...get the next ten departures from my local stop</p>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Search</strong> or <strong>Stops Nearby</strong> or <strong>Transport POIs by Map</strong> (returns transport_type, stop_id)</li>
+<li><strong>Broad Next Departures</strong></li>
+<li>[?]</li>
+</ol>
+</li>
+<li>
+<p>...find myki ticket outlets in my area</p>
+<ol>
+<li><strong>Health Check</strong></li>
+<li>Transport POIs by Map [?]</li>
+</ol>
+</li>
+</ul>
         <br />
        <div class='nav'>
           
@@ -258,35 +357,41 @@ The table <a href="#fig-inputsoutputs"></a> summarises the relevant subset of in
 </tr>
 </tbody></table>  <br />
 </div></p>
+<blockquote>
+<p>For a <strong>full list</strong> of the relevant parameters and output data for each API, check out the section [?].</p>
+</blockquote>
 <h2>Interface</h2>
 <p>You access the PTV Timetable API through an HTTP interface, as follows:</p>
 <p><code>base URL / version number / API name / query string</code></p>
-<p>The base URL is http://timetableapi.ptv.vic.gov.au</p>
+<p>The base URL is <code>http://timetableapi.ptv.vic.gov.au</code></p>
 <p>The version number, API name and query string are provided in the Reference section, under each API.</p>
+<blockquote>
+<p><code>%@</code> in the request URL represents a parameter.</p>
+</blockquote>
 <h2>Errors</h2>
 <h4>Error trapping through Health Check</h4>
 <p>Calling the Health Check API at the start of each sequence of APIs flushes out any system problems.
 A return of true or false for the following attributes reveals their status (where "true" means the system is okay, and "false" reveals a problem):</p>
 <ul>
-<li>securityTokenOK &ndash; i.e. your key/signature is working
+<li><code>securityTokenOK</code> &ndash; i.e. your key/signature is working
   (if it returns "false" check your logic and ensure you have a valid key)</li>
-<li>clientClockOK &ndash; i.e. your clock is synchronised with our clock within three minutes
+<li><code>clientClockOK</code> &ndash; i.e. your clock is synchronised with our clock within three minutes
 (this is for your information only; if it returns "false" it may affect the way you present dates and times)</li>
-<li>memcacheOK &ndash; performance cache is working well
+<li><code>memcacheOK</code> &ndash; performance cache is working well
 (if it returns "false" your queries will be slow)</li>
-<li>databaseOK &ndash; availability of the data
+<li><code>databaseOK</code> &ndash; availability of the data
 (if it returns "false" your queries won't work)</li>
 </ul>
 <p>For more information on the Health Check API, check out the Quick start guide and the Reference section.
 HTTP status codes</p>
 <p>Since the PTV Timetable API uses a HTTP interface, any of the following standard HTTP status codes may be returned:</p>
 <ul>
-<li>200 &ndash; no error; system okay</li>
-<li>403 &ndash; access denied (will be returned when the wrong signature is used)</li>
-<li>404 &ndash; requested resource not found (check your URL, including parameters, is correct)</li>
-<li>500 &ndash; internal server error (check your URL, including parameters, is correct)</li>
+<li><code>200</code> &ndash; no error; system okay</li>
+<li><code>403</code> &ndash; access denied (will be returned when the wrong signature is used)</li>
+<li><code>404</code> &ndash; requested resource not found (check your URL, including parameters, is correct)</li>
+<li><code>500</code> &ndash; internal server error (check your URL, including parameters, is correct)</li>
 </ul>
-<p>For more information, see http://en.wikipedia.org/wiki/List_of_HTTP_status_codes.</p>
+<p>For more information, see <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia</a>.</p>
         <br />
        <div class='nav'>
           
@@ -317,15 +422,21 @@ HTTP status codes</p>
 <p>2.0.0</p>
 <h3>Description</h3>
 <p>A check on the timely availability, connectivity and reachability of the services that deliver security, caching and data to web clients.  A health status report is returned.</p>
+<blockquote>
+<p>It's good practice to call the Health Check API every time you make a sequence of calls to the API.</p>
+</blockquote>
 <h3>Request URL</h3>
 <p>base URL
 <code>/v2/healthcheck?timestamp=%@&amp;devid=%@&amp;signature=%@</code></p>
-<p>Parameters</p>
+<h3>Parameters</h3>
 <ul>
 <li>timestamp        =        optional: the date and time of the request in ISO 8601 UTC format e.g. 2013-11-13T05:24:25Z</li>
 <li>devid        =        optional: the developer ID supplied in your email from PTV</li>
 <li>signature        =        optional: the customised message digest calculated using the method in the Quick start guide</li>
 </ul>
+<blockquote>
+<p>While all parameters for this API are optional, if you don't include them the <code>securityTokenOK</code> and <code>clientClockOK</code> response will return “false”.</p>
+</blockquote>
 <h3>Response</h3>
 <p>The response is made up of the following JSON objects: </p>
 <ul>
@@ -334,16 +445,25 @@ HTTP status codes</p>
 <li>memcacheOK        boolean &ndash; indicates status of the performance cache</li>
 <li>databaseOK        boolean &ndash; indicates availability of the data</li>
 </ul>
+<blockquote>
+<p>Refer to [?] for more information on using Health Check to trap errors.</p>
+</blockquote>
 <p>Example request <a href="#fig-example-healthcheck"></a>
 <div id="fig-example-healthcheck">
-http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=2014-01-22T03:28:33Z
-Example response    </p>
-<p>{
-  "securityTokenOK": false,<br />
-  "clientClockOK": false, <br />
-  "memcacheOK": true,   <br />
-  "databaseOK": true,<br />
+<h4>Example Health Check request</h4>
+<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=2014-01-22T03:28:33Z</code></p>
+<h4>Example Health Check response</h4>
+
+<pre>
+{
+  "securityTokenOK": false,  
+  "clientClockOK": false,   
+  "memcacheOK": true,     
+  "databaseOK": true,  
 } 
+</pre>
+
+<p>[Ed: Commentary on this response not included]
 </div></p>
         <br />
        <div class='nav'>
@@ -362,7 +482,13 @@ Example response    </p>
 <p>2.0.0</p>
 <h3>Description</h3>
 <p>Stops Nearby returns up to 30 stops nearest to a specified coordinate.</p>
+<blockquote>
+<p><strong>"Stops"</strong> includes train stations as well as tram and bus stops.</p>
+</blockquote>
 <p>Applicable stops are returned as a collection in the JSON format.</p>
+<blockquote>
+<p>There are <strong>no spatial constraints</strong> on how Stops Nearby retrieves stops. It will always return up to 30 stops near the passed latitude and longitude coordinates, even if some of those stops are (relatively) far away.</p>
+</blockquote>
 <h3>Request URL</h3>
 <p>base URL
 <code>/v2/nearme/latitude/%@/longitude/%@?devid=%@&amp;signature=%@</code></p>
@@ -376,15 +502,16 @@ Example response    </p>
 <h3>Response</h3>
 <p>Returns an array of JSON "result" objects for which the "type" equals "stop". A "stop" object is embedded within each "result". Stops are ordered by distance.
 For more information on the data structures, check out the JSON object structure.</p>
-<p>The "stop" object has these attributes: </p>
+<p>"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a></p>
 <ul>
-<li>suburb        string &ndash; the suburb name &ndash; e.g. "Belgrave"</li>
-<li>transport_type        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"</li>
-<li>stop_id        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2825"</li>
-<li>location_name        string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"</li>
-<li>lat        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.81603</li>
-<li>lon        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.9824</li>
-<li>distance        decimal number &ndash; not used in the context of this API (it is a legacy attribute of unknown worth)</li>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
 </ul>
 <h3>Example use case</h3>
 <p>Janelle is creating an app for tourists in Melbourne and wants to use the PTV Timetable API to access public transport data. 
@@ -399,6 +526,7 @@ First off, she wants tourists to be able to see all public transport stops near 
 </ul>
 <p>Example response <a href="#fig-exampleresponse-stopsnearby"></a>
 <div id="fig-exampleresponse-stopsnearby">
+<h4>Example Stops Nearby response</h4>
   <pre>
 [
   {<br />
@@ -781,8 +909,18 @@ First off, she wants tourists to be able to see all public transport stops near 
 <p>2.0.0</p>
 <h3>Description</h3>
 <p>Transport POIs by Map returns a set of locations consisting of stops and/or myki ticket outlets (collectively known as points of interest &ndash; i.e. POIs) within a region demarcated on a map through a set of latitude and longitude coordinates.</p>
+<blockquote>
+<p>Through the <strong>poi</strong> parameter, the API can return any combination of POIs (e.g. ticket outlets only, bus stops only, tram stops and ticket outlets only, all of the above, and so on).</p>
+</blockquote>
 <p>Where POIs are geographically dispersed they are returned in a list; where they are geographically concentrated they can be returned in a cluster, depending on the map griddepth that is sent in the request.</p>
+<blockquote>
+<p>Have a play around with the griddepth parameter to see what best suits the device you are developing for.
+If you set griddepth to zero it will not cluster.</p>
+</blockquote>
 <p>You can also set a limit of how many stops are listed in a cluster. The API will return what the total number of POIs is, however it will only return data for as many POIs are set by the limit. Check out the example response below for a better understanding of how this works.</p>
+<blockquote>
+<p>When there are more POIs in a cluster than the limit, the POIs returned will be determined by a business rule that is hard coded at the server end. The order of priority is V/Line stops first, followed by train, tram, bus, NightRider and, last of all, ticket outlets.</p>
+</blockquote>
 <h3>Request URL</h3>
 <p>base URL
 <code>/v2/poi/%@/lat1/%@/long1/%@/lat2/%@/long2/%@/griddepth/%@/limit/%@?devid=%@
@@ -911,6 +1049,7 @@ For more information on the data structures, check out the JSON object structure
 <li>Example response  <a href="#fig-exampleresponse-transportpois"></a></li>
 </ul>
 <div id="fig-exampleresponse-transportpois">
+  <h4>Example Transprt POIs by Map response</h4>
 <pre>
 {
   "minLat": -37.81959,
@@ -1020,44 +1159,25 @@ e.g. "Alamein"</li>
 <p>Returns an array of JSON "result" objects for which the "type" equals either "stop" or "line".
 A "stop" object or "line" object is embedded within each "result" depending on its type.
 For more information on the data structures, check out the JSON object structure.</p>
-<pre>
-"stop" objects have these attributes: 
-suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Richmond"
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "12373"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "Bridge Rd/Hoddle St"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.81719
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.9902
-distance        decimal number
-&ndash; returns zero in the context of this API
-
-"line" objects have these attributes: 
-transport_type        string
-&ndash; the mode of transport serviced by the line
-&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-line_id        numeric string
-&ndash; the unique identifier of each line
-&ndash; e.g. "1818"
-line_name        string
-&ndash; the name of the line
-&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway & Frankston Station "
-line_number        string
-&ndash; the line number that is presented to the public (i.e. not the "line_id")
-&ndash; e.g. "970"
-</pre>
-
+<p>"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+</ul>
+<p>"Line" objects have the following attributes:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number</li>
+</ul>
 <h3>Example use case</h3>
 <p>Janelle's next development for the tourist app is to add a search function that allows tourists to find any stations or stops, as well as any train lines, tram routes or bus routes, by inputting some text. She uses the Search API.</p>
 <ul>
@@ -1066,6 +1186,7 @@ line_number        string
 <li>Example response <a href="#fig-exampleresponse-search"></a></li>
 </ul>
 <div id="fig-exampleresponse-search">
+  <h4>Example Search response</h4>
 <pre>[
   {  
     "result": {  
@@ -1538,12 +1659,13 @@ destination_name        string
 </ul>
 <div id="fig-platform-values">
   <h4>Values for 'platform' object</h4>
-  <pre>
-realtime_id        string
-&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
-&ndash; e.g. "0"
 
-</pre>
+<dl><dt>realtime_id        string</dt>
+    <dd>&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
+
+    &ndash; e.g. "0"</dd>
+</dl>
+
 </div>
 
 <p>"stop" objects have these attributes: 
@@ -1559,7 +1681,7 @@ realtime_id        string
 </ul>
 <div id="fig-stop-values">
   <h4>Values for 'stop' object</h4>
-  <pre>
+  <pre style="font-family:'Helvetica Neue'">
 
 
 
@@ -1585,6 +1707,17 @@ distance        decimal number
 &ndash;returns zero in the context of this API
 
 </pre>
+
+> GPS coordinates are mostly to 6 decimal places. This identifies a location to sub meter accuracy.
+
+> For train stations, the "__location_name__" is the name of the station &ndash; e.g. "Belgrave Station".
+For tram and bus stops, it is a concise geographic descriptor that is determined by a hierarchy of available stop information. The hierarchy is:
+
+> Landmark > Cross Street > Travel Street
+
+> Depending on the content of those fields the location name can be Landmark/Travel Street, or Cross Street/Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").
+
+
 </div>
 
 <p>"direction" objects have the following attributes:
@@ -1610,7 +1743,7 @@ direction_name        string
 </pre>
 </div>
 
-<p>"direction" objects have the following attributes:
+<p>"Line" objects have the following attributes:
 <a href="#fig-line-values"></a></p>
 <ul>
 <li>transport_type</li>
@@ -1648,6 +1781,7 @@ Janelle uses the Broad Next Departures API to show the departure times for stops
 <li>Example response <a href="#fig-exampleresponse-broad"></a></li>
 </ul>
 <div id="fig-exampleresponse-broad">
+  <h4>Example Broad Next Departures response</h4>
   <pre>
 {    
   "values": [  
@@ -1868,6 +2002,7 @@ Building on the other APIs, Janelle uses the Specific Next Departures API to do 
 <code>http://timetableapi.ptv.vic.gov.au/v2/mode/0/line/8/stop/1104/directionid/8/departures/all/limit/5?for_utc=2014-01-20T03:18:08Z&amp;devid=4&amp;signature=2BEBB8A77A24452FAF110FD849906EBE4F10DC7B</code></li>
 <li>Example response <a href="#fig-exampleresponsespecific"></a>
 <div id="fig-exampleresponsespecific">
+  <h4>Example Specific Next Departures response</h4>
   <pre>
 {
   "values": [                          <br />
@@ -2075,114 +2210,83 @@ Building on the other APIs, Janelle uses the Specific Next Departures API to do 
 <ul>
 <li>
 <p>mode        =        a number representing the transport_type of the stop, defined as follows:</p>
-</li>
-<li>
-<p>0        Train (metropolitan)</p>
-</li>
+<ul>
+<li>0        Train (metropolitan)</li>
 <li>1        Tram</li>
 <li>2        Bus (metropolitan and regional, but not V/Line) </li>
 <li>3        V/Line train and coach</li>
 <li>4        NightRider </li>
 </ul>
-<p>e.g. "2"
-run        =        the run_id of the requested run
-e.g. "1464"
-stop        =        the stop_id of the stop
-e.g. "1108"
-for_utc        =        the date and time of the request in ISO 8601 UTC format
-e.g. 2013-11-13T05:24:25Z
-devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+<p>e.g. "2"</p>
+</li>
+<li>
+<p>run        =        the run_id of the requested run</p>
+<p>e.g. "1464"</p>
+</li>
+<li>
+<p>stop        =        the stop_id of the stop</p>
+<p>e.g. "1108"</p>
+</li>
+<li>
+<p>for_utc        =        the date and time of the request in ISO 8601 UTC format e.g. 2013-11-13T05:24:25Z</p>
+</li>
+<li>
+<p>devid        =        the developer ID supplied in your email from PTV</p>
+</li>
+<li>
+<p>signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+</li>
+</ul>
 <h3>Response</h3>
 <p>Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.</p>
 <p>For more information on the data structures, check out the JSON object structure.</p>
-<h4>Timetable "values" have the following attributes:</h4>
-<p>time_timetable_utc        date and time expressed in ISO 8601 UTC format
-&ndash; the scheduled time of the service at the stop
-&ndash; e.g. "2013-11-18T03:21:00Z"
-time_realtime_utc        date and time expressed in ISO 8601 UTC format
-&ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null")
-&ndash; e.g. "null" 
-flags        Character
-&ndash; a stop may have zero or more flags associated with it, 
-delimited by a "-" character; examples include:</p>
-<p>RR = Reservations Required
-GC = Guaranteed Connection
-DOO = Drop Off Only
-PUO = Pick Up Only
-MO = Mondays only
-TU = Tuesdays only
-WE = Wednesdays only
-TH = Thursdays only
-FR = Fridays only
-SS = School days only</p>
-<p>note: ignore "E" flag</p>
-<p>&ndash; e.g. "RR-PUO"</p>
-<h4>"run" objects have the following attributes:</h4>
-<p>transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-run_id        numeric string
-&ndash; the unique identifier of each run
-&ndash; e.g. "1464"
-num_skipped        integer
-&ndash; the number of stops skipped for the run, applicable to train; a number greater than zero indicates either a limited express or express service
-&ndash; e.g. 0
-destination_id        numeric string
-&ndash; the stop_id of the destination, i.e. the last stop for the run
-&ndash; e.g. "1044"
-destination_name        string
-&ndash; the location_name of the destination, i.e. the last stop for the run
-&ndash; e.g. "Craigieburn"</p>
-<h4>"platform" objects have the following attributes:</h4>
-<p>realtime_id        string
-&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
-&ndash; e.g. "0"</p>
-<h4>"stop" objects have these attributes:</h4>
-<p>suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Belgrave"
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "1234"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.82005
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.95047
-distance        decimal number
-&ndash;returns zero in the context of this API</p>
-<h4>"direction" objects have the following attributes:</h4>
-<p>linedir_id        numeric string
-&ndash; unique identifier of a particular line and direction
-&ndash; e.g. "21"
-direction_id        numeric string
-&ndash; unique identifier of a direction
-&ndash; e.g. "0"
-direction_name        string
-&ndash; name of the direction of the service (e.g. "0" signifies "city")
-&ndash; e.g. "City (Flinders Street)"</p>
-<h4>"line" objects have these attributes:</h4>
-<p>transport_type        string
-&ndash; the mode of transport serviced by the line
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-line_id        numeric string
-&ndash; the unique identifier of each line
-&ndash; e.g. "1818"
-line_name        string
-&ndash; the name of the line
-&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway &amp; Frankston Station "
-line_number        string
-&ndash; the line number that is presented to the public (i.e. not the "line_id")
-&ndash; e.g. "970"</p>
+<p>Timetable "values" have the following attributes<a href="#fig-timetable-values"></a>:</p>
+<ul>
+<li>time_table_utc</li>
+<li>time_realtime_utc</li>
+<li>flags</li>
+</ul>
+<p>"run" objects have the following attributes:
+<a href="#fig-run-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>run_id</li>
+<li>num_skipped</li>
+<li>destination_id</li>
+<li>destination_name</li>
+</ul>
+<p>"platform" objects have the following attributes:
+<a href="#fig-platform-values"></a></p>
+<ul>
+<li>realtime_id</li>
+</ul>
+<p>"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+</ul>
+<p>"direction" objects have the following attributes:
+<a href="#fig-direction-values"></a></p>
+<ul>
+<li>linedir_id</li>
+<li>direction_id</li>
+<li>direction_name</li>
+</ul>
+<p>"Line" objects have the following attributes:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number  </li>
+</ul>
 <h3>Example use case</h3>
 <p>Next Janelle wants to enhance her tourist app so it can show a basic timetable for any of the departure times selected by tourists (i.e. returned through Broad Next Departures). She uses the Stopping Pattern API to do this.</p>
 <ul>
@@ -2192,6 +2296,7 @@ line_number        string
 <li>Example response <a href="#fig-exampleresponse-stopping"></a></li>
 </ul>
 <div id="fig-exampleresponse-stopping">
+  <h4>Example Stopping Pattern response</h4>
   <pre>
 {                            
   "values": [
@@ -3146,6 +3251,7 @@ Building on the previous APIs, she uses the Stops on a Line API to do this.</p>
 <code>http://timetableapi.ptv.vic.gov.au/v2/mode/2/line/7531/stops-for-line?devid=4&amp;signature=2BFFB8A77A24452CED110FD869906EBE4F10DC7B</code></li>
 <li>Example response  <a href="#fig-exampleresponse-stops"></a>
 <div id="fig-exampleresponse-stops">
+  <h4>Example Stops on a Line response</h4>
 <pre>
 [
   {  <br />
@@ -3433,7 +3539,8 @@ Building on the previous APIs, she uses the Stops on a Line API to do this.</p>
         <a class='sectionlink' href='./7-1-jsonstructure.html'>
           (section link)
         </a>
-        <h2>JSON object structure</h2>
+        <p>[Ed: This section was presented graphically in the Word document. It has not been fully converted - best refer to the original if you need this information. (It mostly seems redundant.)]</p>
+<h2>JSON object structure</h2>
 <p>The diagrams below show the structure of the JSON objects returned from the API calls.</p>
 <p>Stop data is returned through three different pathways: as a stop object, as part of a “locations” object, and as a type of “result” object.</p>
 <p>Line data is returned through two pathways: as a “line” object and as a type of “result” object.</p>
@@ -3441,21 +3548,27 @@ Building on the previous APIs, she uses the Stops on a Line API to do this.</p>
 <h3>"result" objects</h3>
 <p>These are returned through the Stops Nearby and Search APIs. The data structure looks like this:</p>
 <p>"result" object</p>
-<h4>"stop" object:</h4>
-<p>suburb
-transport_type
-stop_id
-location_name
-lat
-lon
-distance
-type = "stop"</p>
-<h4>"line" object:</h4>
-<p>transport_type
-line_id
-line_name
-line_number
-type = "line"</p>
+<p>"stop" object: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+<li>type = "stop"</li>
+</ul>
+<p>"Line" object:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number</li>
+<li>type = "line"</li>
+</ul>
 <h3>"locations" objects</h3>
 <p>These are returned through the Transport POIs by Map API. The data structure looks like this:</p>
 <p>"locations" object</p>
@@ -3486,13 +3599,16 @@ type = "line"</p>
 <li>time_realtime_utc</li>
 <li>flags</li>
 </ul>
-<p>"run" object
-  "platform" object
-  transport_type
-run_id
-num_skipped
-destination_id
-destination_name</p>
+<p>"run" object:
+<a href="#fig-run-values"></a></p>
+<ul>
+<li>"platform" object</li>
+<li>transport_type</li>
+<li>run_id</li>
+<li>num_skipped</li>
+<li>destination_id</li>
+<li>destination_name</li>
+</ul>
 <p>realtime_id
 "stop"
 "direction"</p>

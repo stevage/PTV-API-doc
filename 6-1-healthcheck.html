@@ -16,15 +16,21 @@
 <p>2.0.0</p>
 <h3>Description</h3>
 <p>A check on the timely availability, connectivity and reachability of the services that deliver security, caching and data to web clients.  A health status report is returned.</p>
+<blockquote>
+<p>It's good practice to call the Health Check API every time you make a sequence of calls to the API.</p>
+</blockquote>
 <h3>Request URL</h3>
 <p>base URL
 <code>/v2/healthcheck?timestamp=%@&amp;devid=%@&amp;signature=%@</code></p>
-<p>Parameters</p>
+<h3>Parameters</h3>
 <ul>
 <li>timestamp        =        optional: the date and time of the request in ISO 8601 UTC format e.g. 2013-11-13T05:24:25Z</li>
 <li>devid        =        optional: the developer ID supplied in your email from PTV</li>
 <li>signature        =        optional: the customised message digest calculated using the method in the Quick start guide</li>
 </ul>
+<blockquote>
+<p>While all parameters for this API are optional, if you don't include them the <code>securityTokenOK</code> and <code>clientClockOK</code> response will return “false”.</p>
+</blockquote>
 <h3>Response</h3>
 <p>The response is made up of the following JSON objects: </p>
 <ul>
@@ -33,16 +39,25 @@
 <li>memcacheOK        boolean &ndash; indicates status of the performance cache</li>
 <li>databaseOK        boolean &ndash; indicates availability of the data</li>
 </ul>
+<blockquote>
+<p>Refer to [?] for more information on using Health Check to trap errors.</p>
+</blockquote>
 <p>Example request <a href="#fig-example-healthcheck"></a>
 <div id="fig-example-healthcheck">
-http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=2014-01-22T03:28:33Z
-Example response    </p>
-<p>{
-  "securityTokenOK": false,<br />
-  "clientClockOK": false, <br />
-  "memcacheOK": true,   <br />
-  "databaseOK": true,<br />
+<h4>Example Health Check request</h4>
+<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=2014-01-22T03:28:33Z</code></p>
+<h4>Example Health Check response</h4>
+
+<pre>
+{
+  "securityTokenOK": false,  
+  "clientClockOK": false,   
+  "memcacheOK": true,     
+  "databaseOK": true,  
 } 
+</pre>
+
+<p>[Ed: Commentary on this response not included]
 </div></p>
       <div class='timestamp'>
         <i><a href='http://github.com/boscoh/supplescroll'>supplescroll</a></i>:lucid theme

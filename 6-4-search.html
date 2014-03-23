@@ -30,44 +30,25 @@ e.g. "Alamein"</li>
 <p>Returns an array of JSON "result" objects for which the "type" equals either "stop" or "line".
 A "stop" object or "line" object is embedded within each "result" depending on its type.
 For more information on the data structures, check out the JSON object structure.</p>
-<pre>
-"stop" objects have these attributes: 
-suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Richmond"
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "12373"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "Bridge Rd/Hoddle St"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.81719
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.9902
-distance        decimal number
-&ndash; returns zero in the context of this API
-
-"line" objects have these attributes: 
-transport_type        string
-&ndash; the mode of transport serviced by the line
-&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-line_id        numeric string
-&ndash; the unique identifier of each line
-&ndash; e.g. "1818"
-line_name        string
-&ndash; the name of the line
-&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway & Frankston Station "
-line_number        string
-&ndash; the line number that is presented to the public (i.e. not the "line_id")
-&ndash; e.g. "970"
-</pre>
-
+<p>"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+</ul>
+<p>"Line" objects have the following attributes:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number</li>
+</ul>
 <h3>Example use case</h3>
 <p>Janelle's next development for the tourist app is to add a search function that allows tourists to find any stations or stops, as well as any train lines, tram routes or bus routes, by inputting some text. She uses the Search API.</p>
 <ul>
@@ -76,6 +57,7 @@ line_number        string
 <li>Example response <a href="#fig-exampleresponse-search"></a></li>
 </ul>
 <div id="fig-exampleresponse-search">
+  <h4>Example Search response</h4>
 <pre>[
   {  
     "result": {  

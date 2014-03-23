@@ -11,7 +11,8 @@
   <div id='table-of-contents' class='touchscroll'></div>
   <div id='main-text' class='touchscroll'>
     <div class='relative_position'>
-      <h2>JSON object structure</h2>
+      <p>[Ed: This section was presented graphically in the Word document. It has not been fully converted - best refer to the original if you need this information. (It mostly seems redundant.)]</p>
+<h2>JSON object structure</h2>
 <p>The diagrams below show the structure of the JSON objects returned from the API calls.</p>
 <p>Stop data is returned through three different pathways: as a stop object, as part of a “locations” object, and as a type of “result” object.</p>
 <p>Line data is returned through two pathways: as a “line” object and as a type of “result” object.</p>
@@ -19,21 +20,27 @@
 <h3>"result" objects</h3>
 <p>These are returned through the Stops Nearby and Search APIs. The data structure looks like this:</p>
 <p>"result" object</p>
-<h4>"stop" object:</h4>
-<p>suburb
-transport_type
-stop_id
-location_name
-lat
-lon
-distance
-type = "stop"</p>
-<h4>"line" object:</h4>
-<p>transport_type
-line_id
-line_name
-line_number
-type = "line"</p>
+<p>"stop" object: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+<li>type = "stop"</li>
+</ul>
+<p>"Line" object:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number</li>
+<li>type = "line"</li>
+</ul>
 <h3>"locations" objects</h3>
 <p>These are returned through the Transport POIs by Map API. The data structure looks like this:</p>
 <p>"locations" object</p>
@@ -64,13 +71,16 @@ type = "line"</p>
 <li>time_realtime_utc</li>
 <li>flags</li>
 </ul>
-<p>"run" object
-  "platform" object
-  transport_type
-run_id
-num_skipped
-destination_id
-destination_name</p>
+<p>"run" object:
+<a href="#fig-run-values"></a></p>
+<ul>
+<li>"platform" object</li>
+<li>transport_type</li>
+<li>run_id</li>
+<li>num_skipped</li>
+<li>destination_id</li>
+<li>destination_name</li>
+</ul>
 <p>realtime_id
 "stop"
 "direction"</p>

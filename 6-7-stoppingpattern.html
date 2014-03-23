@@ -23,114 +23,83 @@
 <ul>
 <li>
 <p>mode        =        a number representing the transport_type of the stop, defined as follows:</p>
-</li>
-<li>
-<p>0        Train (metropolitan)</p>
-</li>
+<ul>
+<li>0        Train (metropolitan)</li>
 <li>1        Tram</li>
 <li>2        Bus (metropolitan and regional, but not V/Line) </li>
 <li>3        V/Line train and coach</li>
 <li>4        NightRider </li>
 </ul>
-<p>e.g. "2"
-run        =        the run_id of the requested run
-e.g. "1464"
-stop        =        the stop_id of the stop
-e.g. "1108"
-for_utc        =        the date and time of the request in ISO 8601 UTC format
-e.g. 2013-11-13T05:24:25Z
-devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+<p>e.g. "2"</p>
+</li>
+<li>
+<p>run        =        the run_id of the requested run</p>
+<p>e.g. "1464"</p>
+</li>
+<li>
+<p>stop        =        the stop_id of the stop</p>
+<p>e.g. "1108"</p>
+</li>
+<li>
+<p>for_utc        =        the date and time of the request in ISO 8601 UTC format e.g. 2013-11-13T05:24:25Z</p>
+</li>
+<li>
+<p>devid        =        the developer ID supplied in your email from PTV</p>
+</li>
+<li>
+<p>signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+</li>
+</ul>
 <h3>Response</h3>
 <p>Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.</p>
 <p>For more information on the data structures, check out the JSON object structure.</p>
-<h4>Timetable "values" have the following attributes:</h4>
-<p>time_timetable_utc        date and time expressed in ISO 8601 UTC format
-&ndash; the scheduled time of the service at the stop
-&ndash; e.g. "2013-11-18T03:21:00Z"
-time_realtime_utc        date and time expressed in ISO 8601 UTC format
-&ndash; a place holder for the real-time of the service at the stop (for potential future implementation; as no real-time feeds are provided at this time, this returns "null")
-&ndash; e.g. "null" 
-flags        Character
-&ndash; a stop may have zero or more flags associated with it, 
-delimited by a "-" character; examples include:</p>
-<p>RR = Reservations Required
-GC = Guaranteed Connection
-DOO = Drop Off Only
-PUO = Pick Up Only
-MO = Mondays only
-TU = Tuesdays only
-WE = Wednesdays only
-TH = Thursdays only
-FR = Fridays only
-SS = School days only</p>
-<p>note: ignore "E" flag</p>
-<p>&ndash; e.g. "RR-PUO"</p>
-<h4>"run" objects have the following attributes:</h4>
-<p>transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-run_id        numeric string
-&ndash; the unique identifier of each run
-&ndash; e.g. "1464"
-num_skipped        integer
-&ndash; the number of stops skipped for the run, applicable to train; a number greater than zero indicates either a limited express or express service
-&ndash; e.g. 0
-destination_id        numeric string
-&ndash; the stop_id of the destination, i.e. the last stop for the run
-&ndash; e.g. "1044"
-destination_name        string
-&ndash; the location_name of the destination, i.e. the last stop for the run
-&ndash; e.g. "Craigieburn"</p>
-<h4>"platform" objects have the following attributes:</h4>
-<p>realtime_id        string
-&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
-&ndash; e.g. "0"</p>
-<h4>"stop" objects have these attributes:</h4>
-<p>suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Belgrave"
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "1234"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.82005
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.95047
-distance        decimal number
-&ndash;returns zero in the context of this API</p>
-<h4>"direction" objects have the following attributes:</h4>
-<p>linedir_id        numeric string
-&ndash; unique identifier of a particular line and direction
-&ndash; e.g. "21"
-direction_id        numeric string
-&ndash; unique identifier of a direction
-&ndash; e.g. "0"
-direction_name        string
-&ndash; name of the direction of the service (e.g. "0" signifies "city")
-&ndash; e.g. "City (Flinders Street)"</p>
-<h4>"line" objects have these attributes:</h4>
-<p>transport_type        string
-&ndash; the mode of transport serviced by the line
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-line_id        numeric string
-&ndash; the unique identifier of each line
-&ndash; e.g. "1818"
-line_name        string
-&ndash; the name of the line
-&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway &amp; Frankston Station "
-line_number        string
-&ndash; the line number that is presented to the public (i.e. not the "line_id")
-&ndash; e.g. "970"</p>
+<p>Timetable "values" have the following attributes<a href="#fig-timetable-values"></a>:</p>
+<ul>
+<li>time_table_utc</li>
+<li>time_realtime_utc</li>
+<li>flags</li>
+</ul>
+<p>"run" objects have the following attributes:
+<a href="#fig-run-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>run_id</li>
+<li>num_skipped</li>
+<li>destination_id</li>
+<li>destination_name</li>
+</ul>
+<p>"platform" objects have the following attributes:
+<a href="#fig-platform-values"></a></p>
+<ul>
+<li>realtime_id</li>
+</ul>
+<p>"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+</ul>
+<p>"direction" objects have the following attributes:
+<a href="#fig-direction-values"></a></p>
+<ul>
+<li>linedir_id</li>
+<li>direction_id</li>
+<li>direction_name</li>
+</ul>
+<p>"Line" objects have the following attributes:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number  </li>
+</ul>
 <h3>Example use case</h3>
 <p>Next Janelle wants to enhance her tourist app so it can show a basic timetable for any of the departure times selected by tourists (i.e. returned through Broad Next Departures). She uses the Stopping Pattern API to do this.</p>
 <ul>
@@ -140,6 +109,7 @@ line_number        string
 <li>Example response <a href="#fig-exampleresponse-stopping"></a></li>
 </ul>
 <div id="fig-exampleresponse-stopping">
+  <h4>Example Stopping Pattern response</h4>
   <pre>
 {                            
   "values": [

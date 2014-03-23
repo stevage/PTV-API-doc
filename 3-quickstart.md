@@ -6,11 +6,23 @@ title: Quick start guide
 Once you have obtained your key and developer ID you can get started. The first thing you need to do is to calculate a signature.
 ###How to calculate a signature
 * The signature value is a HMAC-SHA1 hash of the completed request (minus the base URL but including your developer ID, known as "devid") and the key:
-   * signature        =        crypto.HMACSHA1(request,key)
+   
+    * signature        =        <code>crypto.HMACSHA1(request,key)</code>
+
 * The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.
 
-For example, "http://timetableapi.ptv.vic.gov.au/v2/healthcheck?devid=ABCXYZ" and "http://timetableapi.ptv.vic.gov.au/v2/HealthCheck?devid=ABCXYZ" require different signatures to be calculated; the same signature will not work for both requests.
+For example, "<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?devid=ABCXYZ</code>" and "<code>http://timetableapi.ptv.vic.gov.au/v2/HealthCheck?devid=ABCXYZ</code>" require different signatures to be calculated; the same signature will not work for both requests.
 * The signature itself is also case-sensitive
+
+>Example of a request message for signature calculation:
+
+> The request URL for the  API is:
+
+><code>base URL/v2/nearme/latitude/%@/longitude/%@?devid=%@&signature=%@</code>
+
+> A sample request message used to calculate a signature would be:
+> <code>http://timetableapi.ptv.vic.gov.au/v2/nearme/latitude/-37.82392124423254/longitude/144.9462017431463?devid=0000001</code>
+
 
 
 Refer to the Appendix for some sample code for calculating a signature.
@@ -21,11 +33,17 @@ It will also test the time on your system to make sure that your clock is in syn
 
 The output is in the JSON format. <a href="#fig-healthcheck"></a>
 
+Health Check request URL:
+<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=%@&devid=%@&signature=%@</code>
+
+><code>%@</code> in the request URL represents a parameter
+
+
+
 <div id="fig-healthcheck">
 
 
-Health Check request URL:
-<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?timestamp=%@&devid=%@&signature=%@</code>
+
 <table>
 <tr>
 <th>Parameters</th></tr>
@@ -37,7 +55,7 @@ Health Check request URL:
 <td>signature</td><td>optional: the customised message digest calculated using the method in the Quick start guide</td>
 </tr>
 </table>  
-<code>
+<pre>
 
 Response output:
 {
@@ -46,7 +64,7 @@ Response output:
   "memcacheOK": boolean,
   "databaseOK": boolean,
 }
-</code>
+</pre>
 where a "true" value indicates service connectivity and availability, and "false" indicates a problem. For more information on this API, check out Errors and the Reference.
 </div>
 ###Congratulations

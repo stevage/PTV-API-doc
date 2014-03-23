@@ -114,6 +114,7 @@ Building on the other APIs, Janelle uses the Specific Next Departures API to do 
 <code>http://timetableapi.ptv.vic.gov.au/v2/mode/0/line/8/stop/1104/directionid/8/departures/all/limit/5?for_utc=2014-01-20T03:18:08Z&devid=4&signature=2BEBB8A77A24452FAF110FD849906EBE4F10DC7B</code>
 * Example response <a href="#fig-exampleresponsespecific"></a>
 <div id="fig-exampleresponsespecific">
+  <h4>Example Specific Next Departures response</h4>
   <pre>
 {
   "values": [                            

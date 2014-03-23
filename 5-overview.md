@@ -68,21 +68,18 @@ The table <a href="#fig-inputsoutputs"></a> summarises the relevant subset of in
 </tbody></table>    
 </div>
 
-
-
-
-
+> For a __full list__ of the relevant parameters and output data for each API, check out the section [?].
 
 ##Interface
 You access the PTV Timetable API through an HTTP interface, as follows:
 
-
 <code>base URL / version number / API name / query string</code>
 
-
-The base URL is http://timetableapi.ptv.vic.gov.au
+The base URL is <code>http://timetableapi.ptv.vic.gov.au</code>
 
 The version number, API name and query string are provided in the Reference section, under each API.
+
+> <code>%@</code> in the request URL represents a parameter.
   
 
 ##Errors
@@ -90,13 +87,13 @@ The version number, API name and query string are provided in the Reference sect
 Calling the Health Check API at the start of each sequence of APIs flushes out any system problems.
 A return of true or false for the following attributes reveals their status (where "true" means the system is okay, and "false" reveals a problem):
 
-* securityTokenOK &ndash; i.e. your key/signature is working
+* <code>securityTokenOK</code> &ndash; i.e. your key/signature is working
   (if it returns "false" check your logic and ensure you have a valid key)
-* clientClockOK &ndash; i.e. your clock is synchronised with our clock within three minutes
+* <code>clientClockOK</code> &ndash; i.e. your clock is synchronised with our clock within three minutes
 (this is for your information only; if it returns "false" it may affect the way you present dates and times)
-* memcacheOK &ndash; performance cache is working well
+* <code>memcacheOK</code> &ndash; performance cache is working well
 (if it returns "false" your queries will be slow)
-* databaseOK &ndash; availability of the data
+* <code>databaseOK</code> &ndash; availability of the data
 (if it returns "false" your queries won't work)
 
 For more information on the Health Check API, check out the Quick start guide and the Reference section.
@@ -104,10 +101,10 @@ HTTP status codes
 
 Since the PTV Timetable API uses a HTTP interface, any of the following standard HTTP status codes may be returned:
 
-*   200 &ndash; no error; system okay
-*   403 &ndash; access denied (will be returned when the wrong signature is used)
-*   404 &ndash; requested resource not found (check your URL, including parameters, is correct)
-*   500 &ndash; internal server error (check your URL, including parameters, is correct)
+*   <code>200</code> &ndash; no error; system okay
+*   <code>403</code> &ndash; access denied (will be returned when the wrong signature is used)
+*   <code>404</code> &ndash; requested resource not found (check your URL, including parameters, is correct)
+*   <code>500</code> &ndash; internal server error (check your URL, including parameters, is correct)
 
-For more information, see http://en.wikipedia.org/wiki/List_of_HTTP_status_codes.
+For more information, see <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia</a>.
 

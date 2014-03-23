@@ -10,10 +10,19 @@ title: Transport POIs by Map
 ###Description
 Transport POIs by Map returns a set of locations consisting of stops and/or myki ticket outlets (collectively known as points of interest &ndash; i.e. POIs) within a region demarcated on a map through a set of latitude and longitude coordinates.
 
+>Through the __poi__ parameter, the API can return any combination of POIs (e.g. ticket outlets only, bus stops only, tram stops and ticket outlets only, all of the above, and so on).
+
 
 Where POIs are geographically dispersed they are returned in a list; where they are geographically concentrated they can be returned in a cluster, depending on the map griddepth that is sent in the request.
 
+>Have a play around with the griddepth parameter to see what best suits the device you are developing for.
+If you set griddepth to zero it will not cluster.
+
+
 You can also set a limit of how many stops are listed in a cluster. The API will return what the total number of POIs is, however it will only return data for as many POIs are set by the limit. Check out the example response below for a better understanding of how this works.
+
+>When there are more POIs in a cluster than the limit, the POIs returned will be determined by a business rule that is hard coded at the server end. The order of priority is V/Line stops first, followed by train, tram, bus, NightRider and, last of all, ticket outlets.
+
 
 ###Request URL
 
@@ -155,6 +164,7 @@ Janelle wants to develop her app further and allow tourists to see public transp
 * Example response  <a href="#fig-exampleresponse-transportpois"></a>
 
 <div id="fig-exampleresponse-transportpois">
+  <h4>Example Transprt POIs by Map response</h4>
 <pre>
 {
   "minLat": -37.81959,

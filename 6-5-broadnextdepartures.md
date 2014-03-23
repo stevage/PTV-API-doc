@@ -107,12 +107,14 @@ destination_name        string
 
 <div id="fig-platform-values">
   <h4>Values for 'platform' object</h4>
-  <pre>
-realtime_id        string
-&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
-&ndash; e.g. "0"
 
-</pre>
+
+<dl><dt>realtime_id        string</dt>
+    <dd>&ndash; a place holder for the stop's real-time feed system ID (for potential future implementation; as no real-time feeds are provided at this time, this returns "0")
+
+    &ndash; e.g. "0"</dd>
+</dl>
+
 </div>
 
 "stop" objects have these attributes: 
@@ -129,7 +131,7 @@ realtime_id        string
 
 <div id="fig-stop-values">
   <h4>Values for 'stop' object</h4>
-  <pre>
+  <pre style="font-family:'Helvetica Neue'">
 
 
 
@@ -155,6 +157,17 @@ distance        decimal number
 &ndash;returns zero in the context of this API
 
 </pre>
+
+> GPS coordinates are mostly to 6 decimal places. This identifies a location to sub meter accuracy.
+
+> For train stations, the "__location_name__" is the name of the station &ndash; e.g. "Belgrave Station".
+For tram and bus stops, it is a concise geographic descriptor that is determined by a hierarchy of available stop information. The hierarchy is:
+
+> Landmark > Cross Street > Travel Street
+
+> Depending on the content of those fields the location name can be Landmark/Travel Street, or Cross Street/Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").
+
+
 </div>
 
 
@@ -184,7 +197,7 @@ direction_name        string
 </div>
 
 
-"direction" objects have the following attributes:
+"Line" objects have the following attributes:
 <a href="#fig-line-values"></a>
 
 * transport_type
@@ -222,6 +235,7 @@ Janelle uses the Broad Next Departures API to show the departure times for stops
 * Example response <a href="#fig-exampleresponse-broad"></a>
 
 <div id="fig-exampleresponse-broad">
+  <h4>Example Broad Next Departures response</h4>
   <pre>
 {    
   "values": [  
