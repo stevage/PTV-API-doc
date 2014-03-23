@@ -63,11 +63,8 @@ e.g. "0,1,2,4,100" would return train, tram, bus, NightRider &amp; ticket outlet
     e.g. 144.9542017407848</p>
 </li>
 </ul>
-<p>The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:
-<pre>
-   (lat1, long1)  <br />
-   (lat2, long2)<br />
-</pre></p>
+<p>The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:</p>
+<p><img alt="lat1, long1, lat2, long2." src="latlong-diagram.png" /></p>
 <ul>
 <li>griddepth        =        the number of cells per block of cluster grid (between 0-20 inclusive).
 e.g. "1" would look like this:</li>
@@ -145,7 +142,7 @@ For more information on the data structures, check out the JSON object structure
 </li>
 </ul>
 <p>**        The set of coordinates above describe the following points (sample only):</p>
-<p>(image missing)</p>
+<p><img alt="Sample showing maxLat, minLong, weightedLat, weighteLong etc." src="coords-sample.png" /></p>
 <h3>Example use case</h3>
 <p>Janelle wants to develop her app further and allow tourists to see public transport stops in an entire region that the tourist has selected on a map. She wants the tourists to be able to specify which mode of stops they see (i.e. train, tram, bus, V/Line or NightRider) and also to be able to see myki ticket outlets if they want. Janelle uses the Transport POIs by Map API to do this.</p>
 <ul>

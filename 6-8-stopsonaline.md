@@ -31,54 +31,16 @@ base URL
 ###Response
 Returns a collection of JSON "stop" objects, with the attributes below, ordered by location_name:
 
+"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a>
 
-suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Belgrave"
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "1108"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.82005
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.95047
-distance        decimal number
-&ndash; not used; returns zero
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* suburb
+* transport_type
+* stop_id
+* location_name
+* lat
+* lon
+* distance
 
 For more information on the data structures, check out the JSON object structure.
 ###Example use case

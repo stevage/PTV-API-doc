@@ -24,13 +24,19 @@ base URL
     * 3        V/Line train and coach
     * 4        NightRider 
 
-e.g. "2"
-stop        =        the stop_id of the stop
-e.g. "1108"
-limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
-e.g. 2
-devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide
+    e.g. "2"
+
+* stop        =        the stop_id of the stop
+
+    e.g. "1108"
+
+* limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
+
+    e.g. 2
+
+* devid        =        the developer ID supplied in your email from PTV
+
+* signature        =        the customised message digest calculated using the method in the Quick start guide
 
 ###Response
 Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
@@ -158,15 +164,14 @@ distance        decimal number
 
 </pre>
 
-> GPS coordinates are mostly to 6 decimal places. This identifies a location to sub meter accuracy.
+GPS coordinates are mostly to 6 decimal places. This identifies a location to sub meter accuracy.<br/>
 
-> For train stations, the "__location_name__" is the name of the station &ndash; e.g. "Belgrave Station".
-For tram and bus stops, it is a concise geographic descriptor that is determined by a hierarchy of available stop information. The hierarchy is:
+For train stations, the "__location_name__" is the name of the station &ndash; e.g. "Belgrave Station".
+For tram and bus stops, it is a concise geographic descriptor that is determined by a hierarchy of available stop information. The hierarchy is:<br/>
 
-> Landmark > Cross Street > Travel Street
+<b>Landmark > Cross Street > Travel Street</b><br/>
 
-> Depending on the content of those fields the location name can be Landmark/Travel Street, or Cross Street/Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").
-
+Depending on the content of those fields the location name can be Landmark/Travel Street, or Cross Street/Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").<br/>
 
 </div>
 

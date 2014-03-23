@@ -55,10 +55,8 @@ base URL
     e.g. 144.9542017407848
 
 The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:
-<pre>
-   (lat1, long1)    
-   (lat2, long2)  
-</pre>
+
+![lat1, long1, lat2, long2.](latlong-diagram.png)
 
 * griddepth        =        the number of cells per block of cluster grid (between 0-20 inclusive).
 e.g. "1" would look like this:
@@ -149,7 +147,8 @@ For more information on the data structures, check out the JSON object structure
 
 \*\*        The set of coordinates above describe the following points (sample only):
   
-(image missing)
+![Sample showing maxLat, minLong, weightedLat, weighteLong etc.](coords-sample.png)
+
 
 
 

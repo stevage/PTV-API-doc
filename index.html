@@ -956,11 +956,8 @@ e.g. "0,1,2,4,100" would return train, tram, bus, NightRider &amp; ticket outlet
     e.g. 144.9542017407848</p>
 </li>
 </ul>
-<p>The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:
-<pre>
-   (lat1, long1)  <br />
-   (lat2, long2)<br />
-</pre></p>
+<p>The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:</p>
+<p><img alt="lat1, long1, lat2, long2." src="latlong-diagram.png" /></p>
 <ul>
 <li>griddepth        =        the number of cells per block of cluster grid (between 0-20 inclusive).
 e.g. "1" would look like this:</li>
@@ -1038,7 +1035,7 @@ For more information on the data structures, check out the JSON object structure
 </li>
 </ul>
 <p>**        The set of coordinates above describe the following points (sample only):</p>
-<p>(image missing)</p>
+<p><img alt="Sample showing maxLat, minLong, weightedLat, weighteLong etc." src="coords-sample.png" /></p>
 <h3>Example use case</h3>
 <p>Janelle wants to develop her app further and allow tourists to see public transport stops in an entire region that the tourist has selected on a map. She wants the tourists to be able to specify which mode of stops they see (i.e. train, tram, bus, V/Line or NightRider) and also to be able to see myki ticket outlets if they want. Janelle uses the Transport POIs by Map API to do this.</p>
 <ul>
@@ -1578,15 +1575,23 @@ For example, if the stop is Camberwell Station, Broad Next Departures will retur
 <li>3        V/Line train and coach</li>
 <li>4        NightRider </li>
 </ul>
+<p>e.g. "2"</p>
+</li>
+<li>
+<p>stop        =        the stop_id of the stop</p>
+<p>e.g. "1108"</p>
+</li>
+<li>
+<p>limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)</p>
+<p>e.g. 2</p>
+</li>
+<li>
+<p>devid        =        the developer ID supplied in your email from PTV</p>
+</li>
+<li>
+<p>signature        =        the customised message digest calculated using the method in the Quick start guide</p>
 </li>
 </ul>
-<p>e.g. "2"
-stop        =        the stop_id of the stop
-e.g. "1108"
-limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
-e.g. 2
-devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide</p>
 <h3>Response</h3>
 <p>Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
@@ -1708,15 +1713,14 @@ distance        decimal number
 
 </pre>
 
-> GPS coordinates are mostly to 6 decimal places. This identifies a location to sub meter accuracy.
+GPS coordinates are mostly to 6 decimal places. This identifies a location to sub meter accuracy.<br/>
 
-> For train stations, the "__location_name__" is the name of the station &ndash; e.g. "Belgrave Station".
-For tram and bus stops, it is a concise geographic descriptor that is determined by a hierarchy of available stop information. The hierarchy is:
+For train stations, the "__location_name__" is the name of the station &ndash; e.g. "Belgrave Station".
+For tram and bus stops, it is a concise geographic descriptor that is determined by a hierarchy of available stop information. The hierarchy is:<br/>
 
-> Landmark > Cross Street > Travel Street
+<b>Landmark > Cross Street > Travel Street</b><br/>
 
-> Depending on the content of those fields the location name can be Landmark/Travel Street, or Cross Street/Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").
-
+Depending on the content of those fields the location name can be Landmark/Travel Street, or Cross Street/Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").<br/>
 
 </div>
 
@@ -1917,25 +1921,43 @@ For example, if the stop is Camberwell Station, Specific Next Departures returns
 <code>/v2/mode/%@/line/%@/stop/%@/directionid/%@/departures/all/limit/%@?for_utc=%@
 &amp;devid=%@&amp;signature=%@</code></p>
 <h3>Parameters</h3>
-<p><em>mode        =        a number representing the transport_type of the stop, defined as follows:
-</em> 0        Train (metropolitan)
-<em> 1        Tram
-</em> 2        Bus (metropolitan and regional, but not V/Line) 
-<em> 3        V/Line train and coach
-</em> 4        NightRider </p>
-<p>e.g. "0"
-line        =        the line_id of the requested services
-e.g. "3"
-stop        =        the stop_id of the stop
-e.g. "1108"
-directionid        =        the direction_id of the requested services
-e.g. "0"
-limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
-e.g. 2
-for_utc        =        optional: the date and time of the request in ISO 8601 UTC format
-e.g. 2013-11-13T07:08:03Z
-devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+<p>*mode        =        a number representing the transport_type of the stop, defined as follows:</p>
+<div class="codehilite"><pre>* 0        Train (metropolitan)
+* 1        Tram
+* 2        Bus (metropolitan and regional, but not V/Line) 
+* 3        V/Line train and coach
+* 4        NightRider
+
+e.g. &quot;0&quot;
+</pre></div>
+
+
+<ul>
+<li>
+<p>line        =        the line_id of the requested services</p>
+<p>e.g. "3"</p>
+</li>
+<li>
+<p>stop        =        the stop_id of the stop</p>
+<p>e.g. "1108"</p>
+</li>
+<li>
+<p>directionid        =        the direction_id of the requested services</p>
+<p>e.g. "0"</p>
+</li>
+<li>
+<p>limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)</p>
+<p>e.g. 2</p>
+</li>
+<li>
+<p>for_utc        =        optional: the date and time of the request in ISO 8601 UTC format</p>
+<p>e.g. 2013-11-13T07:08:03Z</p>
+</li>
+<li>
+<p>devid        =        the developer ID supplied in your email from PTV</p>
+<p>signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+</li>
+</ul>
 <h3>Response</h3>
 <p>Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
@@ -1979,19 +2001,14 @@ For more information on the data structures, check out the JSON object structure
 <li>direction_id</li>
 <li>direction_name</li>
 </ul>
-<p>"line" objects have these attributes: 
-transport_type        string
-&ndash; the mode of transport serviced by the line
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-line_id        numeric string
-&ndash; the unique identifier of each line
-&ndash; e.g. "1818"
-line_name        string
-&ndash; the name of the line
-&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway &amp; Frankston Station "
-line_number        string
-&ndash; the line number that is presented to the public (i.e. not the "line_id")
-&ndash; e.g. "970"</p>
+<p>"Line" objects have the following attributes:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number</li>
+</ul>
 <h3>Example use case</h3>
 <p>Janelle's next enhancement for the tourist app is to let tourists choose which departure times they see for any given stop, by selecting the line and direction.
 This will mean that if a stop or station has multiple routes or lines stopping there (for example, Flinders Street Station), the tourist won't be bombarded with a confusing list of departure times for multiple lines.
@@ -3221,26 +3238,17 @@ e.g. "2"</li>
 </ul>
 <h3>Response</h3>
 <p>Returns a collection of JSON "stop" objects, with the attributes below, ordered by location_name:</p>
-<p>suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Belgrave"
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "1108"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.82005
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.95047
-distance        decimal number
-&ndash; not used; returns zero</p>
+<p>"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+</ul>
 <p>For more information on the data structures, check out the JSON object structure.</p>
 <h3>Example use case</h3>
 <p>Janelle's last development for the app is to help tourists understand where different trains, trams and buses go &ndash; especially bus routes which tend to be a bit less obvious.
@@ -3539,8 +3547,8 @@ Building on the previous APIs, she uses the Stops on a Line API to do this.</p>
         <a class='sectionlink' href='./7-1-jsonstructure.html'>
           (section link)
         </a>
-        <p>[Ed: This section was presented graphically in the Word document. It has not been fully converted - best refer to the original if you need this information. (It mostly seems redundant.)]</p>
-<h2>JSON object structure</h2>
+        <h2>JSON object structure</h2>
+<p>[Ed: This section was presented graphically in the Word document. It has not been fully converted - best refer to the original if you need this information. (It mostly seems redundant.)]</p>
 <p>The diagrams below show the structure of the JSON objects returned from the API calls.</p>
 <p>Stop data is returned through three different pathways: as a stop object, as part of a “locations” object, and as a type of “result” object.</p>
 <p>Line data is returned through two pathways: as a “line” object and as a type of “result” object.</p>
@@ -3702,7 +3710,10 @@ Additional information: The timetable data released is consistent with the data 
         </a>
         <h1>Getting help</h1>
 <h2>Glossary</h2>
-<p>cluster  is a group of geographically concentrated POIs</p>
+<p><a href="#fig-glossary">Glossary</a>
+<div id="fig-glossary">
+    <h4>Glossary</h4>
+cluster  is a group of geographically concentrated POIs</p>
 <p>Cross Street  is a street that intersects the street a tram or bus is travelling along (i.e. the Travel Street)</p>
 <p>Google Geocoding API  is a Google API that provides access to a service which converts addresses into geographic coordinates (and vice versa)</p>
 <p>journey planner  is a PTV service that allows people to plan journeys from one specific point to another</p>
@@ -3719,6 +3730,7 @@ Additional information: The timetable data released is consistent with the data 
 <p>TramTRACKER  is a real-time feed for tram services provided by Yarra Trams</p>
 <p>Travel Street  is the street that a tram or bus is travelling along at any given point in its run</p>
 <p>UTC  stands for Coordinated Universal Time; it is the primary time standard that regulates clocks and time</p>
+</div>
         <br />
        <div class='nav'>
           
@@ -3773,20 +3785,20 @@ The Route 007 bus that runs from Somewhere Shopping Centre to Somewhere Station 
           (section link)
         </a>
         <h2>FAQs</h2>
-<h3>Q.  What does the PTV Timetable API do?</h3>
+<h4>Q.  What does the PTV Timetable API do?</h4>
 <p>A.  The PTV Timetable API provides a way to directly and dynamically access the most up-to-date stop, line and timetable data held by PTV. By creating an API we are increasing the opportunities for developers to take our data and re-use it in innovative way.</p>
-<h3>Q.  Who is the PTV Timetable API for?</h3>
+<h4>Q.  Who is the PTV Timetable API for?</h4>
 <p>A.  Our API is for everyone who wants to take our data and re-use it in a web or smartphone app.</p>
-<h3>Q.  Can I use the API to download all the timetable data?</h3>
+<h4>Q.  Can I use the API to download all the timetable data?</h4>
 <p>A.  The API is not designed to download all the timetable data at once. It works most effectively when used dynamically within an app as that is the way to guarantee you're always accessing &ndash; and providing &ndash; the most up-to-date data. If you want to use the API to get a dump of all of the data, please contact us.</p>
-<h3>Q.  Some of the timetable results I get using the API are different to those the PTV journey planner provides &ndash; why?</h3>
+<h4>Q.  Some of the timetable results I get using the API are different to those the PTV journey planner provides &ndash; why?</h4>
 <p>A.  The PTV journey planner is coded with a number of business rules that reflect public transport operational requirements. This can include noting which multi-modal services are guaranteed connections, for example, or requiring passengers to board a regional train half an hour before it is due to leave.
 The API accesses raw timetable data, not journey planner results. Your timetable results will reflect the actual timetable.</p>
-<h3>Q.  Is the timetable data available in a GTFS format?</h3>
+<h4>Q.  Is the timetable data available in a GTFS format?</h4>
 <p>A.  Timetable data is not available in GTFS format. The operational needs of our business dictate the format of our data and the methods to access it. This is why the API we're releasing is the same as the API that we use for our own online products.</p>
-<h3>Q.  What programming languages can I use with the API?</h3>
+<h4>Q.  What programming languages can I use with the API?</h4>
 <p>A.  The PTV Timetable API can work with all programming languages. Because it is a programming language agnostic interface, as long as the language you are using supports HTTP protocols, you can use our API.</p>
-<h3>Q.  Is real-time data available?</h3>
+<h4>Q.  Is real-time data available?</h4>
 <p>A.  PTV gets real-time data for trams through Yarra Trams' TramTRACKER system. Contact Yarra Trams to find out more.
 There are currently no real-time data feeds for trains and buses.</p>
         <br />

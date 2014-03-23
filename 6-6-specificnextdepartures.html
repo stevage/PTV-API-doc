@@ -22,25 +22,43 @@ For example, if the stop is Camberwell Station, Specific Next Departures returns
 <code>/v2/mode/%@/line/%@/stop/%@/directionid/%@/departures/all/limit/%@?for_utc=%@
 &amp;devid=%@&amp;signature=%@</code></p>
 <h3>Parameters</h3>
-<p><em>mode        =        a number representing the transport_type of the stop, defined as follows:
-</em> 0        Train (metropolitan)
-<em> 1        Tram
-</em> 2        Bus (metropolitan and regional, but not V/Line) 
-<em> 3        V/Line train and coach
-</em> 4        NightRider </p>
-<p>e.g. "0"
-line        =        the line_id of the requested services
-e.g. "3"
-stop        =        the stop_id of the stop
-e.g. "1108"
-directionid        =        the direction_id of the requested services
-e.g. "0"
-limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
-e.g. 2
-for_utc        =        optional: the date and time of the request in ISO 8601 UTC format
-e.g. 2013-11-13T07:08:03Z
-devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+<p>*mode        =        a number representing the transport_type of the stop, defined as follows:</p>
+<div class="codehilite"><pre>* 0        Train (metropolitan)
+* 1        Tram
+* 2        Bus (metropolitan and regional, but not V/Line) 
+* 3        V/Line train and coach
+* 4        NightRider
+
+e.g. &quot;0&quot;
+</pre></div>
+
+
+<ul>
+<li>
+<p>line        =        the line_id of the requested services</p>
+<p>e.g. "3"</p>
+</li>
+<li>
+<p>stop        =        the stop_id of the stop</p>
+<p>e.g. "1108"</p>
+</li>
+<li>
+<p>directionid        =        the direction_id of the requested services</p>
+<p>e.g. "0"</p>
+</li>
+<li>
+<p>limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)</p>
+<p>e.g. 2</p>
+</li>
+<li>
+<p>for_utc        =        optional: the date and time of the request in ISO 8601 UTC format</p>
+<p>e.g. 2013-11-13T07:08:03Z</p>
+</li>
+<li>
+<p>devid        =        the developer ID supplied in your email from PTV</p>
+<p>signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+</li>
+</ul>
 <h3>Response</h3>
 <p>Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
@@ -84,19 +102,14 @@ For more information on the data structures, check out the JSON object structure
 <li>direction_id</li>
 <li>direction_name</li>
 </ul>
-<p>"line" objects have these attributes: 
-transport_type        string
-&ndash; the mode of transport serviced by the line
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-line_id        numeric string
-&ndash; the unique identifier of each line
-&ndash; e.g. "1818"
-line_name        string
-&ndash; the name of the line
-&ndash; e.g. "970 - City - Frankston - Mornington - Rosebud via Nepean Highway &amp; Frankston Station "
-line_number        string
-&ndash; the line number that is presented to the public (i.e. not the "line_id")
-&ndash; e.g. "970"</p>
+<p>"Line" objects have the following attributes:
+<a href="#fig-line-values"></a></p>
+<ul>
+<li>transport_type</li>
+<li>line_id</li>
+<li>line_name</li>
+<li>line_number</li>
+</ul>
 <h3>Example use case</h3>
 <p>Janelle's next enhancement for the tourist app is to let tourists choose which departure times they see for any given stop, by selecting the line and direction.
 This will mean that if a stop or station has multiple routes or lines stopping there (for example, Flinders Street Station), the tourist won't be bombarded with a confusing list of departure times for multiple lines.

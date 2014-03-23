@@ -3,9 +3,9 @@ title: JSON object structure
 ---
 ---
 
+##JSON object structure
 [Ed: This section was presented graphically in the Word document. It has not been fully converted - best refer to the original if you need this information. (It mostly seems redundant.)]
 
-##JSON object structure
 The diagrams below show the structure of the JSON objects returned from the API calls.
 
 Stop data is returned through three different pathways: as a stop object, as part of a “locations” object, and as a type of “result” object.

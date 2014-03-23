@@ -41,26 +41,17 @@ e.g. "2"</li>
 </ul>
 <h3>Response</h3>
 <p>Returns a collection of JSON "stop" objects, with the attributes below, ordered by location_name:</p>
-<p>suburb        string
-&ndash; the suburb name
-&ndash; e.g. "Belgrave"
-transport_type        string
-&ndash; the mode of transport serviced by the stop
-&ndash; e.g. can be either "train", "tram", "bus", "V/Line" or "NightRider"
-stop_id        numeric string
-&ndash; the unique identifier of each stop
-&ndash; e.g. "1108"
-location_name        string
-&ndash; the name of the stop based on a concise geographic description
-&ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)"
-lat        decimal number
-&ndash; geographic coordinate of latitude
-&ndash; e.g. -37.82005
-lon        decimal number
-&ndash; geographic coordinate of longitude
-&ndash; e.g. 144.95047
-distance        decimal number
-&ndash; not used; returns zero</p>
+<p>"stop" objects have these attributes: 
+<a href="#fig-stop-values"></a></p>
+<ul>
+<li>suburb</li>
+<li>transport_type</li>
+<li>stop_id</li>
+<li>location_name</li>
+<li>lat</li>
+<li>lon</li>
+<li>distance</li>
+</ul>
 <p>For more information on the data structures, check out the JSON object structure.</p>
 <h3>Example use case</h3>
 <p>Janelle's last development for the app is to help tourists understand where different trains, trams and buses go &ndash; especially bus routes which tend to be a bit less obvious.

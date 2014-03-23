@@ -31,15 +31,23 @@ For example, if the stop is Camberwell Station, Broad Next Departures will retur
 <li>3        V/Line train and coach</li>
 <li>4        NightRider </li>
 </ul>
+<p>e.g. "2"</p>
+</li>
+<li>
+<p>stop        =        the stop_id of the stop</p>
+<p>e.g. "1108"</p>
+</li>
+<li>
+<p>limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)</p>
+<p>e.g. 2</p>
+</li>
+<li>
+<p>devid        =        the developer ID supplied in your email from PTV</p>
+</li>
+<li>
+<p>signature        =        the customised message digest calculated using the method in the Quick start guide</p>
 </li>
 </ul>
-<p>e.g. "2"
-stop        =        the stop_id of the stop
-e.g. "1108"
-limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
-e.g. 2
-devid        =        the developer ID supplied in your email from PTV
-signature        =        the customised message digest calculated using the method in the Quick start guide</p>
 <h3>Response</h3>
 <p>Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.
 The "platform" objects have a "stop" and "direction" object in them, and the "direction" object has a "line" object within it.
@@ -161,15 +169,14 @@ distance        decimal number
 
 </pre>
 
-> GPS coordinates are mostly to 6 decimal places. This identifies a location to sub meter accuracy.
+GPS coordinates are mostly to 6 decimal places. This identifies a location to sub meter accuracy.<br/>
 
-> For train stations, the "__location_name__" is the name of the station &ndash; e.g. "Belgrave Station".
-For tram and bus stops, it is a concise geographic descriptor that is determined by a hierarchy of available stop information. The hierarchy is:
+For train stations, the "__location_name__" is the name of the station &ndash; e.g. "Belgrave Station".
+For tram and bus stops, it is a concise geographic descriptor that is determined by a hierarchy of available stop information. The hierarchy is:<br/>
 
-> Landmark > Cross Street > Travel Street
+<b>Landmark > Cross Street > Travel Street</b><br/>
 
-> Depending on the content of those fields the location name can be Landmark/Travel Street, or Cross Street/Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").
-
+Depending on the content of those fields the location name can be Landmark/Travel Street, or Cross Street/Travel Street, or just Travel Street, together with the suburb. Tram stop location names also include a stop number at the start (which is the number that appears on the signage at the stop or in the timetable; not the same as the "stop_id").<br/>
 
 </div>
 

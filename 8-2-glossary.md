@@ -4,6 +4,9 @@ title: Getting help
 ---
 #Getting help
 ## Glossary
+<a href="#fig-glossary">Glossary</a>
+<div id="fig-glossary">
+    <h4>Glossary</h4>
 cluster  is a group of geographically concentrated POIs
 
 
@@ -54,3 +57,4 @@ Travel Street  is the street that a tram or bus is travelling along at any given
 
 UTC  stands for Coordinated Universal Time; it is the primary time standard that regulates clocks and time
 
+</div>
