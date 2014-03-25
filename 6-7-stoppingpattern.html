@@ -22,32 +22,41 @@
 <h3>Parameters</h3>
 <ul>
 <li>
-<p>mode        =        a number representing the transport_type of the stop, defined as follows:</p>
+<p><code>mode</code>        =        a number representing the transport_type of the stop, defined as follows:</p>
 <ul>
-<li>0        Train (metropolitan)</li>
-<li>1        Tram</li>
-<li>2        Bus (metropolitan and regional, but not V/Line) </li>
-<li>3        V/Line train and coach</li>
-<li>4        NightRider </li>
+<li><code>0</code>        Train (metropolitan)</li>
+<li><code>1</code>       Tram</li>
+<li><code>2</code>        Bus (metropolitan and regional, but not V/Line) </li>
+<li><code>3</code>        V/Line train and coach</li>
+<li><code>4</code>        NightRider </li>
 </ul>
+<blockquote>
 <p>e.g. "2"</p>
+</blockquote>
 </li>
 <li>
-<p>run        =        the run_id of the requested run</p>
+<p><code>run</code>        =        the run_id of the requested run</p>
+<blockquote>
 <p>e.g. "1464"</p>
+</blockquote>
 </li>
 <li>
-<p>stop        =        the stop_id of the stop</p>
+<p><code>stop</code>        =        the stop_id of the stop</p>
+<blockquote>
 <p>e.g. "1108"</p>
+</blockquote>
 </li>
 <li>
-<p>for_utc        =        the date and time of the request in ISO 8601 UTC format e.g. 2013-11-13T05:24:25Z</p>
+<p><code>for_utc</code>        =        the date and time of the request in ISO 8601 UTC format </p>
+<blockquote>
+<p>e.g. 2013-11-13T05:24:25Z</p>
+</blockquote>
 </li>
 <li>
-<p>devid        =        the developer ID supplied in your email from PTV</p>
+<p><code>devid</code>        =        the developer ID supplied in your email from PTV</p>
 </li>
 <li>
-<p>signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+<p><code>signature</code>        =        the customised message digest calculated using the method in the Quick start guide</p>
 </li>
 </ul>
 <h3>Response</h3>

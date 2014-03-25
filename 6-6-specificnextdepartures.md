@@ -17,7 +17,7 @@ base URL
 
 ###Parameters
 
-*mode        =        a number representing the transport_type of the stop, defined as follows:
+* mode        =        a number representing the transport_type of the stop, defined as follows:
 
     * 0        Train (metropolitan)
     * 1        Tram
@@ -29,27 +29,27 @@ base URL
 
 * line        =        the line_id of the requested services
 
-    e.g. "3"
+    > e.g. "3"
 
 * stop        =        the stop_id of the stop
 
-    e.g. "1108"
+    > e.g. "1108"
 
 * directionid        =        the direction_id of the requested services
 
-    e.g. "0"
+    > e.g. "0"
 
 * limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)
 
-    e.g. 2
+    > e.g. 2
 
 * for_utc        =        optional: the date and time of the request in ISO 8601 UTC format
   
-    e.g. 2013-11-13T07:08:03Z
+    > e.g. 2013-11-13T07:08:03Z
 
 * devid        =        the developer ID supplied in your email from PTV
 
-    signature        =        the customised message digest calculated using the method in the Quick start guide
+* signature        =        the customised message digest calculated using the method in the Quick start guide
 
 ###Response
 Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.

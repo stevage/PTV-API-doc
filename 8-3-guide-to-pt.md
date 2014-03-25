@@ -14,9 +14,9 @@ We've created a fictional town called Somewhere (diagram 1) to help illustrate s
 
 
 
-Public transport is easy to understand, right? There's trains, trams and buses, some routes, a timetable, some stations and stops…it's all pretty simple stuff, right?
+Public transport is easy to understand, right? There's trains, trams and buses, some routes, a timetable, some stations and stops...it's all pretty simple stuff, right?
 Well, yes. And also no.
-Public transport seems pretty simple on the surface, but the data that underpins it is a very complex beast. You see, there's public transport data, and then there's how it's presented to the public. A lot of effort goes into making public transport ‘nice' for the public!
+Public transport seems pretty simple on the surface, but the data that underpins it is a very complex beast. You see, there's public transport data, and then there's how it's presented to the public. A lot of effort goes into making public transport 'nice' for the public!
 Let's start with the concept of a stop. In our data, a stop can be a tram stop, a bus stop, a bus bay at a shopping centre or junction, or a train station.
 So all of the bus stops and the train stations in Somewhere (diagram 2) would be returned as stops.
 

@@ -35,38 +35,38 @@ If you set griddepth to zero it will not cluster.</p>
 <h3>Parameters</h3>
 <ul>
 <li>
-<p>poi        =        a comma separated list of numbers representing the types of POIs you want returned, defined as follows:</p>
+<p><code>poi</code>        =        a comma separated list of numbers representing the types of POIs you want returned, defined as follows:</p>
 <ul>
-<li>0        Train (metropolitan)</li>
-<li>1        Tram</li>
-<li>2        Bus (metropolitan and regional, but not V/Line) </li>
-<li>3        V/Line regional train and coach</li>
-<li>4        NightRider</li>
-<li>100        Ticket outlet
-e.g. "0,1,2,4,100" would return train, tram, bus, NightRider &amp; ticket outlets</li>
+<li><code>0</code>        Train (metropolitan)</li>
+<li><code>1</code>        Tram</li>
+<li><code>2</code>        Bus (metropolitan and regional, but not V/Line) </li>
+<li><code>3</code>        V/Line regional train and coach</li>
+<li><code>4</code>        NightRider</li>
+<li><code>100</code>        Ticket outlet
+e.g. <code>0,1,2,4,100</code> would return train, tram, bus, NightRider &amp; ticket outlets</li>
 </ul>
 </li>
 <li>
-<p>lat1        =        latitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. -37.82392124423254</p>
+<p><code>lat1</code>        =        latitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
+    e.g. <code>-37.82392124423254</code></p>
 </li>
 <li>
-<p>long1        =        longitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. 144.9462017431463</p>
+<p><code>long1</code>        =        longitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
+    e.g. <code>144.9462017431463</code></p>
 </li>
 <li>
-<p>lat2        =        latitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. -37.81540959390813</p>
+<p><code>lat2</code>        =        latitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
+    e.g. <code>-37.81540959390813</code></p>
 </li>
 <li>
-<p>long2        =        longitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. 144.9542017407848</p>
+<p><code>long2</code>        =        longitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
+    e.g. <code>144.9542017407848</code></p>
 </li>
 </ul>
 <p>The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:</p>
 <p><img alt="lat1, long1, lat2, long2." src="latlong-diagram.png" /></p>
 <ul>
-<li>griddepth        =        the number of cells per block of cluster grid (between 0-20 inclusive).
+<li><code>griddepth</code>        =        the number of cells per block of cluster grid (between 0-20 inclusive).
 e.g. "1" would look like this:</li>
 </ul>
 <p>(image missing)</p>
@@ -76,10 +76,10 @@ e.g. "1" would look like this:</li>
 
 <p>(image missing) </p>
 <ul>
-<li>limit        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)
+<li><code>limit</code>        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)
     e.g. 4</li>
-<li>devid        =        the developer ID supplied in your email from PTV</li>
-<li>signature        =        the customised message digest calculated using the method in the Quick start guide</li>
+<li><code>devid</code>        =        the developer ID supplied in your email from PTV</li>
+<li><code>signature</code>        =        the customised message digest calculated using the method in the Quick start guide</li>
 </ul>
 <h3>Response</h3>
 <p>Returns a list of JSON objects which are either "locations" or "clusters"; "clusters" have their own list of "locations" within them.
@@ -87,58 +87,72 @@ e.g. "1" would look like this:</li>
 For more information on the data structures, check out the JSON object structure.</p>
 <h4>Each stop and outlet "location" object has the following attributes:</h4>
 <ul>
-<li>suburb        string &ndash; the suburb name &ndash; e.g. "Belgrave"</li>
-<li>location_name        string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-</li>
-<li>Barkly Square/115 Sydney Rd (Brunswick)" </li>
-<li>lat        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.82005</li>
-<li>lon        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.95047</li>
-<li>distance        decimal number &ndash; returns zero in the context of this API</li>
+<li><code>suburb</code>        string &ndash; the suburb name &ndash; e.g. "Belgrave"</li>
+<li><code>location_name</code>       string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)" </li>
+<li><code>lat</code>        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.82005</li>
+<li><code>lon</code>        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.95047</li>
+<li><code>distance</code>        decimal number &ndash; returns zero in the context of this API</li>
 </ul>
 <h4>"stop" objects have the following extra attributes:</h4>
 <ul>
-<li>transport_type        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"</li>
-<li>stop_id        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2171"</li>
+<li><code>transport_type</code>        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"</li>
+<li><code>stop_id</code>        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2171"</li>
 </ul>
 <h4>While "outlet" objects have the following extra attributes:</h4>
 <ul>
-<li>outlet_type        string (limited values) &ndash; either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"</li>
-<li>business_name        string &ndash; the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"</li>
+<li><code>outlet_type</code>        string (limited values) &ndash; either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"</li>
+<li><code>business_name</code>        string &ndash; the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"</li>
 </ul>
 <h4>For each set of locations and clusters, it will also return the following objects:</h4>
 <ul>
 <li>
-<p>minLat        decimal number &ndash; the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
-<p>&ndash; e.g. -37.81959</p>
+<p><code>minLat</code>        </p>
+<blockquote>
+<p>decimal number &ndash; the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
+<p>e.g. -37.81959</p>
+</blockquote>
 </li>
 <li>
-<p>minLong        decimal number</p>
-<p>&ndash; the minimum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
-<p>&ndash; e.g. 144.979126</p>
+<p><code>minLong</code>        decimal number</p>
+<blockquote>
+<p>the minimum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
+<p>e.g. 144.979126</p>
+</blockquote>
 </li>
 <li>
-<p>maxLat        decimal number</p>
-<p>&ndash; the maximum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
-<p>&ndash; e.g. -37.8134956</p>
+<p><code>maxLat</code>        decimal number</p>
+<blockquote>
+<p>the maximum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
+<p>e.g. -37.8134956</p>
+</blockquote>
 </li>
 <li>
-<p>maxLong        decimal number</p>
-<p>&ndash; the maximum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
-<p>&ndash; e.g. 144.9854</p>
+<p><code>maxLong</code>       decimal number</p>
+<blockquote>
+<p>the maximum longitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
+<p>e.g. 144.9854</p>
+</blockquote>
 </li>
 <li>
-<p>weightedLat        decimal number</p>
-<p>&ndash; latitude at the point that is the average of all POIs returned in a grid cell**</p>
-<p>&ndash; e.g. -37.81671</p>
+<p><code>weightedLat</code>        decimal number</p>
+<blockquote>
+<p>latitude at the point that is the average of all POIs returned in a grid cell**</p>
+<p>e.g. -37.81671</p>
+</blockquote>
 </li>
 <li>
-<p>weightedLong        decimal number</p>
-<p>&ndash; longitude at the point that is the average of all POIs returned in a grid cell**</p>
-<p>&ndash; e.g. 144.982849</p>
+<p><code>weightedLong</code>        decimal number</p>
+<blockquote>
+<p>longitude at the point that is the average of all POIs returned in a grid cell**</p>
+<p>e.g. 144.982849</p>
+</blockquote>
 </li>
 <li>
-<p>totalLocations        integer</p>
-<p>&ndash; the total number of locations within the region described above</p>
-<p>&ndash; e.g. 7</p>
+<p><code>totalLocations</code>        integer</p>
+<blockquote>
+<p>the total number of locations within the region described above</p>
+<p>e.g. 7</p>
+</blockquote>
 </li>
 </ul>
 <p>**        The set of coordinates above describe the following points (sample only):</p>

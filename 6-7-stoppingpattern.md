@@ -14,29 +14,31 @@ base URL
 
 ###Parameters
 
-* mode        =        a number representing the transport_type of the stop, defined as follows:
+* `mode`        =        a number representing the transport_type of the stop, defined as follows:
 
-    * 0        Train (metropolitan)
-    * 1        Tram
-    * 2        Bus (metropolitan and regional, but not V/Line) 
-    * 3        V/Line train and coach
-    * 4        NightRider 
+    * `0`        Train (metropolitan)
+    * `1`       Tram
+    * `2`        Bus (metropolitan and regional, but not V/Line) 
+    * `3`        V/Line train and coach
+    * `4`        NightRider 
 
-    e.g. "2"
+    > e.g. "2"
 
-* run        =        the run_id of the requested run
+* `run`        =        the run_id of the requested run
 
-    e.g. "1464"
+    > e.g. "1464"
 
-* stop        =        the stop_id of the stop
+* `stop`        =        the stop_id of the stop
 
-    e.g. "1108"
+    > e.g. "1108"
 
-* for_utc        =        the date and time of the request in ISO 8601 UTC format e.g. 2013-11-13T05:24:25Z
+* `for_utc`        =        the date and time of the request in ISO 8601 UTC format 
 
-* devid        =        the developer ID supplied in your email from PTV
+    > e.g. 2013-11-13T05:24:25Z
 
-* signature        =        the customised message digest calculated using the method in the Quick start guide
+* `devid`        =        the developer ID supplied in your email from PTV
+
+* `signature`        =        the customised message digest calculated using the method in the Quick start guide
 
 ###Response
 Returns a collection of JSON timetable "values" that have a "platform" and "run" object embedded within them.

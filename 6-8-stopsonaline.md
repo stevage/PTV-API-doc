@@ -14,19 +14,19 @@ base URL
 
 ###Parameters
 
-* mode        =        a number representing the transport_type of the stop, defined as follows:
+* `mode`        =        a number representing the transport_type of the stop, defined as follows:
     * 0        Train (metropolitan)
     * 1        Tram
     * 2        Bus (metropolitan and regional, but not V/Line) 
     * 3        V/Line train and coach
     * 4        NightRider 
     e.g. "2"
-* line        =        the line_id of the requested line
+* `line`        =        the line_id of the requested line
 
-    e.g. "1818"
+    > e.g. "1818"
 
-* devid        =        the developer ID supplied in your email from PTV
-* signature        =        the customised message digest calculated using the method in the Quick start guide
+* `devid`        =        the developer ID supplied in your email from PTV
+* `signature`        =        the customised message digest calculated using the method in the Quick start guide
 
 ###Response
 Returns a collection of JSON "stop" objects, with the attributes below, ordered by location_name:

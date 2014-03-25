@@ -9,6 +9,8 @@ Once you have obtained your key and developer ID you can get started. The first 
    
     * signature        =        <code>crypto.HMACSHA1(request,key)</code>
 
+> NOTE [Editor's addition]: "request" here is the URL from "/v2" onwards, and the signature must be converted to upper case.
+
 * The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.
 
 For example, "<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?devid=ABCXYZ</code>" and "<code>http://timetableapi.ptv.vic.gov.au/v2/HealthCheck?devid=ABCXYZ</code>" require different signatures to be calculated; the same signature will not work for both requests.

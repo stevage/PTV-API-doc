@@ -5,7 +5,7 @@ sort_key: 1
 ---
 # Introduction
 ## Important!
-This document is a reformatted, somewhat edited, and __currently incomplete__ unofficial version of the PTV API. It is maintained by <a href="http://stevebennett.me">Steve Bennett</a>, who has no relationship with PTV.  You can access the official PTV Timetable API <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">at data.vic.gov.au</a>, or view it in <a href="https://github.com/stevage/PTV-API-doc/blob/gh-pages/PTV_Timetable_API.pdf?raw=true">PDF format</a>. This web template is Embellish/<a href="https://github.com/boscoh/supplescroll">SuppleScroll</a> by Bosco Ho.
+This document is a reformatted, somewhat edited, and __slightly incomplete__ unofficial version of the PTV API. It is maintained by <a href="http://stevebennett.me">Steve Bennett</a>, who has no relationship with PTV.  You can access the official PTV Timetable API <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">at data.vic.gov.au</a>, or view it in <a href="https://github.com/stevage/PTV-API-doc/blob/gh-pages/PTV_Timetable_API.pdf?raw=true">PDF format</a>. This web template is Embellish/<a href="https://github.com/boscoh/supplescroll">SuppleScroll</a> by Bosco Ho.
 
 *Source: Licensed from Public Transport Victoria under a Creative Commons Attribution 3.0 Australia Licence.*
 
