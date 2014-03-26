@@ -137,9 +137,12 @@ The key consists of a 128bit GUID.</p>
 <li>signature        =        <code>crypto.HMACSHA1(request,key)</code></li>
 </ul>
 </li>
-<li>
-<p>The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.</p>
-</li>
+</ul>
+<blockquote>
+<p>NOTE [Editor's addition]: "request" here is the URL from "/v2" onwards, and the signature must be converted to upper case.</p>
+</blockquote>
+<ul>
+<li>The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.</li>
 </ul>
 <p>For example, "<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?devid=ABCXYZ</code>" and "<code>http://timetableapi.ptv.vic.gov.au/v2/HealthCheck?devid=ABCXYZ</code>" require different signatures to be calculated; the same signature will not work for both requests.
 * The signature itself is also case-sensitive</p>
@@ -3234,18 +3237,18 @@ The "platform" objects have a "stop" and "direction" object in them, and the "di
 <code>/v2/mode/%@/line/%@/stops-for-line?devid=%@&amp;signature=%@</code></p>
 <h3>Parameters</h3>
 <ul>
-<li><code>mode</code>        =        a number representing the transport_type of the stop, defined as follows:<ul>
+<li>
+<p><code>mode</code>        =        a number representing the transport_type of the stop, defined as follows:</p>
+<ul>
 <li>0        Train (metropolitan)</li>
 <li>1        Tram</li>
 <li>2        Bus (metropolitan and regional, but not V/Line) </li>
 <li>3        V/Line train and coach</li>
-<li>4        NightRider 
-e.g. "2"</li>
+<li>4        NightRider </li>
 </ul>
-</li>
-<li>
-<p><code>line</code>        =        the line_id of the requested line</p>
 <blockquote>
+<p>e.g. "2"
+* <code>line</code>        =        the line_id of the requested line</p>
 <p>e.g. "1818"</p>
 </blockquote>
 </li>
@@ -4049,7 +4052,7 @@ return url;
 
        </div>
       
-        <a class='sectionlink' href='./license.html'>
+        <a class='sectionlink' href='/license.html'>
           (section link)
         </a>
         <h2>Licence</h2>
@@ -4069,7 +4072,7 @@ return url;
 
        </div>
       
-        <a class='sectionlink' href='./readme.html'>
+        <a class='sectionlink' href='/readme.html'>
           (section link)
         </a>
         <h1>About</h1>

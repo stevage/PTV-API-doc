@@ -21,9 +21,12 @@
 <li>signature        =        <code>crypto.HMACSHA1(request,key)</code></li>
 </ul>
 </li>
-<li>
-<p>The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.</p>
-</li>
+</ul>
+<blockquote>
+<p>NOTE [Editor's addition]: "request" here is the URL from "/v2" onwards, and the signature must be converted to upper case.</p>
+</blockquote>
+<ul>
+<li>The calculation of a signature is based on a case-sensitive reading of the request message. This means that the request message used to calculate the signature must not be modified later on in your code or the signature will not work. If you do modify the case of the request message, you will need to calculate a new signature.</li>
 </ul>
 <p>For example, "<code>http://timetableapi.ptv.vic.gov.au/v2/healthcheck?devid=ABCXYZ</code>" and "<code>http://timetableapi.ptv.vic.gov.au/v2/HealthCheck?devid=ABCXYZ</code>" require different signatures to be calculated; the same signature will not work for both requests.
 * The signature itself is also case-sensitive</p>

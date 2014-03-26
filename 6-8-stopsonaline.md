@@ -20,7 +20,8 @@ base URL
     * 2        Bus (metropolitan and regional, but not V/Line) 
     * 3        V/Line train and coach
     * 4        NightRider 
-    e.g. "2"
+
+    >  e.g. "2"
 * `line`        =        the line_id of the requested line
 
     > e.g. "1818"

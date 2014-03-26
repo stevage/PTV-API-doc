@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+  <meta content='initial-scale=1.0' name='viewport' />
+  <link href='supplescroll.css' rel='stylesheet' />
+  <link href='lucid.css' rel='stylesheet' />
+  
+    <title>Use case maps</title>
+  
+</head>
+<body>
+  <div id='table-of-contents' class='touchscroll'></div>
+  <div id='main-text' class='touchscroll'>
+    <div class='relative_position'>
+      <h2>Use case maps</h2>
+<p>To give you a taste of what you can do with the PTV Timetable API, we've created a small list of use case maps that show the sequence of APIs required to obtain particular information.</p>
+<p>[Editor: The following is a text representation of the diagrams which were included in the <a href="https://www.data.vic.gov.au/raw_data/ptv-timetable-api/6056">Word version of this document</a>.]</p>
+<h3>I want to...</h3>
+<h4>see all bus stops near me on a map or list</h4>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Stops Nearby</strong></li>
+</ol>
+<h4>...get the next three departure times for a specific service from a selected stop</h4>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Search</strong> or <strong>Stops Nearby</strong> or <strong>Transport POIs by Map</strong> =&gt; <code>transport_type</code></li>
+<li><strong>Broad Next Departures</strong> =&gt; <code>transport_type</code>, <code>stop_id</code>, <code>line_id</code></li>
+<li><strong>Specific Next Departures</strong></li>
+</ol>
+<h4>...find out what lines travel through a stop near me and where they go</h4>
+<ol>
+<li><strong>Health Check</strong> </li>
+<li><strong>Stops Nearby</strong> =&gt; <code>transport_type</code>, <code>stop_id</code></li>
+<li><strong>Broad Next Departures</strong> =&gt; transport_type</li>
+<li><strong>Stops on a Line</strong></li>
+</ol>
+<h4>...get the next ten departures from my local stop</h4>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Search</strong> or <strong>Stops Nearby</strong> or <strong>Transport POIs by Map</strong> =&gt; <code>transport_type</code></li>
+<li><strong>Broad Next Departures</strong></li>
+</ol>
+<h4>...find myki ticket outlets in my area</h4>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Transport POIs by Map</strong></li>
+</ol>
+<h4>...see on a map which bus stops are near my local train station</h4>
+<ol>
+<li><strong>Health Check</strong></li>
+<li><strong>Transport POIs by Map</strong>    </li>
+</ol>
+      <div class='timestamp'>
+        <i><a href='http://github.com/boscoh/supplescroll'>supplescroll</a></i>:lucid theme
+      </div>
+    </div>
+  </div>
+  <div id='figure-list' class='touchscroll'></div>
+</body>
+<script src='jquery-2.0.3.js' type='text/javascript'></script>
+<script src='jquery.scrollTo.js' type='text/javascript'></script>
+<script src='supplescroll.js' type='text/javascript'></script>
+<script src='page.js' type='text/javascript'></script>
