@@ -1644,29 +1644,35 @@ For example, if the stop is Camberwell Station, Broad Next Departures will retur
 <h3>Parameters</h3>
 <ul>
 <li>
-<p>mode        =        a number representing the transport_type of the stop, defined as follows:</p>
+<p><code>mode</code>        =        a number representing the transport_type of the stop, defined as follows:</p>
 <ul>
-<li>0        Train (metropolitan)</li>
-<li>1        Tram</li>
-<li>2        Bus (metropolitan and regional, but not V/Line)</li>
-<li>3        V/Line train and coach</li>
-<li>4        NightRider </li>
+<li><code>0</code>        Train (metropolitan)</li>
+<li><code>1</code>        Tram</li>
+<li><code>2</code>        Bus (metropolitan and regional, but not V/Line)</li>
+<li><code>3</code>        V/Line train and coach</li>
+<li><code>4</code>        NightRider </li>
 </ul>
+<blockquote>
 <p>e.g. "2"</p>
+</blockquote>
 </li>
 <li>
-<p>stop        =        the stop_id of the stop</p>
+<p><code>stop</code>        =        the stop_id of the stop</p>
+<blockquote>
 <p>e.g. "1108"</p>
+</blockquote>
 </li>
 <li>
-<p>limit        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)</p>
+<p><code>limit</code>        =        the number of next departure times to be returned, i.e. "5" will return the next five departure times (notes: "0" will return departures for the entire day; "1" will limit it to the very next departure, even if this is a few days away)</p>
+<blockquote>
 <p>e.g. 2</p>
+</blockquote>
 </li>
 <li>
-<p>devid        =        the developer ID supplied in your email from PTV</p>
+<p><code>devid</code>        =        the developer ID supplied in your email from PTV</p>
 </li>
 <li>
-<p>signature        =        the customised message digest calculated using the method in the Quick start guide</p>
+<p><code>signature</code>        =        the customised message digest calculated using the method in the Quick start guide</p>
 </li>
 </ul>
 <h3>Response</h3>
