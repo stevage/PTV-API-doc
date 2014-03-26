@@ -9,14 +9,15 @@ title: Search
 The Search API returns all stops and lines that match the input search text.
 ###Request URL
 
-<code>base URL
-/v2/search/%@?&devid=%@&signature=%@</code>
+base URL
+<code>/v2/search/%@?&devid=%@&signature=%@</code>
 
 ###Parameters
 
 * `search`        =        search text
 
     > e.g. "Alamein"
+    
 * `devid`        =        the developer ID supplied in your email from PTV
 * `signature`        =        the customised message digest calculated using the method in the Quick start guide
 

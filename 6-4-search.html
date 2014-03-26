@@ -17,18 +17,20 @@
 <h3>Description</h3>
 <p>The Search API returns all stops and lines that match the input search text.</p>
 <h3>Request URL</h3>
-<p><code>base URL
-/v2/search/%@?&amp;devid=%@&amp;signature=%@</code></p>
+<p>base URL
+<code>/v2/search/%@?&amp;devid=%@&amp;signature=%@</code></p>
 <h3>Parameters</h3>
 <ul>
 <li>
 <p><code>search</code>        =        search text</p>
 <blockquote>
-<p>e.g. "Alamein"
-<em> <code>devid</code>        =        the developer ID supplied in your email from PTV
-</em> <code>signature</code>        =        the customised message digest calculated using the method in the Quick start guide</p>
+<p>e.g. "Alamein"</p>
 </blockquote>
 </li>
+<li>
+<p><code>devid</code>        =        the developer ID supplied in your email from PTV</p>
+</li>
+<li><code>signature</code>        =        the customised message digest calculated using the method in the Quick start guide</li>
 </ul>
 <h3>Response</h3>
 <p>Returns an array of JSON "result" objects for which the "type" equals either "stop" or "line".
