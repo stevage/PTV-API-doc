@@ -14,10 +14,11 @@ The Search API returns all stops and lines that match the input search text.
 
 ###Parameters
 
-* search        =        search text
-e.g. "Alamein"
-* devid        =        the developer ID supplied in your email from PTV
-* signature        =        the customised message digest calculated using the method in the Quick start guide
+* `search`        =        search text
+
+    > e.g. "Alamein"
+* `devid`        =        the developer ID supplied in your email from PTV
+* `signature`        =        the customised message digest calculated using the method in the Quick start guide
 
 ###Response
 Returns an array of JSON "result" objects for which the "type" equals either "stop" or "line".

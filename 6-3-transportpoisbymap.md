@@ -40,26 +40,32 @@ base URL
     * `3`        V/Line regional train and coach
     * `4`        NightRider
     * `100`        Ticket outlet
-    e.g. `0,1,2,4,100` would return train, tram, bus, NightRider & ticket outlets
+
+    > e.g. `0,1,2,4,100` would return train, tram, bus, NightRider & ticket outlets
 
 * `lat1`        =        latitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. `-37.82392124423254`
+    
+    >e.g. `-37.82392124423254`
 
 * `long1`        =        longitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. `144.9462017431463`
+    
+    > e.g. `144.9462017431463`
 
 * `lat2`        =        latitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. `-37.81540959390813`
+    
+    > e.g. `-37.81540959390813`
 
 * `long2`        =        longitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. `144.9542017407848`
+    
+    > e.g. `144.9542017407848`
 
 The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:
 
 ![lat1, long1, lat2, long2.](latlong-diagram.png)
 
 * `griddepth`        =        the number of cells per block of cluster grid (between 0-20 inclusive).
-e.g. "1" would look like this:
+
+    > e.g. "1" would look like this:
 
 (image missing)
 
@@ -68,7 +74,9 @@ e.g. "1" would look like this:
 (image missing) 
 
 * `limit`        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)
-    e.g. 4
+
+    > e.g. 4
+    
 * `devid`        =        the developer ID supplied in your email from PTV
 * `signature`        =        the customised message digest calculated using the method in the Quick start guide
 

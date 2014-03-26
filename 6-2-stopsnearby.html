@@ -28,10 +28,10 @@
 <code>/v2/nearme/latitude/%@/longitude/%@?devid=%@&amp;signature=%@</code></p>
 <h3>Parameters</h3>
 <ul>
-<li>latitude        =        prescribed latitude, expressed in decimal degrees. e.g.  -37.82392124423254</li>
-<li>longitude        =        prescribed longitude, expressed in decimal degrees. e.g. 144.9462017431463</li>
-<li>devid        =        the developer ID supplied in your email from PTV</li>
-<li>signature        =        the customised message digest calculated using the method in the Quick start guide</li>
+<li><code>latitude</code>        =        prescribed latitude, expressed in decimal degrees. e.g.  -37.82392124423254</li>
+<li><code>longitude</code>        =        prescribed longitude, expressed in decimal degrees. e.g. 144.9462017431463</li>
+<li><code>devid</code>        =        the developer ID supplied in your email from PTV</li>
+<li><code>signature</code>        =        the customised message digest calculated using the method in the Quick start guide</li>
 </ul>
 <h3>Response</h3>
 <p>Returns an array of JSON "result" objects for which the "type" equals "stop". A "stop" object is embedded within each "result". Stops are ordered by distance.

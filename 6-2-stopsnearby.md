@@ -22,10 +22,10 @@ base URL
 
 ###Parameters
 
-* latitude        =        prescribed latitude, expressed in decimal degrees. e.g.  -37.82392124423254
-* longitude        =        prescribed longitude, expressed in decimal degrees. e.g. 144.9462017431463
-* devid        =        the developer ID supplied in your email from PTV
-* signature        =        the customised message digest calculated using the method in the Quick start guide
+* `latitude`        =        prescribed latitude, expressed in decimal degrees. e.g.  -37.82392124423254
+* `longitude`        =        prescribed longitude, expressed in decimal degrees. e.g. 144.9462017431463
+* `devid`        =        the developer ID supplied in your email from PTV
+* `signature`        =        the customised message digest calculated using the method in the Quick start guide
 
 ###Response
 Returns an array of JSON "result" objects for which the "type" equals "stop". A "stop" object is embedded within each "result". Stops are ordered by distance.

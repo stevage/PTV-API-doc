@@ -42,32 +42,46 @@ If you set griddepth to zero it will not cluster.</p>
 <li><code>2</code>        Bus (metropolitan and regional, but not V/Line) </li>
 <li><code>3</code>        V/Line regional train and coach</li>
 <li><code>4</code>        NightRider</li>
-<li><code>100</code>        Ticket outlet
-e.g. <code>0,1,2,4,100</code> would return train, tram, bus, NightRider &amp; ticket outlets</li>
+<li><code>100</code>        Ticket outlet</li>
 </ul>
+<blockquote>
+<p>e.g. <code>0,1,2,4,100</code> would return train, tram, bus, NightRider &amp; ticket outlets</p>
+</blockquote>
 </li>
 <li>
-<p><code>lat1</code>        =        latitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. <code>-37.82392124423254</code></p>
+<p><code>lat1</code>        =        latitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*</p>
+<blockquote>
+<p>e.g. <code>-37.82392124423254</code></p>
+</blockquote>
 </li>
 <li>
-<p><code>long1</code>        =        longitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. <code>144.9462017431463</code></p>
+<p><code>long1</code>        =        longitude at the top left corner of a region depicted on a map, expressed in decimal degrees.*</p>
+<blockquote>
+<p>e.g. <code>144.9462017431463</code></p>
+</blockquote>
 </li>
 <li>
-<p><code>lat2</code>        =        latitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. <code>-37.81540959390813</code></p>
+<p><code>lat2</code>        =        latitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*</p>
+<blockquote>
+<p>e.g. <code>-37.81540959390813</code></p>
+</blockquote>
 </li>
 <li>
-<p><code>long2</code>        =        longitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*
-    e.g. <code>144.9542017407848</code></p>
+<p><code>long2</code>        =        longitude at the bottom right corner of a region depicted on a map, expressed in decimal degrees.*</p>
+<blockquote>
+<p>e.g. <code>144.9542017407848</code></p>
+</blockquote>
 </li>
 </ul>
 <p>The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite corners of the map region of interest, namely:</p>
 <p><img alt="lat1, long1, lat2, long2." src="latlong-diagram.png" /></p>
 <ul>
-<li><code>griddepth</code>        =        the number of cells per block of cluster grid (between 0-20 inclusive).
-e.g. "1" would look like this:</li>
+<li>
+<p><code>griddepth</code>        =        the number of cells per block of cluster grid (between 0-20 inclusive).</p>
+<blockquote>
+<p>e.g. "1" would look like this:</p>
+</blockquote>
+</li>
 </ul>
 <p>(image missing)</p>
 <div class="codehilite"><pre>            ...while &quot;2&quot; would look like:
@@ -76,9 +90,15 @@ e.g. "1" would look like this:</li>
 
 <p>(image missing) </p>
 <ul>
-<li><code>limit</code>        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)
-    e.g. 4</li>
-<li><code>devid</code>        =        the developer ID supplied in your email from PTV</li>
+<li>
+<p><code>limit</code>        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)</p>
+<blockquote>
+<p>e.g. 4</p>
+</blockquote>
+</li>
+<li>
+<p><code>devid</code>        =        the developer ID supplied in your email from PTV</p>
+</li>
 <li><code>signature</code>        =        the customised message digest calculated using the method in the Quick start guide</li>
 </ul>
 <h3>Response</h3>
