@@ -76,7 +76,7 @@ The coordinate pairs (lat1, long1) and (lat2, long2) are two diagonally opposite
 * `limit`        =        the minimum number of POIs (stops or outlets) required to create a cluster, as well as the maximum number of POIs returned as part of a cluster in the JSON response (for example, if the limit is "4", at least 4 POIs are required to form a cluster; and in the JSON response, if there are 7 total locations in a cluster, only 4 will be listed in the response)
 
     > e.g. 4
-    
+
 * `devid`        =        the developer ID supplied in your email from PTV
 * `signature`        =        the customised message digest calculated using the method in the Quick start guide
 
@@ -88,23 +88,54 @@ For more information on the data structures, check out the JSON object structure
 
 ####Each stop and outlet "location" object has the following attributes:
 
-* `suburb`        string &ndash; the suburb name &ndash; e.g. "Belgrave"
-* `location_name`       string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)" 
-* `lat`        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.82005
-* `lon`        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.95047
-* `distance`        decimal number &ndash; returns zero in the context of this API
+* `suburb`        string 
+
+    > the suburb name &ndash; 
+
+    > e.g. "Belgrave"
+
+* `location_name`       string 
+
+    > the name of the stop based on a concise geographic description 
+
+    > e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)" 
+
+* `lat`        decimal number
+
+    > geographic coordinate of latitude
+
+    > e.g. -37.82005
+
+* `lon`        decimal number
+
+    > geographic coordinate of longitude
+
+    > e.g. 144.95047
+
+* `distance`        decimal number
+
+    > returns zero in the context of this API
 
 
 ####"stop" objects have the following extra attributes:
 
-* `transport_type`        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
-* `stop_id`        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2171"
+* `transport_type`        string 
+    
+    > the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+
+* `stop_id`        numeric string 
+
+    > the unique identifier of each stop &ndash; e.g. "2171"
 
 
 ####While "outlet" objects have the following extra attributes:
 
-* `outlet_type`        string (limited values) &ndash; either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"
-* `business_name`        string &ndash; the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"
+* `outlet_type`        string (limited values) 
+
+    > either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"
+* `business_name`        string 
+
+    > the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"
 
 
 

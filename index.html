@@ -984,21 +984,66 @@ If you set griddepth to zero it will not cluster.</p>
 For more information on the data structures, check out the JSON object structure.</p>
 <h4>Each stop and outlet "location" object has the following attributes:</h4>
 <ul>
-<li><code>suburb</code>        string &ndash; the suburb name &ndash; e.g. "Belgrave"</li>
-<li><code>location_name</code>       string &ndash; the name of the stop based on a concise geographic description &ndash; e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)" </li>
-<li><code>lat</code>        decimal number &ndash; geographic coordinate of latitude &ndash; e.g. -37.82005</li>
-<li><code>lon</code>        decimal number &ndash; geographic coordinate of longitude &ndash; e.g. 144.95047</li>
-<li><code>distance</code>        decimal number &ndash; returns zero in the context of this API</li>
+<li>
+<p><code>suburb</code>        string </p>
+<blockquote>
+<p>the suburb name &ndash; </p>
+<p>e.g. "Belgrave"</p>
+</blockquote>
+</li>
+<li>
+<p><code>location_name</code>       string </p>
+<blockquote>
+<p>the name of the stop based on a concise geographic description </p>
+<p>e.g. "20-Barkly Square/115 Sydney Rd (Brunswick)" </p>
+</blockquote>
+</li>
+<li>
+<p><code>lat</code>        decimal number</p>
+<blockquote>
+<p>geographic coordinate of latitude</p>
+<p>e.g. -37.82005</p>
+</blockquote>
+</li>
+<li>
+<p><code>lon</code>        decimal number</p>
+<blockquote>
+<p>geographic coordinate of longitude</p>
+<p>e.g. 144.95047</p>
+</blockquote>
+</li>
+<li>
+<p><code>distance</code>        decimal number</p>
+<blockquote>
+<p>returns zero in the context of this API</p>
+</blockquote>
+</li>
 </ul>
 <h4>"stop" objects have the following extra attributes:</h4>
 <ul>
-<li><code>transport_type</code>        string &ndash; the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"</li>
-<li><code>stop_id</code>        numeric string &ndash; the unique identifier of each stop &ndash; e.g. "2171"</li>
+<li>
+<p><code>transport_type</code>        string </p>
+<blockquote>
+<p>the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"</p>
+</blockquote>
+</li>
+<li>
+<p><code>stop_id</code>        numeric string </p>
+<blockquote>
+<p>the unique identifier of each stop &ndash; e.g. "2171"</p>
+</blockquote>
+</li>
 </ul>
 <h4>While "outlet" objects have the following extra attributes:</h4>
 <ul>
-<li><code>outlet_type</code>        string (limited values) &ndash; either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"</li>
-<li><code>business_name</code>        string &ndash; the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"</li>
+<li>
+<p><code>outlet_type</code>        string (limited values) </p>
+<blockquote>
+<p>either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"
+* <code>business_name</code>        string </p>
+<p>the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"</p>
+</blockquote>
+</li>
 </ul>
 <h4>For each set of locations and clusters, it will also return the following objects:</h4>
 <ul>
