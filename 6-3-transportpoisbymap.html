@@ -147,13 +147,15 @@ For more information on the data structures, check out the JSON object structure
 <li>
 <p><code>transport_type</code>        string </p>
 <blockquote>
-<p>the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"</p>
+<p>the mode of transport serviced by the stop </p>
+<p>e.g. can be either "train", "tram", "bus", "vline" or "nightrider"</p>
 </blockquote>
 </li>
 <li>
 <p><code>stop_id</code>        numeric string </p>
 <blockquote>
-<p>the unique identifier of each stop &ndash; e.g. "2171"</p>
+<p>the unique identifier of each stop </p>
+<p>e.g. "2171"</p>
 </blockquote>
 </li>
 </ul>
@@ -162,18 +164,24 @@ For more information on the data structures, check out the JSON object structure
 <li>
 <p><code>outlet_type</code>        string (limited values) </p>
 <blockquote>
-<p>either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"
-* <code>business_name</code>        string </p>
-<p>the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"</p>
+<p>either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind </p>
+<p>e.g. "retail"</p>
+</blockquote>
+</li>
+<li>
+<p><code>business_name</code>        string </p>
+<blockquote>
+<p>the business name of the outlet</p>
+<p>e.g. "IGA Victoria Harbour"</p>
 </blockquote>
 </li>
 </ul>
 <h4>For each set of locations and clusters, it will also return the following objects:</h4>
 <ul>
 <li>
-<p><code>minLat</code>        </p>
+<p><code>minLat</code>        decimal number </p>
 <blockquote>
-<p>decimal number &ndash; the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
+<p>the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)**</p>
 <p>e.g. -37.81959</p>
 </blockquote>
 </li>

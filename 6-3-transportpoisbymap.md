@@ -121,30 +121,39 @@ For more information on the data structures, check out the JSON object structure
 
 * `transport_type`        string 
     
-    > the mode of transport serviced by the stop &ndash; e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
+    > the mode of transport serviced by the stop 
+
+    > e.g. can be either "train", "tram", "bus", "vline" or "nightrider"
 
 * `stop_id`        numeric string 
 
-    > the unique identifier of each stop &ndash; e.g. "2171"
+    > the unique identifier of each stop 
+
+    > e.g. "2171"
 
 
 ####While "outlet" objects have the following extra attributes:
 
 * `outlet_type`        string (limited values) 
 
-    > either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind &ndash; e.g. "retail"
+    > either "stop" meaning a myki card machine at a station or stop or "retail" meaning a shop of some kind 
+
+    > e.g. "retail"
+
 * `business_name`        string 
 
-    > the business name of the outlet &ndash; e.g. "IGA Victoria Harbour"
+    > the business name of the outlet
+
+    > e.g. "IGA Victoria Harbour"
 
 
 
 
 ####For each set of locations and clusters, it will also return the following objects:
 
-* `minLat`        
+* `minLat`        decimal number 
 
-    > decimal number &ndash; the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)\*\*
+    > the minimum latitude value of all of the locations in the cluster, including those that are not returned (i.e. they are beyond the limit set)\*\*
 
     > e.g. -37.81959
 
